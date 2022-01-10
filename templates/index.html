@@ -2,25 +2,37 @@
 <html lang="en">
 {{ template "header.html" . }}
 <body>
-    <header>
-        <div id="logo-header">logo</div>
-        <nav id="options-header">opções</nav>
+    <header class="w-screen flex flex-row items-center p-1 justify-between bg-white shadow-xs">
+        <div id="logo-header" class="ml-6">
+            <object class="w-20" type="image/svg+xml" data="/public/images/logo.svg" alt="site logo">
+                <img src="/public/images/logo.png" alt="site logo">
+            </object>
+        </div>
+        <nav class="mx-8" id="options-header">
+            <button class="transition text-black text-lg hover:text-zinc-700 hover:text-xl"> ABOUT </button> 
+            <button class="transition text-black text-lg hover:text-zinc-700 hover:text-xl"> CONTACT </button>
+        </nav>
     </header>
-    <main>
-        <section>
-            <p>compre bitcoin</p>
-            <h1>afa7789</h1><h3> Arthur Abeilice</h3>
-            <h2> Computer Engineer</h2>
-            <p> lorem ipsum </p>
-            <div>
-                <button>call to action</button>
+    <main class="px-12">
+        <section class="mt-10">
+            <p class="segmented_font text-center">
+                01100010 01110101 01111001 00100000 01100010 01101001 01110100 01100011 01101111 01101001 01101110
+            </p>
+            <div class="px-12">
+                <h1> afa7789</h1>
+                <h2> Computer Engineer</h2>
+                <h3> Arthur Abeilice</h3>
+                <p> lorem ipsum </p>
+                <div>
+                    <button>call to action</button>
+                </div>
             </div>
         </section>
         <section>
             <h2>afa7789</h2>
             <div>
                 <h3>github</h3>
-                <p>button</p>
+                <btn>button</btn>
             </div>
             <div>
                 <h3>linkedin</h3>
@@ -42,30 +54,40 @@
                 <button>call to action</button>
             </div>
         </section>
-        <section>
-            <div>
-                <h2>CONTACT</h2>
-                <div>
-                    <div>
-                        <h3>
-                            contact me
+        <section class='my-8'>
+            <div class="mx-12"> 
+                <h2 class="text-xl">CONTACT</h2>
+                <div class="flex ">
+                    <div class="w-3/6">
+                        <h3 class="text-lg text-zinc-700">
+                            CONTACT US
                         </h3>
-                        <h1>
+                        <h1 class="text-6xl mukta_font ">
                             Lets start your project
                         </h1>
-                        <p>
+                        <p class="text-zinc-700 text-lg mt-4">
                             Because they are hard, because that goal will serve to organize and measure the best of our energies and skills, because that challenge is one that we are willing to accept one we are.
                         </p>
                     </div>
-                    <form class="contact-form" action=”mailto:afa7789@gmail.com”>
-                        <input id="name" type="text" name="your-name" placeholder="Name">
-                        <input id="contact-email" type="email" name="your-email" placeholder="Email">
-                        <input id="subject" type="text" name="your-subject" placeholder="Subject">
-                        <textarea id="message" name="your-message" placeholder="Message"></textarea>
+                    <form class="contact-form w-3/6 flex flex-col px-8 space-y-4" action=”mailto:afa7789@gmail.com”>
+                        <input id="name"
+                            class="border-black border-solid border-b-4 w"
+                            type="text" name="your-name" placeholder="Name">
+                        <input id="contact-email"
+                            class="border-black border-solid border-b-4"
+                            type="email" name="your-email" placeholder="Email">
+                        <input id="subject"
+                            class="border-black border-solid border-b-4"
+                            type="text" name="your-subject" placeholder="Subject">
+                        <textarea
+                            id="message"
+                            class="h-150 border-black border-solid border-b-4"
+                            name="your-message"
+                            placeholder="Message">
+                        </textarea>
                         <input type="submit" value="SEND">
                     </form>
                 </div>
-
             </div>
         </section>
     </main>

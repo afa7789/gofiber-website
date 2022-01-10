@@ -1,6 +1,8 @@
 package server
 
 import (
+	"log"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,7 +19,7 @@ func New() *Server {
 	r := gin.New()
 
 	r.LoadHTMLGlob("templates/*")
-
+	r.Static("/public", "./public")
 	// Public urls intended to be accessed from client-side need CORS headers.
 	// cs := r.Group("/")
 	// corsConfig := cors.DefaultConfig()
@@ -36,6 +38,7 @@ func New() *Server {
 
 // Start starts the REST Server
 func (server *Server) Start() {
+	log.Printf("\n SERVER HERE: http://localhost:8080\n")
 	err := server.router.Run()
 	if err != nil {
 		panic(err)
