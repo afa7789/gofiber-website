@@ -1,17 +1,19 @@
 package server
 
 import (
+	"fmt"
 	"log"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
-// Server is the definition of a REST Server based on Gin
+// Server is the definition of a REST server based on Gin
 type Server struct {
 	router *gin.Engine
 }
 
-// New returns a new Server that takes advantage of zerolog for logging
+// New returns a new server that takes advantage of zerolog for logging
 // and holds a reference to the app configuration
 func New() *Server {
 	server := &Server{}
@@ -36,11 +38,24 @@ func New() *Server {
 	return server
 }
 
-// Start starts the REST Server
-func (server *Server) Start() {
-	log.Printf("\n SERVER HERE: http://localhost:8080\n")
-	err := server.router.Run()
+// Start starts the REST server
+func (server *Server) Start(PORT int) {
+	fmt.Println("")
+	log.Printf("SERVER HERE: http://localhost:%d\n", PORT)
+	fmt.Println("")
+
+	err := server.router.Run(fmt.Sprintf(":%d", PORT))
 	if err != nil {
-		panic(err)
+		// Using this error treatment to try again on next port
+		if strings.Contains(err.Error(), "address already in use") {
+			fmt.Println("")
+			log.Printf("PORT ALREADY IN USE::%d", PORT)
+			PORT++
+			log.Printf("TRYING NEXT PORT:%d\n", PORT)
+			server.Start(PORT)
+		} else {
+			panic(err)
+		}
 	}
+
 }

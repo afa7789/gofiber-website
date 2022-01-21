@@ -1,9 +1,13 @@
 package cmd
 
-import "afa7789/site/internal/server"
+import (
+	"afa7789/site/internal/domain"
+	"afa7789/site/internal/server"
+)
 
-func ServerExecute() error {
+func ServerExecute(f domain.Flags) error {
+
 	s := server.New()
-	s.Start()
+	s.Start(*f.Port)
 	return nil
 }

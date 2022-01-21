@@ -11,7 +11,7 @@ func (s *Server) mainPage() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		c.HTML(http.StatusOK, "index.html", gin.H{
-			"Title": "Teste",
+			"Title": "afa7789 - Computer Engineering Solutions",
 		})
 	}
 }
