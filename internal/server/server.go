@@ -5,12 +5,13 @@ import (
 	"log"
 	"strings"
 
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/html"
 )
 
 // Server is the definition of a REST server based on Gin
 type Server struct {
-	router *gin.Engine
+	router *fiber.App
 }
 
 // New returns a new server that takes advantage of zerolog for logging
@@ -18,20 +19,19 @@ type Server struct {
 func New() *Server {
 	server := &Server{}
 
-	r := gin.New()
+	//https://github.com/gofiber/template
+	engine := html.New("./web/templates", "")
+	// Reload the templates on each render, good for development
+	engine.Reload(true) // Optional. Default: false
 
-	r.LoadHTMLGlob("templates/*")
-	r.Static("/public", "./public")
-	// Public urls intended to be accessed from client-side need CORS headers.
-	// cs := r.Group("/")
-	// corsConfig := cors.DefaultConfig()
-	// corsConfig.AllowOrigins = []string{}
-	// corsConfig.AllowCredentials = true
-	// corsConfig.AddAllowHeaders("x-sessionid")
-	// corsConfig.AddAllowHeaders("authorization")
-	// cs.Use(cors.New(corsConfig))
+	r := fiber.New(fiber.Config{
+		Views: engine,
+	})
 
-	r.GET("/", server.mainPage())
+	// static files
+	r.Static("/public", "./web/static")
+
+	r.Get("/", server.mainPage())
 
 	server.router = r
 
@@ -40,11 +40,7 @@ func New() *Server {
 
 // Start starts the REST server
 func (server *Server) Start(PORT int) {
-	fmt.Println("")
-	log.Printf("SERVER HERE: http://localhost:%d\n", PORT)
-	fmt.Println("")
-
-	err := server.router.Run(fmt.Sprintf(":%d", PORT))
+	err := server.router.Listen(fmt.Sprintf(":%d", PORT))
 	if err != nil {
 		// Using this error treatment to try again on next port
 		if strings.Contains(err.Error(), "address already in use") {
@@ -57,5 +53,4 @@ func (server *Server) Start(PORT int) {
 			panic(err)
 		}
 	}
-
 }

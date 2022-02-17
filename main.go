@@ -25,5 +25,4 @@ func main() {
 		fmt.Println("")
 		log.Printf("SERVER HERE: http://localhost:%d\n", *flags.Port)
 	}
-
 }

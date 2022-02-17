@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ template "meta.html" . }}
+<body>
+    <!-- HEADER -->
+    {{ template "header.html" . }}
+    <main>
+        <!-- HERO PART -->
+        <section class="my-10 px-12">
+            <p class="segmented_font text-center px-5 sm:px-16 md:px-20 lg:px-48">
+                01100010 01110101 01111001 00100000 01100010 01101001 01110100 01100011 01101111 01101001 01101110
+            </p>
+            <div class="w-full px-1 sm:w-5/6 md:w-4/5 md  lg:w-3/4 m-auto">
+                <h5 class="aldo_font -mb-3 ml-3"> afa7789 </h5>
+
+                <h1 class="text-4xl md:text-6xl mukta_font"> Computer Engineering Solutions
+                </h1>
+
+                <h2 class="text-lg sm:text-xl md:text-2xl text-right"> Arthur de Freitas Abeilice </h2>
+
+                <p class="text-zinc-800 italic mt-2">
+                    afa7789 is an on-demand software creator company. <br>
+                    Ran by Arthur, the CEO, the company is his evolving dream come true. <br>
+                    Our team is composed of avid and capaable developers.<br>
+                    The team goal is creating high-end software tailored to your needs.
+                </p>
+                <div class="relative">
+                    <button
+                        class="absolute right-10 text-black mukta_font text-2xl hover:text-zinc-700 hover:text-3xl">CONTACT
+                        US</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOG -->
+        <section class="pb-10 pt-4 bg-zinc-900 px-12 text-white">
+            <h1 class="text-xl sm:text-2xl md:text-4xl mukta_font ml-8">
+                Blog
+            </h1>
+            <div class="px-10 py-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+
+                <!--Card 1-->
+                <div class="rounded-lg overflow-hidden shadow-lg">
+                    <img class="w-full object-fill" src="/public/images/mountain.jpg" alt="Mountain">
+                    <div class="px-6 py-4 bg-zinc-600">
+                        <div class="font-bold text-xl mb-2">Mountain</div>
+                        <p class="text-gray-200 text-base">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores
+                            et perferendis eaque, exercitationem praesentium nihil.
+                        </p>
+                    </div>
+                    <div class="px-6 pt-4 pb-2 bg-zinc-600">
+                        <span
+                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+                        <span
+                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+                        <span
+                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                    </div>
+                </div>
+
+                <!--Card 2-->
+                <div class="rounded-lg overflow-hidden shadow-lg">
+                    <img class="w-full object-fill" src="/public/images/river.jpg" alt="River">
+                    <div class="px-6 py-4 bg-zinc-600">
+                        <div class="font-bold text-xl mb-2">River</div>
+                        <p class="text-gray-200 text-base">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores
+                            et perferendis eaque, exercitationem praesentium nihil.
+                        </p>
+                    </div>
+                    <div class="px-6 pt-4 pb-2 bg-zinc-600">
+                        <span
+                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+                        <span
+                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+                        <span
+                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#summer</span>
+                    </div>
+                </div>
+
+                <!--Card 3-->
+                <div class="rounded-lg overflow-hidden shadow-lg">
+                    <img class="w-full object-fill" src="/public/images/forest.jpg" alt="Forest">
+                    <div class="px-6 py-4 bg-zinc-600">
+                        <div class="font-bold text-xl mb-2">Forest</div>
+                        <p class="text-gray-200 text-base">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores
+                            et perferendis eaque, exercitationem praesentium nihil.
+                        </p>
+                    </div>
+                    <div class="px-6 pt-4 pb-2 bg-zinc-600">
+                        <span
+                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+                        <span
+                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+                        <span
+                            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#fall</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="relative mb-3">
+                <button class="absolute right-10 mukta_font text-2xl hover:text-zinc-100 hover:text-3xl">MORE
+                    POSTS</button>
+            </div>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="my-2 px-12 pb-10 pt-2">
+            <h2 class="text-xl sm:text-2xl md:text-4xl  mukta_font mb-4">Serviços</h2>
+            <div class="flex">
+                <!-- consultoria -->
+                <div>
+                    <p> number </p>
+                    <h3 class="text-lg sm:text-xl md:text-2xl ">
+                        Consultancy
+                    </h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.
+                    </p>
+                </div>
+                <!-- training -->
+                <div>
+                    <p> number </p>
+                    <h3 class="text-lg sm:text-xl md:text-2xl ">
+                        Training
+                    </h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.
+                    </p>
+                </div>
+                <!-- development -->
+                <div>
+                    <p> number </p>
+                    <h3 class="text-lg sm:text-xl md:text-2xl ">
+                        Development
+                    </h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <button>call to action</button>
+            </div>
+
+        </section>
+
+        <!-- LINKS -->
+        <section class="py-10 bg-zinc-900 px-12 text-white">
+
+            <h2 class="text-xl sm:text-2xl md:text-4xl aldo_font">afa7789</h2>
+            <p class=" "> lorem ipsum dolor sit amet, con</p>
+
+            <div class="my-5">
+                <h3 class="text-lg sm:text-xl md:text-2xl ">github</h3>
+                <btn class=" ">button</btn>
+            </div>
+
+            <div class="my-5">
+                <h3 class="text-lg sm:text-xl md:text-2xl ">linkedin</h3>
+                <btn class=" ">button</btn>
+            </div>
+
+        </section>
+
+        <!-- CONTACTS -->
+        <section class='my-8 px-12'>
+            <div class="mx-4 md:mx-12">
+                <div class="md:flex ">
+                    <div class="md:w-3/6">
+                        <h3 class="text-lg text-zinc-700">
+                            CONTACT US
+                        </h3>
+                        <h1 class="text-5xl md:text-6xl mukta_font ">
+                            Lets start your project
+                        </h1>
+                        <p class="text-zinc-700 text-lg mt-4">
+                            Because they are hard, because that goal will serve to organize and measure the best of our
+                            energies and skills, because that challenge is one that we are willing to accept one we are.
+                        </p>
+                    </div>
+                    <form class="contact-form md:w-3/6 flex flex-col mt-3 md:mt-0 md:px-8 space-y-4"
+                        action=”mailto:afa7789@gmail.com”>
+                        <input id="name" class="border-black border-solid border-b-4 w" type="text" name="your-name"
+                            placeholder="Name">
+                        <input id="contact-email" class="border-black border-solid border-b-4" type="email"
+                            name="your-email" placeholder="Email">
+                        <input id="subject" class="border-black border-solid border-b-4" type="text" name="your-subject"
+                            placeholder="Subject">
+                        <textarea id="message" class="h-150 border-black border-solid border-b-4" name="your-message"
+                            placeholder="Message">
+                        </textarea>
+                        <input type="submit" value="SEND">
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="flex flex-col">
+        <div class="mx-auto">Links of the owner</div>
+        <div class="flex justify-center space-x-6 flex-wrap md:flex-nowrap ">
+            <a href="https://www.linkedin.com/in/arthur-abeilice/">
+                <h4>Linkedin</h4>
+            </a>
+            <a href="https://www.instagram.com/afabeilice/">
+                <h4>Instagram</h4>
+            </a>
+            <a href="https://afa7789.medium.com/">
+                <h4>BlogPosts</h4>
+            </a>
+            <a href="https://github.com/afa7789">
+                <h4>Github</h4>
+            </a>
+            <a href="https://open.spotify.com/playlist/1xfwH5ZljgSH40RFkGZkE4">
+                <h4>Spotify</h4>
+            </a>
+        </div>
+        <div
+            class="before:content-[''] before:mb-4 before:block before:border-solid before:border-b-2 before:border-black  mx-auto my-4">
+            afa7789 Computer Engineering Solutions Ltda @ 2021
+        </div>
+    </footer>
+</body>
+
+</html>

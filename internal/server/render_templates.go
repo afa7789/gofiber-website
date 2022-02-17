@@ -3,15 +3,16 @@ package server
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 )
 
 // Template creates a template
-func (s *Server) mainPage() gin.HandlerFunc {
-	return func(c *gin.Context) {
+func (s *Server) mainPage() fiber.Handler {
+	return func(c *fiber.Ctx) error {
 
-		c.HTML(http.StatusOK, "index.html", gin.H{
+		return c.Status(http.StatusOK).Render("index.html", fiber.Map{
 			"Title": "afa7789 - Computer Engineering Solutions",
 		})
+
 	}
 }
