@@ -8,12 +8,9 @@ import (
 	"log"
 )
 
-var (
-	flags domain.Flags
-)
+var flags domain.Flags
 
 func init() {
-	// env = flag.String("env", "development", "current environment")
 	flags.Port = flag.Int("port", 8080, "port number to listen")
 }
 

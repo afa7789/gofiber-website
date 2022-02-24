@@ -50,9 +50,8 @@ func (s *SMTP) smtp() {
 	// SendMail uses TLS connection to send the mail
 	// The email is sent to all address in the toList,
 	// the body should be of type bytes, not strings
-	// This returns error if any occured.
+	// This returns error if any occurred.
 	err := smtp.SendMail(host+":"+port, auth, from, toList, body)
-
 	// handling the errors
 	if err != nil {
 		fmt.Println(err)

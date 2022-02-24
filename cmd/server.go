@@ -6,7 +6,6 @@ import (
 )
 
 func ServerExecute(f domain.Flags) error {
-
 	s := server.New()
 	s.Start(*f.Port)
 	return nil
