@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {{ template "meta.html" . }}
-<body>
+<body class="px-0 py-0 mx-0 my-0">
     <!-- HEADER -->
     {{ template "header.html" . }}
     <main>
@@ -16,18 +16,19 @@
                 <h1 class="text-4xl md:text-6xl mukta_font"> Computer Engineering Solutions
                 </h1>
 
-                <h2 class="text-lg sm:text-xl md:text-2xl text-right"> Arthur de Freitas Abeilice </h2>
-
-                <p class="text-zinc-800 italic mt-2">
-                    afa7789 is an on-demand software creator company. <br>
-                    Ran by Arthur, the CEO, the company is his evolving dream come true. <br>
-                    Our team is composed of avid and capaable developers.<br>
-                    The team goal is creating high-end software tailored to your needs.
+                <h2 class="text-lg sm:text-xl md:text-2xl text-right"> an Arthur's project </h2>
+                <p class="text-zinc-800 italic mt-2 pl-2">
+                    afa7789 is a computer engineering company. <br>
+                    Its goal is to create high-end software tailored to the innate needs of each project.<br>
+                    Want to know more about our tech stack look at our blog posts and tutorials here.<br>
                 </p>
                 <div class="relative">
-                    <button
-                        class="absolute right-10 text-black mukta_font text-2xl hover:text-zinc-700 hover:text-3xl">CONTACT
-                        US</button>
+                    <a
+                        href="#contact"
+                        class="absolute right-10 text-black mukta_font text-2xl hover:text-zinc-700 hover:text-3xl"
+                    >
+                        CONTACT US
+                    </a>
                 </div>
             </div>
         </section>
@@ -40,16 +41,16 @@
             <div class="px-10 py-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
 
                 <!--Card 1-->
-                <div class="rounded-lg overflow-hidden shadow-lg">
+                <div class=" overflow-hidden">
                     <img class="w-full object-fill" src="/public/images/mountain.jpg" alt="Mountain">
-                    <div class="px-6 py-4 bg-zinc-600">
+                    <div class="px-6 py-4">
                         <div class="font-bold text-xl mb-2">Mountain</div>
                         <p class="text-gray-200 text-base">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores
                             et perferendis eaque, exercitationem praesentium nihil.
                         </p>
                     </div>
-                    <div class="px-6 pt-4 pb-2 bg-zinc-600">
+                    <div class="px-6 pt-4 pb-2">
                         <span
                             class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
                         <span
@@ -60,16 +61,16 @@
                 </div>
 
                 <!--Card 2-->
-                <div class="rounded-lg overflow-hidden shadow-lg">
+                <div class="rounded-lg overflow-hidden">
                     <img class="w-full object-fill" src="/public/images/river.jpg" alt="River">
-                    <div class="px-6 py-4 bg-zinc-600">
+                    <div class="px-6 py-4">
                         <div class="font-bold text-xl mb-2">River</div>
                         <p class="text-gray-200 text-base">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores
                             et perferendis eaque, exercitationem praesentium nihil.
                         </p>
                     </div>
-                    <div class="px-6 pt-4 pb-2 bg-zinc-600">
+                    <div class="px-6 pt-4 pb-2">
                         <span
                             class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
                         <span
@@ -80,16 +81,16 @@
                 </div>
 
                 <!--Card 3-->
-                <div class="rounded-lg overflow-hidden shadow-lg">
+                <div class="rounded-lg overflow-hidden">
                     <img class="w-full object-fill" src="/public/images/forest.jpg" alt="Forest">
-                    <div class="px-6 py-4 bg-zinc-600">
+                    <div class="px-6 py-4">
                         <div class="font-bold text-xl mb-2">Forest</div>
                         <p class="text-gray-200 text-base">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores
                             et perferendis eaque, exercitationem praesentium nihil.
                         </p>
                     </div>
-                    <div class="px-6 pt-4 pb-2 bg-zinc-600">
+                    <div class="px-6 pt-4 pb-2">
                         <span
                             class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
                         <span
@@ -101,77 +102,116 @@
 
             </div>
             <div class="relative mb-3">
-                <button class="absolute right-10 mukta_font text-2xl hover:text-zinc-100 hover:text-3xl">MORE
-                    POSTS</button>
-            </div>
+                <button class="absolute right-10 mukta_font text-2xl hover:text-zinc-100 hover:text-3xl">
+                    MORE POSTS
+                </button>
             </div>
         </section>
 
         <!-- SERVICES -->
         <section class="my-2 px-12 pb-10 pt-2">
-            <h2 class="text-xl sm:text-2xl md:text-4xl  mukta_font mb-4">Serviços</h2>
-            <div class="flex">
+            <h2 class="text-xl sm:text-2xl md:text-4xl  mukta_font mb-4">Services</h2>
+            <style>
+                .service-num {
+                    font-size: 264px;
+                    font-weight: 700;
+                    color: #fff;
+                    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+                    line-height: 100%;
+                    height: 165px;
+                    overflow: hidden;
+                    margin-bottom: 0px;
+                    -webkit-transform: translateZ(0);
+                }
+            </style>
+            <div class="flex space-x-6 mx-auto justify-center">
                 <!-- consultoria -->
                 <div>
-                    <p> number </p>
+                    <p class="service-num">1</p>
                     <h3 class="text-lg sm:text-xl md:text-2xl ">
-                        Consultancy
+                        Development
                     </h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
+                    <p style="min-width: 180px; max-width: 330px;" class="italic">
+                        Development of newer features in afa7789 tech stack.
+                        Your project with the most recent tech,
+                        best practices, and conventions.
                     </p>
+
                 </div>
                 <!-- training -->
                 <div>
-                    <p> number </p>
+                    <p class="service-num">2</p>
                     <h3 class="text-lg sm:text-xl md:text-2xl ">
-                        Training
+                        Code Migration
                     </h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
+                    <p style="min-width: 180px; max-width: 330px;" class="italic">
+                        I can help your team migrate from old code to newer ones.
+                        Maintaining the behavior of older features and their documentation.
                     </p>
                 </div>
                 <!-- development -->
                 <div>
-                    <p> number </p>
+                    <p class="service-num">3</p>
                     <h3 class="text-lg sm:text-xl md:text-2xl ">
-                        Development
+                        Consultancy
                     </h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
+                    <p style="min-width: 180px; max-width: 330px;" class="italic">
+                        Definition of the tech stack, project scope, project canvas, 
+                        the SRS documentation, and MVP features.
                     </p>
                 </div>
             </div>
-
-            <div>
-                <button>call to action</button>
+            <div class="relative">
+                <a
+                href="#contact"
+                class="absolute right-10 text-black mukta_font text-2xl hover:text-zinc-700 hover:text-3xl"
+                >
+                    CONTACT US
+                </a>
             </div>
+
 
         </section>
 
         <!-- LINKS -->
-        <section class="py-10 bg-zinc-900 px-12 text-white">
-
-            <h2 class="text-xl sm:text-2xl md:text-4xl aldo_font">afa7789</h2>
-            <p class=" "> lorem ipsum dolor sit amet, con</p>
-
-            <div class="my-5">
-                <h3 class="text-lg sm:text-xl md:text-2xl ">github</h3>
-                <btn class=" ">button</btn>
+        <section class="py-10 bg-zinc-900 px-12 text-white  box-content" id="about">
+            <div >
+                <img style="width: 300px; height: 337px; object-fit: cover; float:right; object-position: 80% 0;" class="ml-2" src="/public/images/arthur.png">
+                <h2 class="text-xl sm:text-2xl md:text-4xl  mukta_font mb-4">About us</h2>
+                <p class="italic">
+                    Want to know more about Arthur check up this links bellow. <br>
+                    afa7789, is the developer, or better said internet username.<br>
+                    it was created by the dear and past father of Arthur.<br>
+                    It represent his full name and the number of the childhood houses Arthur lived. <br>
+                </p>
             </div>
-
-            <div class="my-5">
-                <h3 class="text-lg sm:text-xl md:text-2xl ">linkedin</h3>
-                <btn class=" ">button</btn>
+            <div class="ml-4">
+                <a class="my-5 flex d-block space-x-3" href="https://github.com/afa7789" target="_blank">
+                    <img class="w-10" type="image/svg+xml" src="/public/images/drawing.svg" alt="site logo">
+                    <h3 class="text-lg mt-1 sm:text-xl md:text-2xl align-middle">Check out Arthur's profile at</h3>
+                    <img class="w-20" type="image/svg+xml" src="/public/images/github_mark.svg" alt="site logo">
+                </a>
+                
+                <a class="flex d-block space-x-3 cursor-pointer" href="https://www.linkedin.com/in/arthur-abeilice/" target="_blank">
+                    <h3 class="text-lg mt-1 sm:text-xl md:text-2xl align-middle">Connect with Arthur at his page in </h3>
+                    <img class="w-28" type="image/svg+xml" src="/public/images/linkedin_logo.svg" alt="site logo">
+                </a>
             </div>
+            <div class="mt-4">
+                <p class="italic">
+                    "I created it due to the need for legal regularization <br>
+                    Thus enabling and providing support for the exporting of my programming services. <br>
+                    And to have a blog and tutorials on a domain and site that's mine."
+                    <span class="strong font-bold">
+                        - Arthur
+                    </span>
+                </p>
 
+            </div>
         </section>
 
         <!-- CONTACTS -->
-        <section class='my-8 px-12'>
+        <section class='my-8 px-12' id="contact">
             <div class="mx-4 md:mx-12">
                 <div class="md:flex ">
                     <div class="md:w-3/6">
@@ -182,11 +222,14 @@
                             Lets start your project
                         </h1>
                         <p class="text-zinc-700 text-lg mt-4">
-                            Because they are hard, because that goal will serve to organize and measure the best of our
-                            energies and skills, because that challenge is one that we are willing to accept one we are.
+                            Building a project is a hard task. <br>
+                            Because of that we have to set a goal that will serve to organize and measure
+                            the best of our energies and skills.
+                            This challenge is one that afa7789 is willing to accept head on.
+                            Remember we not only code check up our services part.
                         </p>
                     </div>
-                    <form class="contact-form md:w-3/6 flex flex-col mt-3 md:mt-0 md:px-8 space-y-4"
+                    <form class="contact-form md:w-3/6  flex flex-col mt-3 md:mt-14 md:px-8 space-y-4"
                         action=”mailto:afa7789@gmail.com”>
                         <input id="name" class="border-black border-solid border-b-4 w" type="text" name="your-name"
                             placeholder="Name">
@@ -194,9 +237,8 @@
                             name="your-email" placeholder="Email">
                         <input id="subject" class="border-black border-solid border-b-4" type="text" name="your-subject"
                             placeholder="Subject">
-                        <textarea id="message" class="h-150 border-black border-solid border-b-4" name="your-message"
-                            placeholder="Message">
-                        </textarea>
+                        <textarea id="message" class="h-150 border-black border-solid border-b-4"
+                            name="your-message" value="" placeholder="Message"></textarea>
                         <input type="submit" value="SEND">
                     </form>
                 </div>
@@ -204,8 +246,7 @@
         </section>
     </main>
 
-    <footer class="flex flex-col">
-        <div class="mx-auto">Links of the owner</div>
+    <footer class="flex flex-col pt-5">
         <div class="flex justify-center space-x-6 flex-wrap md:flex-nowrap ">
             <a href="https://www.linkedin.com/in/arthur-abeilice/">
                 <h4>Linkedin</h4>
