@@ -28,6 +28,7 @@ func (mc *MailerController) send() fiber.Handler {
 		}{}
 
 		if err := c.BodyParser(&body); err != nil {
+			print("body parse error")
 			return err
 		}
 
@@ -38,6 +39,7 @@ func (mc *MailerController) send() fiber.Handler {
 			body.Message + "\r\n"
 
 		if err := mc.mailer.Send([]string{"afa7789@gmail.com"}, str); err != nil {
+			print("send error")
 			return err
 		}
 

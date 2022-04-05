@@ -1,11 +1,14 @@
 package mail
 
 import (
+	"crypto/tls"
+	"log"
 	"net/smtp"
 	"os"
 )
 
 type SMTP struct {
+	Conn *tls.Conn
 	Auth smtp.Auth
 	Port string
 	Host string
@@ -39,8 +42,29 @@ func NewSmtpServer() *SMTP {
 	// Its the default port of smtp server
 	port := os.Getenv("SMTP_PORT")
 
+	// TLS config
+	tlsconfig := &tls.Config{
+		InsecureSkipVerify: true,
+		ServerName:         host,
+	}
+
+	// Here is the key, you need to call tls.Dial instead of smtp.Dial
+	// for smtp servers running on 465 that require an ssl connection
+	// from the very beginning (no starttls)
+	conn, err := tls.Dial("tcp", host+":"+port, tlsconfig)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	// println("SMTP_HOST:", host)
+	// println("SMTP_PORT:", port)
+	// println("SMTP_MAIL:", from)
+	// println("SMTP_USER:", username)
+	// println("SMTP_PASS:", password)
+	// println("SMTP_AUTH:", auth)
 	// Create a new SMTP server
 	return &SMTP{
+		Conn: conn,
 		Auth: auth,
 		Port: port,
 		Host: host,
@@ -50,6 +74,16 @@ func NewSmtpServer() *SMTP {
 
 // Send will send a msg to every recipient in to array
 func (s *SMTP) Send(to []string, msg string) error {
+	c, err := smtp.NewClient(s.Conn, s.Host)
+	if err != nil {
+		log.Panic(err)
+	}
+	defer c.Quit()
+
+	// Auth
+	if err := c.Auth(s.Auth); err != nil {
+		log.Panic(err)
+	}
 
 	// This is the message to send in the mail
 	// msg := "Hello geeks!!!"
@@ -58,16 +92,35 @@ func (s *SMTP) Send(to []string, msg string) error {
 	// strings need to be converted into slice bytes
 	body := []byte(msg)
 
-	// SendMail uses TLS connection to send the mail
-	// The email is sent to all address in the toList,
-	// the body should be of type bytes, not strings
-	// This returns error if any occurred.
-	err := smtp.SendMail(s.Host+":"+s.Port, s.Auth, s.From, to, body)
+	// To && From
+	if err = c.Mail(s.From); err != nil {
+		log.Panic(err)
+	}
+
+	if err = c.Rcpt(to[0]); err != nil {
+		log.Panic(err)
+	}
+
+	// Data
+	w, err := c.Data()
+	if err != nil {
+		log.Panic(err)
+	}
+
+	_, err = w.Write(body)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	err = w.Close()
+	if err != nil {
+		log.Panic(err)
+	}
 
 	// handling the errors
 	if err != nil {
+		print(err.Error())
 		return err
-		// os.Exit(1)
 	}
 
 	// fmt.Println("Successfully sent mail to all users in toList")
