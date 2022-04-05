@@ -6,12 +6,15 @@ import (
 	"flag"
 	"fmt"
 	"log"
+
+	"github.com/joho/godotenv"
 )
 
 var flags domain.Flags
 
 func init() {
 	flags.Port = flag.Int("port", 8080, "port number to listen")
+	godotenv.Load(".env")
 }
 
 func main() {
