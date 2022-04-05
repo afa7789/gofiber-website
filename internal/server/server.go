@@ -30,8 +30,11 @@ func New() *Server {
 
 	// static files
 	r.Static("/public", "./web/static")
-
 	r.Get("/", server.mainPage())
+
+	// mail routes
+	mailController := NewMailerController()
+	r.Post("/mail", mailController.send())
 
 	server.router = r
 
