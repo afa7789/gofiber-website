@@ -8,17 +8,17 @@ import (
 )
 
 type SMTP struct {
-	Conn *tls.Conn
-	Auth smtp.Auth
-	Port string
-	Host string
-	From string
+	Conn         *tls.Conn
+	Auth         smtp.Auth
+	Port         string
+	Host         string
+	From         string
+	CompanyEmail string
 }
 
 // NewSmtpServer
 func NewSmtpServer() *SMTP {
 	// from is senders email address
-
 	// we used environment variables to load the
 	// email address and the password from the shell
 	// you can also directly assign the email address
@@ -26,6 +26,9 @@ func NewSmtpServer() *SMTP {
 	from := os.Getenv("SMTP_MAIL")
 	username := os.Getenv("SMTP_USER")
 	password := os.Getenv("SMTP_PASS")
+
+	// company email
+	companyEmail := os.Getenv("SMTP_COMPANY_EMAIL")
 
 	// host is address of server that the
 	// sender's email address belongs,
@@ -64,11 +67,12 @@ func NewSmtpServer() *SMTP {
 	// println("SMTP_AUTH:", auth)
 	// Create a new SMTP server
 	return &SMTP{
-		Conn: conn,
-		Auth: auth,
-		Port: port,
-		Host: host,
-		From: from,
+		Conn:         conn,
+		Auth:         auth,
+		Port:         port,
+		Host:         host,
+		From:         from,
+		CompanyEmail: companyEmail,
 	}
 }
 
