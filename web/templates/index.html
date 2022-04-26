@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {{ template "meta.html" . }}
+
 <body class="px-0 py-0 mx-0 my-0">
     <!-- HEADER -->
     {{ template "header.html" . }}
@@ -23,10 +24,8 @@
                     Want to know more about our tech stack look at our blog posts and tutorials here.<br>
                 </p>
                 <div class="relative">
-                    <a
-                        href="#contact"
-                        class="absolute right-10 text-black mukta_font text-2xl hover:text-zinc-700 hover:text-3xl"
-                    >
+                    <a href="#contact"
+                        class="absolute right-10 text-black mukta_font text-2xl hover:text-zinc-700 hover:text-3xl">
                         CONTACT US
                     </a>
                 </div>
@@ -125,7 +124,7 @@
                 }
             </style>
             <div class="flex space-x-6 mx-auto justify-center">
-                <!-- consultoria -->
+                <!-- Development -->
                 <div>
                     <p class="service-num">1</p>
                     <h3 class="text-lg sm:text-xl md:text-2xl ">
@@ -138,35 +137,44 @@
                     </p>
 
                 </div>
-                <!-- training -->
+                <!-- Migrations -->
                 <div>
                     <p class="service-num">2</p>
                     <h3 class="text-lg sm:text-xl md:text-2xl ">
-                        Migrations and Integrations
+                        Migrations
                     </h3>
                     <p style="min-width: 180px; max-width: 330px;" class="italic">
                         Help your team migrate from old code to newer ones.
                         Maintaining the behavior of older features and their documentation.
-                        Or add new features and integrations such as web3 features or background services to a legacy code.
+
                     </p>
                 </div>
-                <!-- development -->
+                <!-- web3 -->
                 <div>
                     <p class="service-num">3</p>
+                    <h3 class="text-lg sm:text-xl md:text-2xl ">
+                        Web3
+                    </h3>
+                    <p style="min-width: 180px; max-width: 330px;" class="italic">
+                        Add new features and integrations to the web3.
+                        Connect your platform to the EVM or other blockchain smartcontract system.
+                    </p>
+                </div>
+                <!-- consultoria -->
+                <div>
+                    <p class="service-num">4</p>
                     <h3 class="text-lg sm:text-xl md:text-2xl ">
                         Consultancy
                     </h3>
                     <p style="min-width: 180px; max-width: 330px;" class="italic">
-                        Definition of the tech stack, project scope, project canvas, 
+                        Definition of the tech stack, project scope, project canvas,
                         the SRS documentation, and MVP features.
                     </p>
                 </div>
             </div>
             <div class="relative">
-                <a
-                href="#contact"
-                class="absolute right-10 text-black mukta_font text-2xl hover:text-zinc-700 hover:text-3xl"
-                >
+                <a href="#contact"
+                    class="absolute right-10 text-black mukta_font text-2xl hover:text-zinc-700 hover:text-3xl">
                     CONTACT US
                 </a>
             </div>
@@ -176,8 +184,9 @@
 
         <!-- LINKS -->
         <section class="py-10 bg-zinc-900 px-12 text-white  box-content" id="about">
-            <div >
-                <img style="width: 300px; height: 337px; object-fit: cover; float:right; object-position: 80% 0;" class="ml-2" src="/public/images/arthur.png">
+            <div>
+                <img style="width: 300px; height: 337px; object-fit: cover; float:right; object-position: 80% 0;"
+                    class="ml-2" src="/public/images/arthur.png">
                 <h2 class="text-xl sm:text-2xl md:text-4xl  mukta_font mb-4">About us</h2>
                 <p class="italic">
                     Want to know more about Arthur check up this links bellow. <br>
@@ -192,9 +201,11 @@
                     <h3 class="text-lg mt-1 sm:text-xl md:text-2xl align-middle">Check out Arthur's profile at</h3>
                     <img class="w-20" type="image/svg+xml" src="/public/images/github_mark.svg" alt="site logo">
                 </a>
-                
-                <a class="flex d-block space-x-3 cursor-pointer" href="https://www.linkedin.com/in/arthur-abeilice/" target="_blank">
-                    <h3 class="text-lg mt-1 sm:text-xl md:text-2xl align-middle">Connect with Arthur at his page in </h3>
+
+                <a class="flex d-block space-x-3 cursor-pointer" href="https://www.linkedin.com/in/arthur-abeilice/"
+                    target="_blank">
+                    <h3 class="text-lg mt-1 sm:text-xl md:text-2xl align-middle">Connect with Arthur at his page in
+                    </h3>
                     <img class="w-28" type="image/svg+xml" src="/public/images/linkedin_logo.svg" alt="site logo">
                 </a>
             </div>
@@ -230,18 +241,16 @@
                             Remember we not only code check up our services part.
                         </p>
                     </div>
-                    <form
-                        method="post"
-                        class="contact-form md:w-3/6  flex flex-col mt-3 md:mt-14 md:px-8 space-y-4"
-                        action=”/mail”>
-                        <input id="name" class="border-black border-solid border-b-4 w" type="text" name="name"
+                    <form method="post" class="contact-form md:w-3/6  flex flex-col mt-3 md:mt-14 md:px-8 space-y-4"
+                        action="/mail">
+                        <input id="name" class="outline-none border-black border-solid border-b-4 w" type="text" name="name"
                             placeholder="Name">
-                        <input id="contact-email" class="border-black border-solid border-b-4" type="email"
-                            name="your-email" placeholder="Email">
-                        <input id="subject" class="border-black border-solid border-b-4" type="text" name="subject"
-                            placeholder="Subject">
-                        <textarea id="message" class="h-150 border-black border-solid border-b-4"
-                            name="message" value="" placeholder="Message"></textarea>
+                        <input id="contact-email" class="outline-none border-black border-solid border-b-4" type="email"
+                            name="email" placeholder="Email">
+                        <input id="subject" class="outline-none border-black border-solid border-b-4" type="text"
+                            name="subject" placeholder="Subject">
+                        <textarea id="message" class="outline-none h-150 border-black border-solid border-b-4" name="message"
+                            value="" placeholder="Message"></textarea>
                         <input type="submit" value="SEND">
                     </form>
                 </div>

@@ -34,6 +34,17 @@ func New() *Server {
 	r.Static("/public", "./web/static")
 	r.Get("/", server.mainPage())
 
+	// Basic Auth configuration
+	bac := basicauth.Config{
+		Users: map[string]string{
+			os.Getenv("ADMIN_LOGIN"): os.Getenv("ADMIN_PASSWORD"),
+		},
+	}
+	// Basic Auth Middleware
+	rAuth := r.Group("", basicauth.New(bac))
+	// editor
+	rAuth.Get("/blog-editor/:post_id?", server.blogEditor())
+
 	// mail routes
 	mailController := NewMailerController()
 	r.Post("/mail", mailController.send())
@@ -47,17 +58,6 @@ func New() *Server {
 			return c.SendString("Quem é você")
 		}
 	})
-
-	// Basic Auth configuration
-	bac := basicauth.Config{
-		Users: map[string]string{
-			os.Getenv("ADMIN_LOGIN"): os.Getenv("ADMIN_PASSWORD"),
-		},
-	}
-	// Basic Auth Middleware
-	rAuth := r.Group("", basicauth.New(bac))
-	// editor
-	rAuth.Get("/blog-editor/:post_id?", server.blogEditor())
 
 	server.router = r
 
