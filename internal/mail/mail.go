@@ -8,7 +8,7 @@ import (
 )
 
 type SMTP struct {
-	Conn         *tls.Conn
+	tls          *tls.Config
 	Auth         smtp.Auth
 	Port         string
 	Host         string
@@ -53,11 +53,11 @@ func NewSmtpServer() *SMTP {
 
 	// Here is the key, you need to call tls.Dial instead of smtp.Dial
 	// for smtp servers running on 465 that require an ssl connection
-	// from the very beginning (no starttls)
-	conn, err := tls.Dial("tcp", host+":"+port, tlsconfig)
-	if err != nil {
-		log.Panic(err)
-	}
+	// // from the very beginning (no starttls)
+	// conn, err := tls.Dial("tcp", host+":"+port, tlsconfig)
+	// if err != nil {
+	// 	log.Panic(err)
+	// }
 
 	// println("SMTP_HOST:", host)
 	// println("SMTP_PORT:", port)
@@ -67,7 +67,7 @@ func NewSmtpServer() *SMTP {
 	// println("SMTP_AUTH:", auth)
 	// Create a new SMTP server
 	return &SMTP{
-		Conn:         conn,
+		tls:          tlsconfig,
 		Auth:         auth,
 		Port:         port,
 		Host:         host,
@@ -78,11 +78,19 @@ func NewSmtpServer() *SMTP {
 
 // Send will send a msg to every recipient in to array
 func (s *SMTP) Send(to []string, msg string) error {
-	c, err := smtp.NewClient(s.Conn, s.Host)
+	// Here is the key, you need to call tls.Dial instead of smtp.Dial
+	// for smtp servers running on 465 that require an ssl connection
+	// from the very beginning (no starttls)
+	conn, err := tls.Dial("tcp", s.Host+":"+s.Port, s.tls)
 	if err != nil {
 		log.Panic(err)
 	}
-	defer c.Quit()
+
+	c, err := smtp.NewClient(conn, s.Host)
+	if err != nil {
+		log.Panic(err)
+	}
+	// defer c.Quit()
 
 	// Auth
 	if err := c.Auth(s.Auth); err != nil {
