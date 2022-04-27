@@ -141,6 +141,6 @@ func (s *SMTP) Send(to []string, msg string) error {
 		return err
 	}
 
-	fmt.Println("Successfully sent mail to all users in toList")
+	fmt.Println("Sent mail")
 	return nil
 }
