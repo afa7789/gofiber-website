@@ -18,6 +18,7 @@ func NewMailerController() *MailerController {
 	}
 }
 
+// send mail
 func (mc *MailerController) send() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		body := struct {
@@ -35,18 +36,12 @@ func (mc *MailerController) send() fiber.Handler {
 			})
 		}
 
-		if (body.Name == "" || body.ContactEmail == "") && body.Message == "" {
+		if validator(body.Name, body.ContactEmail, body.Message) {
 			return c.Status(fiber.StatusBadRequest).Redirect("/failed")
 		}
 
 		go func() {
-			str := "From: " + body.Name + " [" + body.ContactEmail + "]\r\n" +
-				"To: " + mc.mailer.CompanyEmail + "\r\n" +
-				"Sender: " + body.Name + "\r\n" +
-				"Subject: " + body.Subject + "\r\n" +
-				body.Message + "\r\n\r\n" +
-				"Sent from the afa7789 site on behalf of: " + body.ContactEmail + "\r\n "
-
+			str := emailConstructor(body.Name, body.Subject, body.Message, body.ContactEmail, mc.mailer.CompanyEmail)
 			if err := mc.mailer.Send([]string{"" + mc.mailer.CompanyEmail + ""}, str); err != nil {
 				// TODO change this LOG to log to a file.
 				log.Default().Print("Error sending email: ", err)
@@ -55,4 +50,21 @@ func (mc *MailerController) send() fiber.Handler {
 
 		return c.Status(fiber.StatusOK).Redirect("/thanks")
 	}
+}
+
+func validator(name, contactEmail, message string) bool {
+	if (name == "" || contactEmail == "") && message == "" {
+		return false
+	}
+	return true
+}
+
+// emailConstructor is the mail builder
+func emailConstructor(name, subject, message, contactEmail, companyEmail string) string {
+	return "From: " + name + " [" + contactEmail + "]\r\n" +
+		"To: " + companyEmail + "\r\n" +
+		"Sender: " + name + "\r\n" +
+		"Subject: " + subject + "\r\n" +
+		message + "\r\n\r\n" +
+		"Sent from the afa7789 site on behalf of: " + contactEmail + "\r\n "
 }

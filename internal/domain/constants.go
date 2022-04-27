@@ -2,4 +2,4 @@ package domain
 
 const PathToFile = "/public/images/"
 
-const StaticPathToFile = "./static/images/posts_images"
+const StaticPathToFile = "./web/static/images/posts_images"
