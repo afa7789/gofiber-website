@@ -1,6 +1,7 @@
 package server
 
 import (
+	"html/template"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
@@ -17,18 +18,54 @@ func (s *Server) mainPage() fiber.Handler {
 }
 
 // blogEditor opens the template
+// this func returns a page to edit an old post
+// or create a newer one
 func (s *Server) blogEditor() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		post_id := c.Params("post_id")
 		if post_id != "" {
-			return c.Status(http.StatusOK).Render("blog_editor.html", fiber.Map{
-				"Title":        "Blog Post Editor - " + post_id + " - afa7789 ",
+			// retrieve post data
+			return c.Status(http.StatusOK).Render("editor.html", fiber.Map{
+				"Title":        "Post Editor - " + post_id + " - afa7789 ",
 				"SharedHeader": true,
+				"Editor":       true,
 				"PostID":       post_id,
+				"PostTitle":    "teste",
+				"PostContent":  template.HTML("<b>teste</b>"),
 			})
 		} else {
-			return c.Status(http.StatusOK).Render("blog_editor.html", fiber.Map{
-				"Title":        "Blog Post Creator - afa7789 ",
+			return c.Status(http.StatusOK).Render("editor.html", fiber.Map{
+				"Title":        "Post Creator - afa7789 ",
+				"Editor":       true,
+				"SharedHeader": true,
+			})
+		}
+
+	}
+}
+
+// blogView opens the template
+// this func returns the blog page
+// or specific post
+func (s *Server) blogView() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		post_id := c.Params("post_id")
+		post_title := "Título"
+		if post_id != "" {
+			// retrieve post data
+			// blog post
+			return c.Status(http.StatusOK).Render("post.html", fiber.Map{
+				"Title":        "Post - " + post_id + " - " + post_title + " - afa7789 ",
+				"SharedHeader": true,
+				"PostID":       post_id,
+				"PostTitle":    post_title,
+				"PostContent":  template.HTML("<b>teste</b>"),
+			})
+		} else {
+			// blog posts
+			return c.Status(http.StatusOK).Render("blog.html", fiber.Map{
+				"Title":        "Blog - afa7789 ",
+				"Editor":       true,
 				"SharedHeader": true,
 			})
 		}
