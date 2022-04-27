@@ -9,8 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type PostsController struct {
-}
+type PostsController struct{}
 
 func NewPostsController() *PostsController {
 	return &PostsController{}
@@ -18,7 +17,6 @@ func NewPostsController() *PostsController {
 
 func (pc *PostsController) ReceivePost() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-
 		var post *domain.Post
 
 		if err := c.BodyParser(&post); err != nil {
@@ -31,15 +29,18 @@ func (pc *PostsController) ReceivePost() fiber.Handler {
 
 		file, err := c.FormFile("document")
 		if !(err == nil) {
-			//store the file
-			f, err := os.OpenFile(domain.StaticPathToFile, os.O_WRONLY|os.O_CREATE, 0666)
+			// store the file
+			f, err := os.OpenFile(domain.StaticPathToFile, os.O_WRONLY|os.O_CREATE, 0o666)
 			if err != nil {
 				log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
 			}
 			defer f.Close()
 
 			fio, _ := file.Open()
-			io.Copy(f, fio)
+			_, err = io.Copy(f, fio)
+			if err != nil {
+				log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
+			}
 
 			// and add it to the post
 			post.Image = domain.PathToFile + file.Filename
@@ -50,6 +51,5 @@ func (pc *PostsController) ReceivePost() fiber.Handler {
 		// if it's create will be sent with post id 0.
 
 		return c.Status(fiber.StatusOK).JSON(post)
-
 	}
 }

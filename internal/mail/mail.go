@@ -2,6 +2,7 @@ package mail
 
 import (
 	"crypto/tls"
+	"fmt"
 	"log"
 	"net/smtp"
 	"os"
@@ -16,8 +17,8 @@ type SMTP struct {
 	CompanyEmail string
 }
 
-// NewSmtpServer
-func NewSmtpServer() *SMTP {
+// NewSMTPServer
+func NewSMTPServer() *SMTP {
 	// from is senders email address
 	// we used environment variables to load the
 	// email address and the password from the shell
@@ -90,7 +91,12 @@ func (s *SMTP) Send(to []string, msg string) error {
 	if err != nil {
 		log.Panic(err)
 	}
-	// defer c.Quit()
+	defer func() {
+		err := c.Quit()
+		if err != nil {
+			log.Panic(err)
+		}
+	}()
 
 	// Auth
 	if err := c.Auth(s.Auth); err != nil {
@@ -135,6 +141,6 @@ func (s *SMTP) Send(to []string, msg string) error {
 		return err
 	}
 
-	// fmt.Println("Successfully sent mail to all users in toList")
+	fmt.Println("Successfully sent mail to all users in toList")
 	return nil
 }

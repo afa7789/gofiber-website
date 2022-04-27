@@ -11,7 +11,7 @@ type MailerController struct {
 }
 
 func NewMailerController() *MailerController {
-	mailer := mail.NewSmtpServer()
+	mailer := mail.NewSMTPServer()
 	return &MailerController{
 		mailer: mailer,
 	}
