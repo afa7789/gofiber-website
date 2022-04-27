@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 {{ template "meta.html" . }}
+
 <body class="px-0 py-0 mx-0 my-0">
     <style>
         input[type="file"] {
-            font-size: 17px;
-            color: #b8b8b8;
-            background-color: white;
+            display: none;
+        }
+
+        .file-upload {
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
         }
     </style>
     <!-- HEADER -->
@@ -20,34 +25,78 @@
             post ID: {{ .PostID }}
         </p>
         {{end}}
-        <!-- Title -->
-        <label class="uppercase tracking-wide font-bold">
-            Post Title
-        </label>
         <br>
-        <input class="outline-none border-black border-solid border-b-4 w-full" type="text" placeholder="Title" value="{{.PostTitle}}">
-        <br>
-        <!-- Image -->
-        <label class="uppercase tracking-wide font-bold">
-            Post Image
-        </label>
-        <br>
-        <!-- File -->
-        <label for="uploadfile" class="uppercase tracking-wide font-bold">
-            Choose File
-        </label> 
-        <span id="file-choosen"> No file chosen </span>
-        <br>
-        <input id="uploadfile" class="outline-none border-black border-solid border-b-4" type="file" name="uploadfile"/>
-        <br>
-        <!-- Synopsis -->
-        <!-- Related Posts -->
-        <!-- Content -->
-        <label class="uppercase tracking-wide font-bold">
-            Post Content
-        </label>
-        <br>
-        <textarea class="outline-none border-black border-solid border-b-4 p-2 w-full" placeholder="Content">{{ .PostContent}}</textarea>
+        <form action="">
+            <!-- Title -->
+            <label class="uppercase tracking-wide font-bold">
+                Post Title
+            </label>
+            <br>
+            <input class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w-full" type="text"
+                placeholder="Title" value="{{.PostTitle}}">
+            <br>
+            <br>
+            <!-- Image -->
+            <label class="uppercase tracking-wide font-bold">
+                Post Image
+            </label>
+            <br>
+            <label for="uploadfile"
+                class="border-black border-solid border-b-4 file-upload uppercase tracking-wide font-bold">
+                Choose File
+            </label>
+            <span id="file-choosen"> 
+                {{ if .PostImage }}
+                    {{.PostImage}}
+                {{else}}
+                    No file chosen
+                {{end}}
+            </span>
+            <input id="uploadfile" class="outline-none border-black border-solid border-b-4" type="file"
+                name="uploadfile" />
+            <br>
+            <br>
+            <script>
+                document.getElementById("uploadfile").onchange = function () {
+                    var filename = this.value.replace(/^.*?([^\\\/]*)$/, '$1');
+                    document.getElementById("file-choosen").innerHTML = filename;
+                    document.getElementById("uploadfile").innerHTML = "File Uploaded"
+                };
+            </script>
+            <!-- Synopsis -->
+            <label class="uppercase tracking-wide font-bold">
+                Post Synopsis
+            </label>
+            <br>
+            <textarea 
+                class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w-full" 
+                type="text"
+                maxlength="140"
+                placeholder="Synopsis"
+                value="{{.PostSynopsis}}"
+            >
+                {{ .PostSynopsis}}
+            </textarea>
+            <br>
+            <br>
+            <!-- Related Posts -->
+            <label class="uppercase tracking-wide font-bold">
+                Related Posts
+            </label>
+            <br>
+            <input class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w-full" type="text"
+                name="related-posts" placeholder="Related Posts ( id separated by comma)" value="{{.RelatedPosts}}">
+            <br>
+            <br>
+            <!-- Content -->
+            <label class="uppercase tracking-wide font-bold">
+                Post Content
+            </label>
+            <br>
+            <textarea class="placeholder-gray-700 outline-none border-black border-solid border-b-4 p-2 w-full"
+                placeholder="Content">{{ .PostContent}}</textarea>
+        </form>
+
     </section>
 </body>
 

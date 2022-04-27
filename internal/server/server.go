@@ -30,29 +30,37 @@ func New() *Server {
 		Views: engine,
 	})
 
-	// Static Files
-	r.Static("/public", "./web/static")
-	r.Get("/", server.mainPage())
-
 	// Basic Auth configuration
 	bac := basicauth.Config{
 		Users: map[string]string{
 			os.Getenv("ADMIN_LOGIN"): os.Getenv("ADMIN_PASSWORD"),
 		},
 	}
+
+	// ================ROUTES====================
+	// Static Files
+	r.Static("/public", "./web/static")
+	r.Get("/", server.mainPage())
+
 	blog := r.Group("/blog")
-	blog.Get(
-		"edit/:post_id?",
+	// editor is exclusive
+	blog.Get("edit/:post_id?",
 		basicauth.New(bac), // Basic Auth Middleware
 		server.blogEditor())
 
+	// post viewer
+	// or blog!
 	blog.Get("/:post_id?", server.blogView())
 
-	// mail routes
+	// Post Auth Middleware ?
+	pc := NewPostsController()
+	blog.Post("/post", pc.ReceivePost())
+
+	// Mail routes
 	mailController := NewMailerController()
 	r.Post("/mail", mailController.send())
-	// Optional parameter
 
+	// Optional parameter test
 	r.Get("/hi/:name?", func(c *fiber.Ctx) error {
 		name := c.Params("name")
 		if name != "" {
@@ -67,7 +75,7 @@ func New() *Server {
 	return server
 }
 
-// Start starts the REST server
+// Start starts the server
 func (s *Server) Start(port int) {
 	err := s.router.Listen(fmt.Sprintf(":%d", port))
 	if err != nil {
