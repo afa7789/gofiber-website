@@ -41,6 +41,7 @@ func New() *Server {
 	// Static Files
 	r.Static("/public", "./web/static")
 	r.Get("/", server.mainPage())
+	r.Get("/thanks", server.thanksPage())
 
 	blog := r.Group("/blog")
 	// editor is exclusive
