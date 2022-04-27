@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ template "components/meta.html" . }}
+
+<body class="px-0 py-0 mx-0 my-0">
+    <!-- HEADER -->
+    {{ template "components/header.html" . }}
+    <main>
+        <!-- Thanks -->
+        <section class="my-2 px-12 pb-10 pt-2">
+            <h3 class="text-xl text-zinc-500 text-center">We have received your contact!</h1>
+            <p class="text-center ">
+                Thanks for trying to get in touch with us.
+                <br>
+                But you didn't fill the inputs correctly.
+            </p>
+        </section>
+        <!-- Contact -->
+        <section class="my-2 px-12 pb-10 pt-2">
+            <h1 class="text-xl text-zinc-500 text-center">
+                Try again but fill all the values
+            </h1>
+            {{ template "components/contact.html" . }}
+        </section>
+    </main>
+    <!-- FOOTER -->
+    <style>
+        footer {
+            position:absolute;
+            bottom: 10px;
+            width:100%;
+        }
+    </style>
+    {{ template "components/footer.html" . }}
+</body>
+
+</html>

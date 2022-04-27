@@ -220,19 +220,7 @@
                             Remember we not only code check up our services part.
                         </p>
                     </div>
-                    <!-- contact form -->
-                    <form method="post" class="contact-form md:w-3/6  flex flex-col mt-3 md:mt-14 md:px-8 space-y-4"
-                        action="/mail">
-                        <input id="name" class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w" type="text" name="name"
-                            placeholder="Name">
-                        <input id="contact-email" class="placeholder-gray-700 outline-none border-black border-solid border-b-4" type="email"
-                            name="contact" placeholder="Email">
-                        <input id="subject" class="placeholder-gray-700 outline-none border-black border-solid border-b-4" type="text"
-                            name="subject" placeholder="Subject">
-                        <textarea id="message" class="placeholder-gray-700 outline-none h-150 border-black border-solid border-b-4" name="message"
-                            value="" placeholder="Message"></textarea>
-                        <input type="submit" value="SEND">
-                    </form>
+                    {{ template "components/contact.html" .}}
                     <script>
 
                     </script>

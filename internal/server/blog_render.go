@@ -55,3 +55,16 @@ func (s *Server) blogView() fiber.Handler {
 
 	}
 }
+
+// blogMissing opens the template
+// this func returns the missing blog post page
+// or specific post
+func (s *Server) blogMissing() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+
+		return c.Status(http.StatusOK).Render("post.html", fiber.Map{
+			"Title": "Post doesn't exist - afa7789 ",
+		})
+
+	}
+}
