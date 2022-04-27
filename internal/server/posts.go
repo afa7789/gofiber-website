@@ -6,6 +6,7 @@ import (
 	"log"
 	"mime/multipart"
 	"os"
+	"path/filepath"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -35,12 +36,17 @@ func (pc *PostsController) ReceivePost() fiber.Handler {
 		file, err := c.FormFile("document")
 
 		if err != nil {
-			log.Default().Printf("No document found in request body %v", err)
-			return c.Status(fiber.StatusOK).JSON( fiber.{post )
+			log.Default().Printf("No document found in request body? %v", err)
+			return c.Status(fiber.StatusOK).JSON(fiber.Map{
+				"post": post,
+				"err":  err.Error(),
+			})
 		} else {
 			go func(file *multipart.FileHeader) {
 				// store the file
-				f, err := os.OpenFile(domain.StaticPathToFile, os.O_WRONLY|os.O_CREATE, 0o666)
+				f, err := os.OpenFile(
+					filepath.Join(domain.StaticPathToFile, file.Filename),
+					os.O_WRONLY|os.O_CREATE, 0o666)
 				if err != nil {
 					log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
 				}
