@@ -12,21 +12,20 @@ import (
 // or create a newer one
 func (s *Server) blogEditor() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		post_id := c.Params("post_id")
-		if post_id != "" {
+		potsID := c.Params("post_id")
+		if potsID != "" {
 			// retrieve post data
 			return c.Status(http.StatusOK).Render("editor.html", fiber.Map{
-				"Title":       "Post Editor - " + post_id + " - afa7789 ",
-				"PostID":      post_id,
+				"Title":       "Post Editor - " + potsID + " - afa7789 ",
+				"PostID":      potsID,
 				"PostTitle":   "teste",
 				"PostContent": template.HTML("<b>teste</b>"),
 			})
-		} else {
-			return c.Status(http.StatusOK).Render("editor.html", fiber.Map{
-				"Title": "Post Creator - afa7789 ",
-			})
 		}
 
+		return c.Status(http.StatusOK).Render("editor.html", fiber.Map{
+			"Title": "Post Creator - afa7789 ",
+		})
 	}
 }
 
@@ -35,24 +34,24 @@ func (s *Server) blogEditor() fiber.Handler {
 // or specific post
 func (s *Server) blogView() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		post_id := c.Params("post_id")
-		post_title := "Título"
-		if post_id != "" {
+		postID := c.Params("post_id")
+		// get post data
+		postTitle := "Título"
+		if postID != "" {
 			// retrieve post data
 			// blog post
 			return c.Status(http.StatusOK).Render("post.html", fiber.Map{
-				"Title":       "Post - " + post_id + " - " + post_title + " - afa7789 ",
-				"PostID":      post_id,
-				"PostTitle":   post_title,
+				"Title":       "Post - " + postID + " - " + postTitle + " - afa7789 ",
+				"PostID":      postID,
+				"PostTitle":   postTitle,
 				"PostContent": template.HTML("<b>teste</b>"),
-			})
-		} else {
-			// blog posts
-			return c.Status(http.StatusOK).Render("blog.html", fiber.Map{
-				"Title": "Blog - afa7789 ",
 			})
 		}
 
+		// blog posts
+		return c.Status(http.StatusOK).Render("blog.html", fiber.Map{
+			"Title": "Blog - afa7789 ",
+		})
 	}
 }
 
@@ -61,10 +60,8 @@ func (s *Server) blogView() fiber.Handler {
 // or specific post
 func (s *Server) blogMissing() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-
 		return c.Status(http.StatusOK).Render("post.html", fiber.Map{
 			"Title": "Post doesn't exist - afa7789 ",
 		})
-
 	}
 }

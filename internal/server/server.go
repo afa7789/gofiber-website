@@ -64,16 +64,6 @@ func New() *Server {
 	mailController := NewMailerController()
 	r.Post("/mail", mailController.send())
 
-	// Optional parameter test
-	r.Get("/hi/:name?", func(c *fiber.Ctx) error {
-		name := c.Params("name")
-		if name != "" {
-			return c.SendString("OI, " + name)
-		} else {
-			return c.SendString("Quem é você")
-		}
-	})
-
 	server.router = r
 
 	return server

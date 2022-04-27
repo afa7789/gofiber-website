@@ -14,7 +14,9 @@ var flags domain.Flags
 
 func init() {
 	flags.Port = flag.Int("port", 8080, "port number to listen")
-	godotenv.Load(".env")
+	if err := godotenv.Load(".env"); err != nil {
+		log.Fatal("env loading error", err)
+	}
 }
 
 func main() {

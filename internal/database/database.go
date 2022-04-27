@@ -1,8 +1,6 @@
 package database
 
-type Database struct {
-}
+type Database struct{}
 
 func NewDatabase() {
-
 }
