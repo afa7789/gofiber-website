@@ -34,6 +34,10 @@ func (mc *MailerController) send() fiber.Handler {
 			})
 		}
 
+		if (body.Name == "" || body.ContactEmail == "") && body.Message == "" {
+			return c.Status(fiber.StatusBadRequest).Redirect("/failed")
+		}
+
 		// TODO when changing this to a log use concurrency
 		str := "From: " + body.Name + " [" + body.ContactEmail + "]\r\n" +
 			"To: " + mc.mailer.CompanyEmail + "\r\n" +

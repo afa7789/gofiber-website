@@ -13,3 +13,4 @@ It is manly used as forefront to freelance projects and contracts.
   
 ## Missing Features
 - Logger
+- setup blog part as subdomain.

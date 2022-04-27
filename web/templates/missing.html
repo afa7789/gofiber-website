@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ template "meta.html" . }}
+
+<body class="px-0 py-0 mx-0 my-0">
+    <!-- HEADER -->
+    {{ template "header.html" . }}
+    <section class="my-10 px-12" id="post">
+        <!-- <h2>Blog Post</h2> -->
+        <h1>There is no post at that id</h1>
+        <!-- {{.PostContent}}        -->
+    </section>
+    <!-- BLOG -->
+    <section class="my-2 px-12 pb-10 pt-2">
+        <h1 class="text-xl text-zinc-500 text-center">
+            Check up others posts in the blog!
+        </h1>
+        <a href="/blog">
+            <button class="flex m-auto mukta_font text-2xl hover:text-zinc-100 hover:text-3xl">
+                BLOG POSTS
+            </button>
+        </a>
+    </section>
+    <!-- FOOTER -->
+    <style>
+        footer {
+            position:absolute;
+            bottom: 10px;
+            width:100%;
+        }
+    </style>
+    {{ template "components/footer.html" . }}
+</body>
+
+</html>

@@ -42,6 +42,7 @@ func New() *Server {
 	r.Static("/public", "./web/static")
 	r.Get("/", server.mainPage())
 	r.Get("/thanks", server.thanksPage())
+	r.Get("/failed", server.failedPage())
 
 	blog := r.Group("/blog")
 	// editor is exclusive
@@ -49,6 +50,8 @@ func New() *Server {
 		basicauth.New(bac), // Basic Auth Middleware
 		server.blogEditor())
 
+	// or blog!
+	blog.Get("/missing", server.blogMissing())
 	// post viewer
 	// or blog!
 	blog.Get("/:post_id?", server.blogView())
