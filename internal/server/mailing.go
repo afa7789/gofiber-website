@@ -34,6 +34,7 @@ func (mc *MailerController) send() fiber.Handler {
 			})
 		}
 
+		// TODO when changing this to a log use concurrency
 		str := "From: " + body.Name + " [" + body.ContactEmail + "]\r\n" +
 			"To: " + mc.mailer.CompanyEmail + "\r\n" +
 			"Sender: " + body.Name + "\r\n" +
@@ -43,6 +44,7 @@ func (mc *MailerController) send() fiber.Handler {
 
 		if err := mc.mailer.Send([]string{"" + mc.mailer.CompanyEmail + ""}, str); err != nil {
 			// print("send error")
+			// TODO change this to a LOG and use concurrency
 			return c.Status(fiber.StatusInternalServerError).JSON(struct {
 				Message string `json:"message"`
 			}{
@@ -50,6 +52,6 @@ func (mc *MailerController) send() fiber.Handler {
 			})
 		}
 
-		return c.Status(fiber.StatusNoContent).SendString("")
+		return c.Status(fiber.StatusOK).Redirect("/thanks")
 	}
 }

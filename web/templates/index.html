@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-{{ template "meta.html" . }}
+{{ template "components/meta.html" . }}
 
 <body class="px-0 py-0 mx-0 my-0">
     <!-- HEADER -->
-    {{ template "header.html" . }}
+    {{ template "components/header.html" . }}
     <main>
         <!-- HERO PART -->
         <section class="my-10 px-12">
@@ -226,6 +226,7 @@
         <section class='my-8 px-12' id="contact">
             <div class="mx-4 md:mx-12">
                 <div class="md:flex ">
+                    <!-- contact form -->
                     <div class="md:w-3/6">
                         <h3 class="text-lg text-zinc-700">
                             CONTACT US
@@ -241,43 +242,27 @@
                             Remember we not only code check up our services part.
                         </p>
                     </div>
+                    <!-- contact form -->
                     <form method="post" class="contact-form md:w-3/6  flex flex-col mt-3 md:mt-14 md:px-8 space-y-4"
                         action="/mail">
-                        <input id="name" class="outline-none border-black border-solid border-b-4 w" type="text" name="name"
+                        <input id="name" class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w" type="text" name="name"
                             placeholder="Name">
-                        <input id="contact-email" class="outline-none border-black border-solid border-b-4" type="email"
+                        <input id="contact-email" class="placeholder-gray-700 outline-none border-black border-solid border-b-4" type="email"
                             name="contact" placeholder="Email">
-                        <input id="subject" class="outline-none border-black border-solid border-b-4" type="text"
+                        <input id="subject" class="placeholder-gray-700 outline-none border-black border-solid border-b-4" type="text"
                             name="subject" placeholder="Subject">
-                        <textarea id="message" class="outline-none h-150 border-black border-solid border-b-4" name="message"
+                        <textarea id="message" class="placeholder-gray-700 outline-none h-150 border-black border-solid border-b-4" name="message"
                             value="" placeholder="Message"></textarea>
                         <input type="submit" value="SEND">
                     </form>
+                    <script>
+
+                    </script>
                 </div>
             </div>
         </section>
     </main>
-
-    <footer class="flex flex-col pt-5">
-        <div class="flex justify-center space-x-6 flex-wrap md:flex-nowrap ">
-            <a href="https://www.linkedin.com/in/arthur-abeilice/">
-                <h4>Linkedin</h4>
-            </a>
-            <a href="https://afa7789.medium.com/">
-                <h4>BlogPosts</h4>
-            </a>
-            <a href="https://github.com/afa7789">
-                <h4>Github</h4>
-            </a>
-            <a href="https://open.spotify.com/playlist/1xfwH5ZljgSH40RFkGZkE4">
-                <h4>Spotify</h4>
-            </a>
-        </div>
-        <div
-            class="before:content-[''] before:mb-4 before:block before:border-solid before:border-b-2 before:border-black  mx-auto my-4">
-            afa7789 Computer Engineering Solutions Ltda @ 2021
-        </div>
-    </footer>
+    {{ template "components/footer.html" . }}
 </body>
 
 </html>

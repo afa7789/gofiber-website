@@ -1,4 +1,16 @@
-{{if .SharedHeader }}
+{{if .MainHeader }}
+<header class="w-screen flex flex-row items-center p-1 justify-between bg-white shadow-xs">
+    <div id="logo-header" class="ml-6">
+        <object class="w-20" type="image/svg+xml" data="/public/images/logo.svg" alt="site logo">
+            <img src="/public/images/logo.png" alt="site logo">
+        </object>
+    </div>
+    <nav class="mx-8" id="options-header">
+        <a class="transition text-black text-lg hover:text-zinc-700 hover:text-xl" href="#about"> ABOUT </a>
+        <a class="transition text-black text-lg hover:text-zinc-700 hover:text-xl" href="#contact"> CONTACT </a>
+    </nav>
+</header>
+{{else}}
 <header class="w-screen flex flex-row items-center p-1 justify-between bg-white shadow-xs">
     <div id="logo-header" class="ml-6" href="/">
         <object class="w-20" type="image/svg+xml" data="/public/images/logo.svg" alt="site logo">
@@ -9,18 +21,6 @@
     </div>
     <nav class="mx-8" id="options-header">
         <a class="transition text-black text-lg hover:text-zinc-700 hover:text-xl" href="/"> HOME </a>
-    </nav>
-</header>
-{{else}}
-<header class="w-screen flex flex-row items-center p-1 justify-between bg-white shadow-xs">
-    <div id="logo-header" class="ml-6">
-        <object class="w-20" type="image/svg+xml" data="/public/images/logo.svg" alt="site logo">
-            <img src="/public/images/logo.png" alt="site logo">
-        </object>
-    </div>
-    <nav class="mx-8" id="options-header">
-        <a class="transition text-black text-lg hover:text-zinc-700 hover:text-xl" href="#about"> ABOUT </a>
-        <a class="transition text-black text-lg hover:text-zinc-700 hover:text-xl" href="#contact"> CONTACT </a>
     </nav>
 </header>
 {{end}}
