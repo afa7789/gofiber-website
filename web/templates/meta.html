@@ -7,8 +7,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@800&family=Orelega+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/segment7" type="text/css"/>
-
     <title> {{ .Title }} </title>
+    {{ if .Editor }}
+        <link rel="stylesheet" href="minified/themes/default.min.css" />
+        <script src="minified/sceditor.min.js"></script>
+        <script src="minified/formats/bbcode.js"></script>
+        <script src="minified/formats/xhtml.js"></script>
+    {{end}}
     <style>
         html,body{
             width: 100%;
@@ -38,6 +43,5 @@
         .orelega_font{
             font-family: 'Orelega One', cursive;
         }
-
     </style>
 </head>

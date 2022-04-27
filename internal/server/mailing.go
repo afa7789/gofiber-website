@@ -2,7 +2,6 @@ package server
 
 import (
 	"afa7789/site/internal/mail"
-	"net/http"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -50,6 +49,6 @@ func (mc *MailerController) send() fiber.Handler {
 			})
 		}
 
-		return c.Status(http.StatusOK).JSON(body)
+		return c.Status(fiber.StatusNoContent).SendString("")
 	}
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ template "meta.html" . }}
+
+<body class="px-0 py-0 mx-0 my-0">
+    <!-- HEADER -->
+    {{ template "header.html" . }}
+    <section class="my-10 px-12" id="post">
+        <h2>Blog Post</h2>
+        <h1>{{.PostTitle}}</h1>
+        {{.PostContent}}
+    </section>
+</body>
+
+</html>

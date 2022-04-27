@@ -40,10 +40,13 @@ func New() *Server {
 			os.Getenv("ADMIN_LOGIN"): os.Getenv("ADMIN_PASSWORD"),
 		},
 	}
-	// Basic Auth Middleware
-	rAuth := r.Group("", basicauth.New(bac))
-	// editor
-	rAuth.Get("/blog-editor/:post_id?", server.blogEditor())
+	blog := r.Group("/blog")
+	blog.Get(
+		"edit/:post_id?",
+		basicauth.New(bac), // Basic Auth Middleware
+		server.blogEditor())
+
+	blog.Get("/:post_id?", server.blogView())
 
 	// mail routes
 	mailController := NewMailerController()
