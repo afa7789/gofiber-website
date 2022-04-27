@@ -2,6 +2,7 @@ package server
 
 import (
 	"afa7789/site/internal/mail"
+	"log"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -38,23 +39,19 @@ func (mc *MailerController) send() fiber.Handler {
 			return c.Status(fiber.StatusBadRequest).Redirect("/failed")
 		}
 
-		// TODO when changing this to a log use concurrency
-		str := "From: " + body.Name + " [" + body.ContactEmail + "]\r\n" +
-			"To: " + mc.mailer.CompanyEmail + "\r\n" +
-			"Sender: " + body.Name + "\r\n" +
-			"Subject: " + body.Subject + "\r\n" +
-			body.Message + "\r\n\r\n" +
-			"Sent from the afa7789 site on behalf of: " + body.ContactEmail + "\r\n "
+		go func() {
+			str := "From: " + body.Name + " [" + body.ContactEmail + "]\r\n" +
+				"To: " + mc.mailer.CompanyEmail + "\r\n" +
+				"Sender: " + body.Name + "\r\n" +
+				"Subject: " + body.Subject + "\r\n" +
+				body.Message + "\r\n\r\n" +
+				"Sent from the afa7789 site on behalf of: " + body.ContactEmail + "\r\n "
 
-		if err := mc.mailer.Send([]string{"" + mc.mailer.CompanyEmail + ""}, str); err != nil {
-			// print("send error")
-			// TODO change this to a LOG and use concurrency
-			return c.Status(fiber.StatusInternalServerError).JSON(struct {
-				Message string `json:"message"`
-			}{
-				Message: "Error sending email",
-			})
-		}
+			if err := mc.mailer.Send([]string{"" + mc.mailer.CompanyEmail + ""}, str); err != nil {
+				// TODO change this LOG to log to a file.
+				log.Default().Print("Error sending email: ", err)
+			}
+		}()
 
 		return c.Status(fiber.StatusOK).Redirect("/thanks")
 	}

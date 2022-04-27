@@ -12,5 +12,7 @@ It is manly used as forefront to freelance projects and contracts.
 - Blog section
   
 ## Missing Features
-- Logger
-- setup blog part as subdomain.
+- Log remove panic and log to files.
+- Setup blog part as subdomain.
+- ToDoList Page
+  
