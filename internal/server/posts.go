@@ -11,10 +11,14 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type PostsController struct{}
+type PostsController struct {
+	pr *domain.PostRepository
+}
 
-func NewPostsController() *PostsController {
-	return &PostsController{}
+func NewPostsController(pr *domain.PostRepository) *PostsController {
+	return &PostsController{
+		pr: pr,
+	}
 }
 
 // Receive post receives a multi-form from page.
@@ -22,8 +26,6 @@ func (pc *PostsController) ReceivePost() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		var post domain.Post
 
-		// a := c.Body()
-		// print(string(a))
 		if err := c.BodyParser(&post); err != nil {
 
 			return c.Status(fiber.StatusInternalServerError).JSON(struct {
