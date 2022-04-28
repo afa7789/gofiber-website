@@ -11,6 +11,9 @@ type PostRepository struct {
 }
 
 func NewPostRepository(db *Database) *PostRepository {
+	if db == nil {
+		return nil
+	}
 	return &PostRepository{
 		db: db,
 	}

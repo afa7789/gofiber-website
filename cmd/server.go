@@ -9,6 +9,10 @@ import (
 func ServerExecute(f domain.Flags) error {
 	// Setup Repositories
 	r := database.NewRepositories()
+	if r == nil {
+		print("db as nil")
+	}
+
 	si := &domain.ServerInput{
 		Reps: r,
 	}
