@@ -27,7 +27,6 @@ func (pc *PostsController) ReceivePost() fiber.Handler {
 		var post domain.Post
 
 		if err := c.BodyParser(&post); err != nil {
-
 			return c.Status(fiber.StatusInternalServerError).JSON(struct {
 				Message string `json:"message"`
 			}{
@@ -43,31 +42,30 @@ func (pc *PostsController) ReceivePost() fiber.Handler {
 				"post": post,
 				"err":  err.Error(),
 			})
-		} else {
-			go func(file *multipart.FileHeader) {
-				// store the file
-				f, err := os.OpenFile(
-					filepath.Join(domain.StaticPathToFile, file.Filename),
-					os.O_WRONLY|os.O_CREATE, 0o666)
-				if err != nil {
-					log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
-				}
-				defer f.Close()
-
-				fio, _ := file.Open()
-				_, err = io.Copy(f, fio)
-				if err != nil {
-					log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
-				}
-
-				// and add it to the post
-				post.Image = domain.PathToFile + file.Filename
-
-				// store the data TODO, receive post
-				// upload or create the post
-				// if it's create will be sent with post id 0.
-			}(file)
 		}
+
+		go func(file *multipart.FileHeader) {
+			// store the file
+			f, err := os.OpenFile(
+				filepath.Join(domain.StaticPathToFile, file.Filename),
+				os.O_WRONLY|os.O_CREATE, 0o666)
+			if err != nil {
+				log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
+			}
+			defer f.Close()
+
+			fio, _ := file.Open()
+			_, err = io.Copy(f, fio)
+			if err != nil {
+				log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
+			}
+			// and add it to the post
+			post.Image = domain.PathToFile + file.Filename
+
+			// store the data TODO, receive post
+			// upload or create the post
+			// if it's create will be sent with post id 0.
+		}(file)
 
 		return c.Status(fiber.StatusOK).JSON(post)
 	}

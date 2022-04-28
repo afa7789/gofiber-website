@@ -31,7 +31,7 @@ func NewDatabase() *Database {
 	if err != nil {
 		panic("Failed to connect to database!")
 	}
-
+	print("Connected to database!")
 	return &Database{
 		client: db,
 	}
