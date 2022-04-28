@@ -14,9 +14,9 @@ type Post struct {
 }
 
 type Repositories struct {
-	PostRepository PostRepository
+	PostRep PostRepository
 }
 
 type ServerInput struct {
-	repositories *Repositories
+	Reps *Repositories
 }
