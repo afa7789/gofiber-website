@@ -8,15 +8,18 @@ It is manly used as forefront to freelance projects and contracts.
 
 ### Mysql Setup
 
-running the mysql in docker.
+__Creating & running the mysql in docker.__
 ```sh
-# run docker
-docker run --name mysql-docker-local -e MYSQL_ROOT_PASSWORD=Password -d mysql:latest
+# create docker
+docker create -v /var/lib/mysql --name mysqldata mysql
+docker run --name mysqldb_fiber_site --volumes-from mysqldata -e MYSQL_ROOT_PASSWORD=password -p 3307:3306 -d mysql:latest
+# restart
+docker start mysqldb_fiber_site
 # log on it and run the other codes bellow
-docker exec -it mysql-docker-local mysql -u root -pPassword
+docker exec -it mysqldb_fiber_site mysql -u root -ppassword
 ```
 
-Creating the user
+__Creating the user to access the database.__
 ```sql
 CREATE USER 'site'@'%' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'site'@'%' WITH GRANT OPTION;
@@ -24,13 +27,19 @@ FLUSH PRIVILEGES;
 exit
 ```
 
-Add or drop table of posts
+__Add or drop database and table of posts.__
 ```
-DROP TABLE IF EXISTS WHITELIST;
-CREATE table WHITELIST(
-    id serial PRIMARY KEY,
-    address VARCHAR (42) NOT NULL UNIQUE
-    VARCHAR(max)
+DROP DATABASE [IF EXISTS] gofiber_website;
+CREATE DATABASE gofiber_website;
+USE gofiber_website;
+DROP TABLE IF EXISTS posts;
+CREATE TABLE posts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    image VARCHAR(255),
+    related_posts VARCHAR(255),
+    synopsis TINYTEXT,
+    content LONGTEXT
 );
 ```
 
@@ -44,5 +53,3 @@ CREATE table WHITELIST(
 - Setup blog part as subdomain.
 - ToDoList Page
 - https://github.com/gofiber/fiber/issues/750 use subdomain on blog
-
-docker run --name mysql-docker-local -eMYSQL_ROOT_PASSWORD=Password -d mysql:latest
