@@ -12,3 +12,11 @@ type Post struct {
 	Content      string `form:"content" json:"content"`
 	RelatedPosts string `form:"related_posts" json:"related_posts"` // array of int of related posts.
 }
+
+type Repositories struct {
+	PostRepository PostRepository
+}
+
+type ServerInput struct {
+	repositories *Repositories
+}
