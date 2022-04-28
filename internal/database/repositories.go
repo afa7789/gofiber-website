@@ -6,6 +6,6 @@ func NewRepositories() *domain.Repositories {
 	db := NewDatabase()
 	postRepository := NewPostRepository(db)
 	return &domain.Repositories{
-		PostRepository: postRepository,
+		PostRep: postRepository,
 	}
 }

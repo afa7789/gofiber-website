@@ -10,8 +10,9 @@ func ServerExecute(f domain.Flags) error {
 	// Setup Repositories
 	r := database.NewRepositories()
 	si := &domain.ServerInput{
-		repositories: r,
+		Reps: r,
 	}
+
 	// Setup and start server
 	s := server.New(si)
 	s.Start(*f.Port)

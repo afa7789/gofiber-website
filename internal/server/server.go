@@ -15,12 +15,15 @@ import (
 // Server is the definition of a REST server based on Gin
 type Server struct {
 	router *fiber.App
+	reps   *domain.Repositories
 }
 
 // New returns a new server that takes advantage of zerolog for logging
 // and holds a reference to the app configuration
-func New(*domain.ServerInput) *Server {
-	server := &Server{}
+func New(si *domain.ServerInput) *Server {
+	server := &Server{
+		reps: si.Reps,
+	}
 
 	// https://github.com/gofiber/template
 	engine := html.New("./web/templates", "")
@@ -46,19 +49,17 @@ func New(*domain.ServerInput) *Server {
 	r.Get("/failed", server.failedPage())
 
 	blog := r.Group("/blog")
-	// editor is exclusive
+	// editor is exclusive to admin authentification
 	blog.Get("edit/:post_id?",
 		basicauth.New(bac), // Basic Auth Middleware
 		server.blogEditor())
-
-	// or blog!
+	// missing page
 	blog.Get("/missing", server.blogMissing())
-	// post viewer
-	// or blog!
+	// post viewer or blog list
 	blog.Get("/:post_id?", server.blogView())
 
 	// Post Auth Middleware ?
-	pc := NewPostsController()
+	pc := NewPostsController(&si.Reps.PostRep)
 	blog.Post("/post", pc.ReceivePost())
 
 	// Mail routes
