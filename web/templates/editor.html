@@ -16,24 +16,29 @@
     </style>
     <!-- HEADER -->
     {{ template "components/header.html" . }}
-    <section class="my-10 px-12">
-        <h1 class="text-4xl md:text-6xl mukta_font">
+    <section class="mt-10 px-12">
+        <h1 class="my-3 text-4xl md:text-6xl mukta_font">
             Blog post editor
         </h1>
-        {{ if .PostID }}
-        <p>
-            post ID: {{ .PostID }}
-        </p>
-        {{end}}
         <br>
-        <form action="">
+        <div>
+            {{ if .PostID }}
+            <p>
+                post ID: {{ .PostID }}
+                <input type="hidden" id="post_id" name="postID" value="{{ .PostID }}">
+            </p>
+            {{else}}
+            <input type="hidden" id="post_id" name="postID" value="0">
+            {{end}}
+
             <!-- Title -->
             <label class="uppercase tracking-wide font-bold">
                 Post Title
             </label>
             <br>
-            <input class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w-full" type="text"
-                placeholder="Title" value="{{.PostTitle}}">
+            <!-- TITLE INPUT -->
+            <input id="title" class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w-full"
+                type="text" placeholder="Title" value="{{.PostTitle}}">
             <br>
             <br>
             <!-- Image -->
@@ -41,23 +46,24 @@
                 Post Image
             </label>
             <br>
-            <label for="uploadfile"
+            <label for="upload_file"
                 class="border-black border-solid border-b-4 file-upload uppercase tracking-wide font-bold">
                 Choose File
             </label>
-            <span id="file-choosen"> 
+            <span id="file-choosen">
                 {{ if .PostImage }}
-                    {{.PostImage}}
+                {{.PostImage}}
                 {{else}}
-                    No file chosen
+                No file chosen
                 {{end}}
             </span>
-            <input id="uploadfile" class="outline-none border-black border-solid border-b-4" type="file"
-                name="uploadfile" />
+            <!-- IMAGE FILE INPUT -->
+            <input id="upload_file" class="outline-none border-black border-solid border-b-4" type="file"
+                name="upload_file" />
             <br>
             <br>
             <script>
-                document.getElementById("uploadfile").onchange = function () {
+                document.getElementById("upload_file").onchange = function () {
                     var filename = this.value.replace(/^.*?([^\\\/]*)$/, '$1');
                     document.getElementById("file-choosen").innerHTML = filename;
                     document.getElementById("uploadfile").innerHTML = "File Uploaded"
@@ -68,15 +74,12 @@
                 Post Synopsis
             </label>
             <br>
-            <textarea 
-                class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w-full" 
-                type="text"
-                maxlength="140"
-                placeholder="Synopsis"
-                value="{{.PostSynopsis}}"
-            >
-                {{ .PostSynopsis}}
-            </textarea>
+            <!-- SYNOPSIS INPUT -->
+            <textarea id="synopsis"
+                class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w-full"
+                style="line-height: 20px;height: 24px;" type="text" maxlength="140" rows="1" placeholder="Synopsis"
+                value="{{.PostSynopsis}}">{{ .PostSynopsis}}</textarea>
+            <!-- text area have to be clustered other wise it will show up a new line. -->
             <br>
             <br>
             <!-- Related Posts -->
@@ -84,7 +87,9 @@
                 Related Posts
             </label>
             <br>
-            <input class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w-full" type="text"
+            <!-- RELATED POSTS INPUT -->
+            <input id="related_posts"
+                class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w-full" type="text"
                 name="related-posts" placeholder="Related Posts ( id separated by comma)" value="{{.RelatedPosts}}">
             <br>
             <br>
@@ -93,10 +98,70 @@
                 Post Content
             </label>
             <br>
-            <textarea class="placeholder-gray-700 outline-none border-black border-solid border-b-4 p-2 w-full"
-                placeholder="Content">{{ .PostContent}}</textarea>
-        </form>
+            <!-- CONTENT INPUT -->
+            <textarea id="content"
+                class="placeholder-gray-700 outline-none border-black border-solid border-b-4 p-2 w-full"
+                style="min-height: 200px;max-height: 420px;" placeholder="Content">{{ .PostContent}}</textarea>
+            <!-- text area have to be clustered other wise it will show up a new line. -->
+            <div class="relative mb-3">
+                <!-- SUBMIT INPUT -->
+                <button id="submit" class="absolute right-10 mukta_font text-2xl hover:text-zinc-100 hover:text-3xl">
+                    SUBMIT
+                </button>
+            </div>
+        </div>
+        <script>
+            const btn = document.querySelector('#submit');
 
+            function sendData(data) {
+                console.log('Sending data');
+                const XHR = new XMLHttpRequest();
+
+                var formData = new FormData();
+
+                formData.append('id', data.id);
+                formData.append('title', data.title);
+                formData.append('document', data.document);
+                formData.append('synopsis', data.synopsis);
+                formData.append('content', data.content);
+                formData.append('related_posts', data.related_posts);
+
+                // Define what happens on successful data submission
+                XHR.addEventListener('load', function (event) {
+                    alert('Yeah! Data sent and response loaded.');
+                });
+
+                // Define what happens in case of error
+                XHR.addEventListener('error', function (event) {
+                    alert('Oops! Something went wrong.');
+                });
+
+                // Set up our request
+                XHR.open('POST', '/blog/post');
+
+                // Add the required HTTP header for form data POST requests
+                // XHR.setRequestHeader('Content-Type', 'multipart/form-data');
+
+                // Finally, send our data.
+                XHR.send(formData);
+
+            }
+
+            function BuildData() {
+                return {
+                    id: document.getElementById("post_id").value,
+                    title: document.getElementById("title").value,
+                    document: document.getElementById("upload_file").files[0],
+                    synopsis: document.getElementById("synopsis").value,
+                    content: document.getElementById("content").value,
+                    related_posts: document.getElementById("related_posts").value,
+                }
+            }
+
+            btn.addEventListener('click', function () {
+                sendData(BuildData());
+            })
+        </script>
     </section>
 </body>
 

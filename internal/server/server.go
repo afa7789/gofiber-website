@@ -55,10 +55,13 @@ func New(si *domain.ServerInput) *Server {
 	blog.Get("edit/:post_id?",
 		basicauth.New(bac), // Basic Auth Middleware
 		server.blogEditor())
+
 	// missing page
 	blog.Get("/missing", server.blogMissing())
-	// post viewer or blog list
-	blog.Get("/:post_id?", server.blogView())
+	// post view
+	blog.Get("/:post_id", server.postView())
+	// blog view
+	blog.Get("/:post_id", server.blogView())
 
 	// Post Auth Middleware ?
 	pc := newPostsController(si.Reps.PostRep)
