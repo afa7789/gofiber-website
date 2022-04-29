@@ -21,21 +21,34 @@ func NewPostRepository(db *Database) *PostRepository {
 
 func (pr *PostRepository) AddPost(p *domain.Post) uint {
 	// Update all columns, except primary keys, to new value on conflict
+	// upsert
 	pr.db.client.Clauses(clause.OnConflict{
 		UpdateAll: true,
 	}).Create(p)
 
-	// upsert
 	return p.ID
 }
 
 func (pr *PostRepository) RetrievePosts(arr []uint) ([]domain.Post, error) {
 	var posts []domain.Post
 
+	// select multiple ids
 	result := pr.db.client.Find(&posts, arr)
 	if result.Error != nil {
 		return posts, result.Error
 	}
-	// select
+
 	return posts, nil
+}
+
+func (pr *PostRepository) RetrievePost(id uint) (*domain.Post, error) {
+	var post *domain.Post
+
+	// select id
+	result := pr.db.client.First(post, id)
+	if result.Error != nil {
+		return post, result.Error
+	}
+
+	return post, nil
 }

@@ -29,7 +29,6 @@ func NewDatabase() *Database {
 	// connecting to DB
 	db, err := gorm.Open(mysql.Open(URL))
 	if err != nil {
-		// panic("Failed to connect to database!")
 		return nil
 	}
 	print("Connected to database!")
