@@ -44,6 +44,8 @@ func New(si *domain.ServerInput) *Server {
 	// ================ROUTES====================
 	// Static Files
 	r.Static("/public", "./web/static")
+
+	// Some pages
 	r.Get("/", server.mainPage())
 	r.Get("/thanks", server.thanksPage())
 	r.Get("/failed", server.failedPage())
@@ -59,11 +61,11 @@ func New(si *domain.ServerInput) *Server {
 	blog.Get("/:post_id?", server.blogView())
 
 	// Post Auth Middleware ?
-	pc := NewPostsController(&si.Reps.PostRep)
-	blog.Post("/post", pc.ReceivePost())
+	pc := newPostsController(si.Reps.PostRep)
+	blog.Post("/post", pc.receivePost())
 
 	// Mail routes
-	mailController := NewMailerController()
+	mailController := newMailerController()
 	r.Post("/mail", mailController.send())
 
 	server.router = r

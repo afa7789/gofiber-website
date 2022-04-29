@@ -4,7 +4,6 @@ import (
 	"afa7789/site/internal/domain"
 	"io"
 	"log"
-	"mime/multipart"
 	"os"
 	"path/filepath"
 
@@ -12,17 +11,17 @@ import (
 )
 
 type PostsController struct {
-	pr *domain.PostRepository
+	pr domain.PostRepository
 }
 
-func NewPostsController(pr *domain.PostRepository) *PostsController {
+func newPostsController(pr domain.PostRepository) *PostsController {
 	return &PostsController{
 		pr: pr,
 	}
 }
 
 // Receive post receives a multi-form from page.
-func (pc *PostsController) ReceivePost() fiber.Handler {
+func (pc *PostsController) receivePost() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		var post domain.Post
 
@@ -44,28 +43,26 @@ func (pc *PostsController) ReceivePost() fiber.Handler {
 			})
 		}
 
-		go func(file *multipart.FileHeader) {
-			// store the file
-			f, err := os.OpenFile(
-				filepath.Join(domain.StaticPathToFile, file.Filename),
-				os.O_WRONLY|os.O_CREATE, 0o666)
-			if err != nil {
-				log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
-			}
-			defer f.Close()
+		// store the file
+		f, err := os.OpenFile(
+			filepath.Join(domain.StaticPathToFile, file.Filename),
+			os.O_WRONLY|os.O_CREATE, 0o666)
+		if err != nil {
+			log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
+		}
+		defer f.Close()
 
-			fio, _ := file.Open()
-			_, err = io.Copy(f, fio)
-			if err != nil {
-				log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
-			}
-			// and add it to the post
-			post.Image = domain.PathToFile + file.Filename
+		fio, _ := file.Open()
+		_, err = io.Copy(f, fio)
+		if err != nil {
+			log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
+		}
+		// and add it to the post
+		post.Image = domain.PathToFile + file.Filename
 
-			// store the data TODO, receive post
-			// upload or create the post
-			// if it's create will be sent with post id 0.
-		}(file)
+		// upload or create the post
+		// if it's create will be sent with post id 0.
+		pc.pr.AddPost(&post)
 
 		return c.Status(fiber.StatusOK).JSON(post)
 	}

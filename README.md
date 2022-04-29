@@ -12,7 +12,7 @@ __Creating & running the mysql in docker.__
 ```sh
 # create docker
 docker create -v /var/lib/mysql --name mysqldata mysql
-docker run --name mysqldb_fiber_site --volumes-from mysqldata -e MYSQL_ROOT_PASSWORD=password -p 3307:3306 -d mysql:latest
+docker run --name mysqldb_fiber_site --volumes-from mysqldata -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -d mysql:latest
 # restart
 docker start mysqldb_fiber_site
 # log on it and run the other codes bellow
@@ -21,7 +21,7 @@ docker exec -it mysqldb_fiber_site mysql -u root -ppassword
 
 __Creating the user to access the database.__
 ```sql
-CREATE USER 'site'@'%' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
+CREATE USER 'site'@'%' IDENTIFIED BY 'PASSWORD';
 GRANT ALL PRIVILEGES ON *.* TO 'site'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 exit
@@ -39,9 +39,12 @@ CREATE TABLE posts (
     image VARCHAR(255),
     related_posts VARCHAR(255),
     synopsis TINYTEXT,
-    content LONGTEXT
+    content LONGTEXT,
+    created_at datetime DEFAULT CURRENT_TIMESTAMP
 );
 ```
+
+if using dbeaver, it is possible that you will need to change the permission in driver properties: allowPublicKeyRetrieval to true. If the permission doesn't exist, just add a newer one.
 
 ## Features
 - Contact Mailing & Failed and Tahnks redirections
@@ -49,7 +52,6 @@ CREATE TABLE posts (
 - Blog Section ,  missing post and individual one
   
 ## Missing Features
-- Log remove panic and log to files.
-- Setup blog part as subdomain.
+- Log: remove panic and log to files.
+- Setup blog part as subdomain: https://github.com/gofiber/fiber/issues/750 use subdomain on blog
 - ToDoList Page
-- https://github.com/gofiber/fiber/issues/750 use subdomain on blog
