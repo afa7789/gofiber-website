@@ -2,13 +2,16 @@ package server
 
 import (
 	"afa7789/site/internal/domain"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 
+	"github.com/avelino/slugify"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -21,6 +24,8 @@ func newPostsController(pr domain.PostRepository) *PostsController {
 		pr: pr,
 	}
 }
+
+/////////////////API ENDPOINTS
 
 // Receive post receives a multi-form from page.
 func (pc *PostsController) receivePost() fiber.Handler {
@@ -35,6 +40,9 @@ func (pc *PostsController) receivePost() fiber.Handler {
 				Message: "Error at content parsing " + err.Error(),
 			})
 		}
+
+		// slugfy the title
+		post.Slug = slugify.Slugify(post.Title)
 
 		// getting the file from the form
 		file, err := c.FormFile("document")
@@ -73,22 +81,7 @@ func (pc *PostsController) receivePost() fiber.Handler {
 	}
 }
 
-func (s *Server) getPost(id string) (*domain.Post, error) {
-	// parse from string to uint
-	ID_int, err := strconv.ParseUint(id, 10, 64)
-	if err != nil {
-		log.Default().Printf("Error parsing post ID = %s, not an integer", id)
-		return nil, err
-	}
-	// get post data
-	// retrieve post data
-	post, err := s.reps.PostRep.RetrievePost(uint(ID_int))
-	if err != nil {
-		log.Default().Printf("Couldn't retrieve post ID = %s", id)
-		return nil, err
-	}
-	return post, nil
-}
+/////////////////RENDER FUNCTIONS
 
 // blogEditor opens the template
 // this func returns a page to edit an old post
@@ -128,22 +121,22 @@ func (s *Server) postView() fiber.Handler {
 		// get post data
 		post, err := s.getPost(postID)
 		if err != nil {
+			if err.Error() == "no_slug" {
+				return c.Status(fiber.StatusNoContent).Redirect("/blog/post/" + postID + "-" + post.Slug)
+			}
 			log.Default().Printf("Error with post ID = %s : %s", postID, err.Error())
+			return c.Status(fiber.StatusNoContent).Redirect("/missing")
 		}
 
-		if postID != "" {
-			// blog post
-			return c.Status(http.StatusOK).Render("post.html", fiber.Map{
-				"Title":            post.Title + " - " + postID + " - afa7789 ",
-				"PostID":           postID,
-				"PostTitle":        post.Title,
-				"PostContent":      post.Content,
-				"PostSynopsis":     post.Synopsis,
-				"PostRelatedPosts": post.RelatedPosts,
-			})
-		}
-
-		return c.Status(fiber.StatusOK).Redirect("/missing")
+		// blog post
+		return c.Status(http.StatusOK).Render("post.html", fiber.Map{
+			"Title":            post.Title + " - " + postID + " - afa7789 ",
+			"PostID":           postID,
+			"PostTitle":        post.Title,
+			"PostContent":      post.Content,
+			"PostSynopsis":     post.Synopsis,
+			"PostRelatedPosts": post.RelatedPosts,
+		})
 
 	}
 }
@@ -166,4 +159,43 @@ func (s *Server) blogMissing() fiber.Handler {
 			"Title": "Post doesn't exist - afa7789 ",
 		})
 	}
+}
+
+/////////////////HELPER FUNCTIONS
+
+func (s *Server) getPost(str string) (*domain.Post, error) {
+
+	index := strings.Index(str, "-")
+	var postID uint64
+	var err error
+	var noSlug bool
+
+	// without slug;
+	if index == -1 {
+		// parse from string to uint
+		postID, err = strconv.ParseUint(str, 10, 64)
+		noSlug = true
+	} else {
+		postID, err = strconv.ParseUint(str[:index], 10, 64)
+	}
+
+	// if there's an error
+	if err != nil {
+		log.Default().Printf("Error parsing post ID = %d, not an integer", postID)
+		return nil, err
+	}
+
+	// get post data
+	// retrieve post data
+	post, err := s.reps.PostRep.RetrievePost(uint(postID))
+	if err != nil {
+		log.Default().Printf("Couldn't retrieve post ID = %d", postID)
+		return nil, err
+	}
+
+	if noSlug {
+		return post, fmt.Errorf("no_slug")
+	}
+
+	return post, nil
 }

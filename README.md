@@ -36,6 +36,7 @@ DROP TABLE IF EXISTS posts;
 CREATE TABLE posts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255),
+    slug VARCHAR(255),
     image VARCHAR(255),
     related_posts VARCHAR(255),
     synopsis TINYTEXT,
@@ -47,10 +48,11 @@ CREATE TABLE posts (
 if using dbeaver, it is possible that you will need to change the permission in driver properties: allowPublicKeyRetrieval to true. If the permission doesn't exist, just add a newer one.
 
 ## Features
-- Contact Mailing & Failed and Tahnks redirections
+- Contact Mailing & Failed and Thanks redirections
 - Blog Post Edit and Create
-- Blog Section ,  missing post and individual one
-  
+- Blog Section, missing post and individual one
+- SLUG handling for better (SEO).
+
 ## Missing Features
 - Log: remove panic and log to files.
 - Setup blog part as subdomain: https://github.com/gofiber/fiber/issues/750 use subdomain on blog
