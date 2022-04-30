@@ -7,12 +7,27 @@
     {{ template "components/header.html" . }}
     <section class="my-10 px-12" id="post">
         <h2>Blog Post</h2>
+        <img src="{{.PostImage}}" alt="Image for blog post: {{.PostTitle}}">
         <h1>{{.PostTitle}}</h1>
         {{.PostContent}}
     </section>
     <!-- RELATED POSTS links -->
     <section>
-
+        <style>
+            .horizontal_line_class:last-child {
+                display:none;
+            }   
+        </style>
+        {{range .}}
+            <div>
+                <p>bolinha?</p>
+                <a href="/blog/{{.RPostsID}}-{{.RPostsSlug}}">
+                    <p>{{.RPostsTitle}}</p>
+                    <p>{{.RPostsSynopsis}}</p>
+                </a>
+                <hr class="horizontal_line_class" />
+            <div>
+        {{end}}
     </section>
     <!-- FOOTER -->
     <style>

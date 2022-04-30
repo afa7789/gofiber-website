@@ -10,8 +10,7 @@ It is manly used as forefront to freelance projects and contracts.
 
 __Clone__
 
-`git clone https://github.com/afa7789/blog-website.git`
-`cd blog-website`
+`git clone https://github.com/afa7789/gofiber-website.git && cd gofiber-website`
 
 __Run the database__
 
@@ -77,3 +76,8 @@ if using dbeaver, it is possible that you will need to change the permission in 
 - Log: remove panic and log to files.
 - Setup blog part as subdomain: https://github.com/gofiber/fiber/issues/750 use subdomain on blog
 - ToDoList Page
+
+
+p:last-child {
+  background: #ff0000;
+}
