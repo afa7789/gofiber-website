@@ -73,6 +73,9 @@ func (pc *PostsController) receivePost() fiber.Handler {
 		// and add it to the post
 		post.Image = domain.PathToFile + file.Filename
 
+		// threat the related posts
+		post.RelatedPosts = relatedPostsFixer(post.RelatedPosts)
+
 		// upload or create the post
 		// if it's create will be sent with post id 0.
 		pc.pr.AddPost(&post)
@@ -128,14 +131,41 @@ func (s *Server) postView() fiber.Handler {
 			return c.Status(fiber.StatusNoContent).Redirect("/missing")
 		}
 
+		// get data from related posts
+		splited := strings.Split(post.RelatedPosts, ",")
+
+		RelatedPostsIDs := []uint{}
+		RelatedPostsTitles := []string{}
+		RelatedPostsImages := []string{}
+		RelatedPostsSynopsies := []string{}
+		for _, postIDStr := range splited {
+			// check if it's an integer
+			if postID, err := strconv.ParseUint(postIDStr, 10, 64); err != nil {
+				// if not just don't add it
+				RelatedPostsIDs = append(RelatedPostsIDs, uint(postID))
+			}
+		}
+		relatedPosts, err := s.reps.PostRep.RetrievePosts(RelatedPostsIDs)
+		if err != nil {
+			log.Default().Printf("Error at related post querry : %s", err.Error())
+		}
+		for _, relatedPost := range relatedPosts {
+			RelatedPostsTitles = append(RelatedPostsTitles, relatedPost.Title)
+			RelatedPostsImages = append(RelatedPostsImages, relatedPost.Image)
+			RelatedPostsSynopsies = append(RelatedPostsSynopsies, relatedPost.Synopsis)
+		}
+
 		// blog post
 		return c.Status(http.StatusOK).Render("post.html", fiber.Map{
-			"Title":            post.Title + " - " + postID + " - afa7789 ",
-			"PostID":           postID,
-			"PostTitle":        post.Title,
-			"PostContent":      post.Content,
-			"PostSynopsis":     post.Synopsis,
-			"PostRelatedPosts": post.RelatedPosts,
+			"Title":                 post.Title + " - " + postID + " - afa7789 ",
+			"PostID":                postID,
+			"PostTitle":             post.Title,
+			"PostContent":           post.Content,
+			"PostSynopsis":          post.Synopsis,
+			"RelatedPostsIDs":       RelatedPostsIDs,
+			"RelatedPostsImages":    RelatedPostsImages,
+			"RelatedPostsTitles":    RelatedPostsTitles,
+			"RelatedPostsSynopsies": RelatedPostsSynopsies,
 		})
 
 	}
@@ -198,4 +228,25 @@ func (s *Server) getPost(str string) (*domain.Post, error) {
 	}
 
 	return post, nil
+}
+
+func relatedPostsFixer(related_posts string) string {
+	splited := strings.Split(related_posts, ",")
+	concated_result := ""
+	for _, post_id := range splited {
+		// check if it's an integer
+		if _, err := strconv.ParseUint(post_id, 10, 64); err != nil {
+			// if not just don't add it
+			concated_result += post_id + ","
+		}
+	}
+
+	// remove last comma
+	f2 := []rune(concated_result)
+	for f2[len(f2)-1] == ',' {
+		f2 = f2[:len(f2)-1]
+	}
+	concated_result = string(f2)
+
+	return concated_result
 }
