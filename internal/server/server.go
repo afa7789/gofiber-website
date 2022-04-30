@@ -61,7 +61,7 @@ func New(si *domain.ServerInput) *Server {
 	// post view
 	blog.Get("/:post_id", server.postView())
 	// blog view
-	blog.Get("/:post_id", server.blogView())
+	blog.Get("/", server.blogView())
 
 	// Post Auth Middleware ?
 	pc := newPostsController(si.Reps.PostRep)
