@@ -2,13 +2,16 @@
 <html lang="en">
 {{ template "components/meta.html" . }}
 
-<body class="px-0 py-0 mx-0 my-0">
+<body class="px-0 py-0 mx-0 my-0" >
     <!-- HEADER -->
     {{ template "components/header.html" . }}
-    <main>
+    <main >
         <!-- Thanks -->
-        <section class="my-2 px-12 pb-10 pt-2">
+        <section class="px-12 mt-2 sm:mt-10 md:mt-20">
             <h3 class="text-xl text-zinc-500 text-center">We have received your contact!</h1>
+            <h2 class="text-3xl text-zinc-700 text-center">
+                Try again but fill all the values
+            </h2>
             <p class="text-center ">
                 Thanks for trying to get in touch with us.
                 <br>
@@ -16,18 +19,23 @@
             </p>
         </section>
         <!-- Contact -->
-        <section class="my-2 px-12 pb-10 pt-2">
-            <h1 class="text-xl text-zinc-500 text-center">
-                Try again but fill all the values
-            </h1>
-            {{ template "components/contact.html" . }}
+        <section class="my-2 px-6 pb-5 pt-2">
+            <div class="w-1/2 mx-auto">     
+                <style>
+                    .contact-form {
+                        width:100%;
+                        margin-top:0;
+                    }
+                </style>
+                {{ template "components/contact.html" . }}
+            </div>
         </section>
     </main>
     <!-- FOOTER -->
     <style>
         footer {
             position:absolute;
-            bottom: 10px;
+            bottom: 5px;
             width:100%;
         }
     </style>
