@@ -77,7 +77,4 @@ if using dbeaver, it is possible that you will need to change the permission in 
 - Setup blog part as subdomain: https://github.com/gofiber/fiber/issues/750 use subdomain on blog
 - ToDoList Page
 
-
-p:last-child {
-  background: #ff0000;
-}
+![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=afa7789.gofiber-website)
