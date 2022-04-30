@@ -128,7 +128,7 @@ func (s *Server) postView() fiber.Handler {
 				return c.Status(fiber.StatusNoContent).Redirect("/blog/post/" + postID + "-" + post.Slug)
 			}
 			log.Default().Printf("Error with post ID = %s : %s", postID, err.Error())
-			return c.Status(fiber.StatusNoContent).Redirect("/missing")
+			return c.Status(fiber.StatusNoContent).Redirect("/blog/missing")
 		}
 
 		// get data from related posts
@@ -185,7 +185,7 @@ func (s *Server) blogView() fiber.Handler {
 // or specific post
 func (s *Server) blogMissing() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		return c.Status(http.StatusOK).Render("post.html", fiber.Map{
+		return c.Status(http.StatusOK).Render("missing.html", fiber.Map{
 			"Title": "Post doesn't exist - afa7789 ",
 		})
 	}
