@@ -6,6 +6,26 @@ A website created that uses go server with the package [go fiber](https://gofibe
 It's a small company website that have blogpost and a contact page.
 It is manly used as forefront to freelance projects and contracts.
 
+### Running the project
+
+__Clone__
+
+`git clone https://github.com/afa7789/blog-website.git`
+`cd blog-website`
+
+__Run the database__
+
+This has to be done after the database is [setupped](#mysql-setup).
+
+`docker start mysqldb_fiber_site`
+
+__Run the server__
+
+`go run .`
+
+__Using make__
+`make run`
+
 ### Mysql Setup
 
 __Creating & running the mysql in docker.__
