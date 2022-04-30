@@ -5,19 +5,20 @@
 <body class="px-0 py-0 mx-0 my-0">
     <!-- HEADER -->
     {{ template "components/header.html" . }}
-    <section class="my-10 px-12" id="post">
-        <!-- <h2>Blog Post</h2> -->
-        <h1>There is no post at that id</h1>
-        <!-- {{.PostContent}}        -->
-    </section>
-    <!-- BLOG -->
-    <section class="my-2 px-12 pb-10 pt-2">
-        <h1 class="text-xl text-zinc-500 text-center">
+    <!-- MISSING POST -->
+    <section class="my-20 px-12 pb-10 pt-2">
+        <h2 class="text-xl text-center"> The post does not exist.</h1>
+        <h1 class="text-3xl text-zinc-500 text-center">
             Check up others posts in the blog!
         </h1>
         <a href="/blog">
             <button class="flex m-auto mukta_font text-2xl hover:text-zinc-100 hover:text-3xl">
                 BLOG POSTS
+            </button>
+        </a>
+        <a href="/">
+            <button class="flex m-auto mukta_font text-2xl hover:text-zinc-100 hover:text-3xl">
+                HOME
             </button>
         </a>
     </section>
