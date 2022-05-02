@@ -67,12 +67,18 @@
             }   
         </style>
         {{if .RPostsID}}
-            {{range .}}
+
+            {{ $images := .RPostsImages }}
+            {{ $synp := .RPostsSynopsies }}
+            {{ $titles := .RPostsTitles }}
+            {{ $slugs := .RPostsSlugs }}
+
+            {{range $i, $id := .RPostsID}}
                 <div>
                     <p>bolinha?</p>
-                    <a href="/blog/{{.RPostsID}}-{{.RPostsSlug}}">
-                        <p>{{.RPostsTitle}}</p>
-                        <p>{{.RPostsSynopsis}}</p>
+                    <a href="/blog/{{$id}}-{{index $slugs $i}}">
+                        <p>{{index $titles  $i}}</p>
+                        <p>{{index $synp  $i}}</p>
                     </a>
                     <hr class="horizontal_line_class" />
                 <div>

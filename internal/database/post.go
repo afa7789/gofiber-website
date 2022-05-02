@@ -54,3 +54,11 @@ func (pr *PostRepository) RetrievePost(id uint) (*domain.Post, error) {
 
 	return post, nil
 }
+
+func (pr *PostRepository) LastThreePosts() ([]domain.Post, error) {
+	var posts []domain.Post
+
+	pr.db.client.Order("created_at desc").Find(&posts).Limit(3)
+
+	return posts, nil
+}
