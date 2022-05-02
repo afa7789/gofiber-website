@@ -14,6 +14,7 @@ require (
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
+	github.com/gomarkdown/markdown v0.0.0-20220419181919-412bcf14cd2e
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
 	github.com/klauspost/compress v1.14.1 // indirect

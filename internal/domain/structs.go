@@ -7,7 +7,7 @@ type Flags struct {
 }
 
 type Post struct {
-	ID           uint      `form:"id" json:"id"`
+	ID           uint      `form:"id" json:"id" gorm:"primarykey"`
 	Title        string    `form:"title" json:"title"`
 	Slug         string    `form:"slug" json:"slug"`
 	Synopsis     string    `form:"synopsis" json:"synopsis"`

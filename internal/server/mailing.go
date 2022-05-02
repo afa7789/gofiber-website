@@ -54,9 +54,9 @@ func (mc *MailerController) send() fiber.Handler {
 
 func validator(name, contactEmail, message string) bool {
 	if (name == "" || contactEmail == "") && message == "" {
-		return false
+		return true
 	}
-	return true
+	return false
 }
 
 // emailConstructor is the mail builder
