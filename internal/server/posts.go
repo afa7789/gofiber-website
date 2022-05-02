@@ -137,14 +137,18 @@ func (s *Server) postView() fiber.Handler {
 
 		// get data from related posts
 		splited := strings.Split(post.RelatedPosts, ",")
+
+		// create arrays to be used
 		RelatedPostsIDs := []uint{}
 		RelatedPostsTitles := []string{}
 		RelatedPostsImages := []string{}
 		RelatedPostsSynopsies := []string{}
+		RelatedPostsSlugs := []string{}
+
 		for _, postIDStr := range splited {
 			// check if it's an integer
-			if postID, err := strconv.ParseUint(postIDStr, 10, 64); err != nil && postIDStr != "" {
-				// if not just don't add it
+			if postID, err := strconv.ParseUint(postIDStr, 10, 64); err == nil {
+				// adding value.
 				RelatedPostsIDs = append(RelatedPostsIDs, uint(postID))
 			}
 		}
@@ -152,12 +156,15 @@ func (s *Server) postView() fiber.Handler {
 		if err != nil {
 			log.Default().Printf("Error at related post querry : %s", err.Error())
 		}
+
 		for _, relatedPost := range relatedPosts {
 			RelatedPostsTitles = append(RelatedPostsTitles, relatedPost.Title)
 			RelatedPostsImages = append(RelatedPostsImages, relatedPost.Image)
 			RelatedPostsSynopsies = append(RelatedPostsSynopsies, relatedPost.Synopsis)
+			RelatedPostsSlugs = append(RelatedPostsSlugs, relatedPost.Slug)
 		}
 
+		fmt.Printf("\n%+v\n", RelatedPostsSlugs)
 		// blog post
 		return c.Status(http.StatusOK).Render("post.html", fiber.Map{
 			"Title":           post.Title + " - " + postID + " - afa7789 ",
@@ -167,6 +174,7 @@ func (s *Server) postView() fiber.Handler {
 			"PostTitle":       post.Title,
 			"PostContent":     template.HTML(string(markdown.ToHTML([]byte(post.Content), nil, nil))),
 			"RPostsID":        RelatedPostsIDs,
+			"RPostsSlugs":     RelatedPostsSlugs,
 			"RPostsImages":    RelatedPostsImages,
 			"RPostsTitles":    RelatedPostsTitles,
 			"RPostsSynopsies": RelatedPostsSynopsies,

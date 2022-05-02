@@ -66,6 +66,12 @@ CREATE TABLE posts (
 
 if using dbeaver, it is possible that you will need to change the permission in driver properties: allowPublicKeyRetrieval to true. If the permission doesn't exist, just add a newer one.
 
+__Exporting DB on CLI__
+
+```sh
+docker exec -it mysqldb_fiber_site mysqldump -u root -ppassword gofiber_website > dump.sql
+```
+
 ## Features
 - Contact Mailing & Failed and Thanks redirections
 - Blog Post Edit and Create
