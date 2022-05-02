@@ -76,5 +76,7 @@ if using dbeaver, it is possible that you will need to change the permission in 
 - Log: remove panic and log to files.
 - Setup blog part as subdomain: https://github.com/gofiber/fiber/issues/750 use subdomain on blog
 - ToDoList Page
+- Organize html css images to use smaller ones to save loading time.
+- Deploy
 
 ![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=afa7789.gofiber-website)

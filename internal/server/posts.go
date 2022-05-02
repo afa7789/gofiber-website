@@ -3,16 +3,18 @@ package server
 import (
 	"afa7789/site/internal/domain"
 	"fmt"
+	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
+	"path"
 	"strconv"
 	"strings"
 
 	"github.com/avelino/slugify"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gomarkdown/markdown"
 )
 
 type PostsController struct {
@@ -41,6 +43,10 @@ func (pc *PostsController) receivePost() fiber.Handler {
 			})
 		}
 
+		if !validatePost(&post) {
+			return c.Status(fiber.StatusBadRequest).JSON(post)
+		}
+
 		// slugfy the title
 		post.Slug = slugify.Slugify(post.Title)
 
@@ -48,30 +54,27 @@ func (pc *PostsController) receivePost() fiber.Handler {
 		file, err := c.FormFile("document")
 		if err != nil {
 			log.Default().Printf("No document found in request body? %v", err)
-			return c.Status(fiber.StatusOK).JSON(fiber.Map{
-				"post": post,
-				"err":  err.Error(),
-			})
-		}
 
-		// create a file at the place we want to store it
-		f, err := os.OpenFile(
-			filepath.Join(domain.StaticPathToFile, file.Filename),
-			os.O_WRONLY|os.O_CREATE, 0o666)
-		if err != nil {
-			log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
-		}
-		defer f.Close()
+		} else {
+			// create a file at the place we want to store it
+			f, err := os.OpenFile(
+				path.Join(domain.StaticPathToFile, file.Filename),
+				os.O_WRONLY|os.O_CREATE, 0o666)
+			if err != nil {
+				log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
+			}
+			defer f.Close()
 
-		// copying the file bytes to the file we created above
-		fio, _ := file.Open()
-		_, err = io.Copy(f, fio)
-		if err != nil {
-			log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
-		}
+			// copying the file bytes to the file we created above
+			fio, _ := file.Open()
+			_, err = io.Copy(f, fio)
+			if err != nil {
+				log.Default().Printf("Error at saving file: %v for Post %v", err, post.ID)
+			}
 
-		// and add it to the post
-		post.Image = domain.PathToFile + file.Filename
+			// and add it to the post
+			post.Image = domain.PathToFile + file.Filename
+		}
 
 		// threat the related posts
 		post.RelatedPosts = relatedPostsFixer(post.RelatedPosts)
@@ -102,6 +105,7 @@ func (s *Server) blogEditor() fiber.Handler {
 			return c.Status(http.StatusOK).Render("editor.html", fiber.Map{
 				"Title":            "Post Editor - " + postID + " - afa7789 ",
 				"PostID":           postID,
+				"PostImage":        post.Image,
 				"PostTitle":        post.Title,
 				"PostContent":      post.Content,
 				"PostSynopsis":     post.Synopsis,
@@ -125,7 +129,7 @@ func (s *Server) postView() fiber.Handler {
 		post, err := s.getPost(postID)
 		if err != nil {
 			if err.Error() == "no_slug" {
-				return c.Status(fiber.StatusNoContent).Redirect("/blog/post/" + postID + "-" + post.Slug)
+				return c.Status(fiber.StatusNoContent).Redirect("/blog/" + postID + "-" + post.Slug)
 			}
 			log.Default().Printf("Error with post ID = %s : %s", postID, err.Error())
 			return c.Status(fiber.StatusNoContent).Redirect("/blog/missing")
@@ -133,14 +137,13 @@ func (s *Server) postView() fiber.Handler {
 
 		// get data from related posts
 		splited := strings.Split(post.RelatedPosts, ",")
-
 		RelatedPostsIDs := []uint{}
 		RelatedPostsTitles := []string{}
 		RelatedPostsImages := []string{}
 		RelatedPostsSynopsies := []string{}
 		for _, postIDStr := range splited {
 			// check if it's an integer
-			if postID, err := strconv.ParseUint(postIDStr, 10, 64); err != nil {
+			if postID, err := strconv.ParseUint(postIDStr, 10, 64); err != nil && postIDStr != "" {
 				// if not just don't add it
 				RelatedPostsIDs = append(RelatedPostsIDs, uint(postID))
 			}
@@ -157,15 +160,16 @@ func (s *Server) postView() fiber.Handler {
 
 		// blog post
 		return c.Status(http.StatusOK).Render("post.html", fiber.Map{
-			"Title":                 post.Title + " - " + postID + " - afa7789 ",
-			"PostID":                postID,
-			"PostTitle":             post.Title,
-			"PostContent":           post.Content,
-			"PostSynopsis":          post.Synopsis,
-			"RelatedPostsIDs":       RelatedPostsIDs,
-			"RelatedPostsImages":    RelatedPostsImages,
-			"RelatedPostsTitles":    RelatedPostsTitles,
-			"RelatedPostsSynopsies": RelatedPostsSynopsies,
+			"Title":           post.Title + " - " + postID + " - afa7789 ",
+			"PostID":          postID,
+			"PostDate":        post.CreatedAt.Format("01-02-2006"),
+			"PostImage":       post.Image,
+			"PostTitle":       post.Title,
+			"PostContent":     template.HTML(string(markdown.ToHTML([]byte(post.Content), nil, nil))),
+			"RPostsID":        RelatedPostsIDs,
+			"RPostsImages":    RelatedPostsImages,
+			"RPostsTitles":    RelatedPostsTitles,
+			"RPostsSynopsies": RelatedPostsSynopsies,
 		})
 
 	}
@@ -193,6 +197,13 @@ func (s *Server) blogMissing() fiber.Handler {
 
 /////////////////HELPER FUNCTIONS
 
+func validatePost(p *domain.Post) bool {
+	if p.Content != "" && p.Title != "" && p.Synopsis != "" {
+		return true
+	}
+	return false
+}
+
 func (s *Server) getPost(str string) (*domain.Post, error) {
 
 	index := strings.Index(str, "-")
@@ -211,13 +222,18 @@ func (s *Server) getPost(str string) (*domain.Post, error) {
 
 	// if there's an error
 	if err != nil {
-		log.Default().Printf("Error parsing post ID = %d, not an integer", postID)
+		if postID != 0 {
+			log.Default().Printf("Error parsing post id in = %s.", str)
+		}
 		return nil, err
 	}
 
 	// get post data
 	// retrieve post data
+	fmt.Printf("Post ID = %d\n", postID)
 	post, err := s.reps.PostRep.RetrievePost(uint(postID))
+	// fmt.Printf("%+v\n", *post)
+	// print("\n")
 	if err != nil {
 		log.Default().Printf("Couldn't retrieve post ID = %d", postID)
 		return nil, err
@@ -235,10 +251,14 @@ func relatedPostsFixer(related_posts string) string {
 	concated_result := ""
 	for _, post_id := range splited {
 		// check if it's an integer
-		if _, err := strconv.ParseUint(post_id, 10, 64); err != nil {
+		if _, err := strconv.ParseUint(post_id, 10, 64); err == nil {
 			// if not just don't add it
 			concated_result += post_id + ","
 		}
+	}
+
+	if len(concated_result) == 0 {
+		return ""
 	}
 
 	// remove last comma

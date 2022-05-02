@@ -52,9 +52,9 @@
             </label>
             <span id="file-choosen">
                 {{ if .PostImage }}
-                {{.PostImage}}
+                    {{.PostImage}}
                 {{else}}
-                No file chosen
+                    No file chosen
                 {{end}}
             </span>
             <!-- IMAGE FILE INPUT -->
@@ -121,14 +121,18 @@
 
                 formData.append('id', data.id);
                 formData.append('title', data.title);
-                formData.append('document', data.document);
+                if (data.document){
+                    formData.append('document', data.document);
+                }
                 formData.append('synopsis', data.synopsis);
                 formData.append('content', data.content);
                 formData.append('related_posts', data.related_posts);
 
                 // Define what happens on successful data submission
                 XHR.addEventListener('load', function (event) {
-                    alert('Yeah! Data sent and response loaded.');
+                    let resp = JSON.parse(event.target.response);
+                    console.log("at load",resp)
+                    alert('Yeah! Data sent and response loaded. id = '+resp.id);
                 });
 
                 // Define what happens in case of error
@@ -148,10 +152,11 @@
             }
 
             function BuildData() {
+                 let im = document.getElementById("upload_file").files[0]
                 return {
                     id: document.getElementById("post_id").value,
                     title: document.getElementById("title").value,
-                    document: document.getElementById("upload_file").files[0],
+                    document: im ? im : false,
                     synopsis: document.getElementById("synopsis").value,
                     content: document.getElementById("content").value,
                     related_posts: document.getElementById("related_posts").value,

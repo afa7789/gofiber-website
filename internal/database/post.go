@@ -42,12 +42,14 @@ func (pr *PostRepository) RetrievePosts(arr []uint) ([]domain.Post, error) {
 }
 
 func (pr *PostRepository) RetrievePost(id uint) (*domain.Post, error) {
-	var post *domain.Post
+	post := &domain.Post{}
 
 	// select id
 	result := pr.db.client.First(post, id)
 	if result.Error != nil {
-		return post, result.Error
+		print("erro aqui ?:", result.Error.Error())
+		print("\n")
+		return nil, result.Error
 	}
 
 	return post, nil

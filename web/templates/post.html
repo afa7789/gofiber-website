@@ -6,10 +6,58 @@
     <!-- HEADER -->
     {{ template "components/header.html" . }}
     <section class="my-10 px-12" id="post">
-        <h2>Blog Post</h2>
-        <img src="{{.PostImage}}" alt="Image for blog post: {{.PostTitle}}">
-        <h1>{{.PostTitle}}</h1>
-        {{.PostContent}}
+        <h2 class="text-xl text-zinc-700">Blog Post</h2>
+        <h1 class="my-3 text-4xl md:text-6xl mukta_font">{{.PostTitle}}  <span class="text-base text-zinc-500">{{.PostDate}}</span> </h1>
+        <img class="mb-6 object-cover h-48 w-96" src="{{.PostImage}}" alt="Image for blog post: {{.PostTitle}}">
+        <style>
+            #content h1{
+                font-size: 2.75rem;
+                font-family: 'Mukta', sans-serif;
+            }
+            #content h2{
+                font-size: 1.8rem;
+                font-family: 'Mukta', sans-serif;
+            }
+            #content h3{
+                text-transform: uppercase;
+                font-size: 1.5rem;
+                color: rgb(39 39 42 / var(--tw-text-opacity));
+            }
+            #content h4{
+                text-transform: uppercase;
+                font-size: 1.4rem;
+                color: rgb(39 39 42 / var(--tw-text-opacity));
+            }
+            #content h5{
+                font-size: 1.3rem;
+                color: rgb(39 39 42 / var(--tw-text-opacity));
+            }
+            #content h6{
+                font-size: 1.2rem; 
+                color: rgb(39 39 42 / var(--tw-text-opacity));
+            }
+            #content p{
+                font-size: 0.9rem; 
+                color: #404040;
+            }
+            #content a{
+                color: lightskyblue;
+            }
+            #content a:hover{
+                color: aqua;
+            }
+            #content code{
+                color:#f7f7f7;
+                white-space: pre-line;
+                border-radius: 10px;
+                background-color: #272727;
+                display:block;
+                padding:20px;
+            }
+        </style>
+        <div id="content">
+            {{.PostContent}}
+        </div>
     </section>
     <!-- RELATED POSTS links -->
     <section>
@@ -18,25 +66,20 @@
                 display:none;
             }   
         </style>
-        {{range .}}
-            <div>
-                <p>bolinha?</p>
-                <a href="/blog/{{.RPostsID}}-{{.RPostsSlug}}">
-                    <p>{{.RPostsTitle}}</p>
-                    <p>{{.RPostsSynopsis}}</p>
-                </a>
-                <hr class="horizontal_line_class" />
-            <div>
+        {{if .RPostsID}}
+            {{range .}}
+                <div>
+                    <p>bolinha?</p>
+                    <a href="/blog/{{.RPostsID}}-{{.RPostsSlug}}">
+                        <p>{{.RPostsTitle}}</p>
+                        <p>{{.RPostsSynopsis}}</p>
+                    </a>
+                    <hr class="horizontal_line_class" />
+                <div>
+            {{end}}
         {{end}}
     </section>
     <!-- FOOTER -->
-    <style>
-        footer {
-            position: absolute;
-            bottom: 5px;
-            width: 100%;
-        }
-    </style>
     {{ template "components/footer.html" . }}
 </body>
 
