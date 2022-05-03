@@ -17,7 +17,7 @@ type SMTP struct {
 	CompanyEmail string
 }
 
-// NewSMTPServer
+// NewSMTPServer creates the data used in the connection and send
 func NewSMTPServer() *SMTP {
 	// from is senders email address
 	// we used environment variables to load the
@@ -77,7 +77,7 @@ func NewSMTPServer() *SMTP {
 	}
 }
 
-// Send will send a msg to every recipient in to array
+// Send will connect and then send a msg to every recipient in to array
 func (s *SMTP) Send(to []string, msg string) error {
 	// Here is the key, you need to call tls.Dial instead of smtp.Dial
 	// for smtp servers running on 465 that require an ssl connection

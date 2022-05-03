@@ -118,9 +118,7 @@ func (s *Server) blogEditor() fiber.Handler {
 	}
 }
 
-// blogView opens the template
-// this func returns the blog page
-// or specific post
+// postView renders the template of a specific post
 func (s *Server) postView() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		postID := c.Params("post_id")
@@ -182,6 +180,7 @@ func (s *Server) postView() fiber.Handler {
 	}
 }
 
+// blogView renders the lists of posts blog page
 func (s *Server) blogView() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		// get page
@@ -242,6 +241,7 @@ func (s *Server) blogMissing() fiber.Handler {
 
 /////////////////HELPER FUNCTIONS
 
+// validatePost validates the post data
 func validatePost(p *domain.Post) bool {
 	if p.Content != "" && p.Title != "" && p.Synopsis != "" {
 		return true
@@ -249,6 +249,7 @@ func validatePost(p *domain.Post) bool {
 	return false
 }
 
+// this gets the post data and helps organize functions better
 func (s *Server) getPost(str string) (*domain.Post, error) {
 
 	index := strings.Index(str, "-")
@@ -291,6 +292,7 @@ func (s *Server) getPost(str string) (*domain.Post, error) {
 	return post, nil
 }
 
+// this validates and fixes the related posts data to use comma or be empty.
 func relatedPostsFixer(related_posts string) string {
 	splited := strings.Split(related_posts, ",")
 	concated_result := ""

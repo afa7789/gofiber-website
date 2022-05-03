@@ -37,6 +37,7 @@
                 visited:text-zinc-400"
             href="/blog?page={{$new_page}}"> previous page</a>
         {{end}}
+        <span>{{.Page}}</span>
         {{$nextpage := sub .TotalPages 1}}{{ if lt .Page $nextpage}}
         {{ $new_page := add .Page 1}}
         <a class="underline text-blue-600

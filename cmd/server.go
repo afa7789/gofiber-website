@@ -6,6 +6,8 @@ import (
 	"afa7789/site/internal/server"
 )
 
+// ServerExecute is the command function that setup initial structs and value.
+// After it, it will start the server.
 func ServerExecute(f domain.Flags) error {
 	// Setup Repositories
 	r := database.NewRepositories()
