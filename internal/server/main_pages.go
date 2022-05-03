@@ -39,7 +39,7 @@ func (s *Server) mainPage() fiber.Handler {
 	}
 }
 
-// mainPage creates a mainPage template
+// thanksPage creates a thanksPage template
 func (s *Server) thanksPage() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		return c.Status(http.StatusOK).Render("thanks.html", fiber.Map{
@@ -48,7 +48,7 @@ func (s *Server) thanksPage() fiber.Handler {
 	}
 }
 
-// mainPage creates a mainPage template
+// failedPage creates a failedPage template
 func (s *Server) failedPage() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		return c.Status(http.StatusOK).Render("failed.html", fiber.Map{

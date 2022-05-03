@@ -10,6 +10,7 @@ type PostRepository struct {
 	db *Database
 }
 
+// NewPostRepository creates a new post repository.
 func NewPostRepository(db *Database) *PostRepository {
 	if db == nil {
 		return nil
@@ -19,6 +20,7 @@ func NewPostRepository(db *Database) *PostRepository {
 	}
 }
 
+// AddPost is an upsert, will update or insert
 func (pr *PostRepository) AddPost(p *domain.Post) uint {
 	// Update all columns, except primary keys, to new value on conflict
 	// upsert
@@ -29,6 +31,7 @@ func (pr *PostRepository) AddPost(p *domain.Post) uint {
 	return p.ID
 }
 
+// RetrievePosts returns all posts from the database in accord to their ids
 func (pr *PostRepository) RetrievePosts(arr []uint) ([]domain.Post, error) {
 	var posts []domain.Post
 
@@ -41,6 +44,7 @@ func (pr *PostRepository) RetrievePosts(arr []uint) ([]domain.Post, error) {
 	return posts, nil
 }
 
+// RetrievePostByID returns a post by its ID
 func (pr *PostRepository) RetrievePost(id uint) (*domain.Post, error) {
 	post := &domain.Post{}
 
@@ -55,6 +59,7 @@ func (pr *PostRepository) RetrievePost(id uint) (*domain.Post, error) {
 	return post, nil
 }
 
+// LastThreePosts returns the last three posts looking (created at) from the database for the home page.
 func (pr *PostRepository) LastThreePosts() ([]domain.Post, error) {
 	var posts []domain.Post
 
@@ -63,7 +68,7 @@ func (pr *PostRepository) LastThreePosts() ([]domain.Post, error) {
 	return posts, nil
 }
 
-// paginate
+// PageResult does the pagination of results of blog posts for better viewing
 func (pr *PostRepository) PageResult(page int) ([]domain.Post, int64) {
 	var posts []domain.Post
 

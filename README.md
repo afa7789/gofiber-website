@@ -75,14 +75,14 @@ docker exec -it mysqldb_fiber_site mysqldump -u root -ppassword gofiber_website 
 ## Features
 - Contact Mailing & Failed and Thanks redirections
 - Blog Post Edit and Create
-- Blog Section, missing post and individual one
+- Blog Section, post view missing post and related ones
+- Blog updating to last posts in front page.
 - SLUG handling for better (SEO).
 
-## Missing Features
-- Log: remove panic and log to files.
+## Future Features
+- Logs and prints are done to a file
 - Setup blog part as subdomain: https://github.com/gofiber/fiber/issues/750 use subdomain on blog
 - ToDoList Page
 - Organize html css images to use smaller ones to save loading time.
-- Deploy
 
 ![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=afa7789.gofiber-website)

@@ -12,6 +12,7 @@ type Database struct {
 	client *gorm.DB
 }
 
+// NewDatabase creates a new database connection struct
 func NewDatabase() *Database {
 	USER := os.Getenv("DB_USER")
 	PASS := os.Getenv("DB_PASSWORD")

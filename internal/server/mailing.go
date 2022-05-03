@@ -11,6 +11,7 @@ type MailerController struct {
 	mailer *mail.SMTP
 }
 
+// new Controller will help bridge to the mailer
 func newMailerController() *MailerController {
 	mailer := mail.NewSMTPServer()
 	return &MailerController{
@@ -18,7 +19,7 @@ func newMailerController() *MailerController {
 	}
 }
 
-// send mail
+// will receive some data from the form and send it to the mail via mailer
 func (mc *MailerController) send() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		body := struct {
@@ -52,6 +53,7 @@ func (mc *MailerController) send() fiber.Handler {
 	}
 }
 
+// validator will check if the form is valid
 func validator(name, contactEmail, message string) bool {
 	if (name == "" || contactEmail == "") && message == "" {
 		return true
@@ -59,7 +61,7 @@ func validator(name, contactEmail, message string) bool {
 	return false
 }
 
-// emailConstructor is the mail builder
+// emailConstructor is the mail content string builder
 func emailConstructor(name, subject, message, contactEmail, companyEmail string) string {
 	return "From: " + name + " [" + contactEmail + "]\r\n" +
 		"To: " + companyEmail + "\r\n" +
