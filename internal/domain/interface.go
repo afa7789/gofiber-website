@@ -5,4 +5,5 @@ type PostRepository interface {
 	RetrievePosts(arr []uint) ([]Post, error)
 	RetrievePost(id uint) (*Post, error)
 	LastThreePosts() ([]Post, error)
+	PageResult(page int) ([]Post, int64)
 }

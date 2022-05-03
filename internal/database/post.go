@@ -62,3 +62,15 @@ func (pr *PostRepository) LastThreePosts() ([]domain.Post, error) {
 
 	return posts, nil
 }
+
+// paginate
+func (pr *PostRepository) PageResult(page int) ([]domain.Post, int64) {
+	var posts []domain.Post
+
+	pr.db.client.Offset(page * domain.PageLimit).Limit(domain.PageLimit).Find(&posts)
+
+	count := int64(0)
+	pr.db.client.Model(&domain.Post{}).Count(&count)
+
+	return posts, count
+}

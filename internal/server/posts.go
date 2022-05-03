@@ -33,7 +33,6 @@ func newPostsController(pr domain.PostRepository) *PostsController {
 func (pc *PostsController) receivePost() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		var post domain.Post
-
 		// parsinsg the post that's in the form coming from the request
 		if err := c.BodyParser(&post); err != nil {
 			return c.Status(fiber.StatusInternalServerError).JSON(struct {
@@ -185,9 +184,47 @@ func (s *Server) postView() fiber.Handler {
 
 func (s *Server) blogView() fiber.Handler {
 	return func(c *fiber.Ctx) error {
+		// get page
+		page := c.Query("page")
+		// if the page is empty it will be first page (0)
+		pageInt := 0
+		var err error
+		if page != "" {
+			pageInt, err = strconv.Atoi(page)
+			if err != nil {
+				return c.Status(fiber.StatusNoContent).Redirect("/blog/")
+			}
+		}
+
+		// mount the stuff to show
+		posts, maxPostNumbers := s.reps.PostRep.PageResult(pageInt)
+		// number of pages
+		numberOfPages := maxPostNumbers / domain.PageLimit
+
+		PostsIds := []uint{}
+		PostsTitles := []string{}
+		PostsImages := []string{}
+		PostsSynopsies := []string{}
+		PostsSlugs := []string{}
+
+		for _, p := range posts {
+			PostsIds = append(PostsIds, p.ID)
+			PostsTitles = append(PostsTitles, p.Title)
+			PostsImages = append(PostsImages, p.Image)
+			PostsSynopsies = append(PostsSynopsies, p.Synopsis)
+			PostsSlugs = append(PostsSlugs, p.Slug)
+		}
+
 		// blog posts
 		return c.Status(http.StatusOK).Render("blog.html", fiber.Map{
-			"Title": "Blog - afa7789 ",
+			"Title":          "Blog - afa7789 ",
+			"PostsID":        PostsIds,
+			"PostsSlugs":     PostsSlugs,
+			"PostsImages":    PostsImages,
+			"PostsTitles":    PostsTitles,
+			"PostsSynopsies": PostsSynopsies,
+			"TotalPages":     int(numberOfPages),
+			"Page":           pageInt,
 		})
 	}
 }
