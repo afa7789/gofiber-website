@@ -28,6 +28,14 @@ func New(si *domain.ServerInput) *Server {
 	// https://github.com/gofiber/template
 	engine := html.New("./web/templates", "")
 
+	engine.AddFunc("add", func(a, b int) int {
+		return a + b
+	})
+
+	engine.AddFunc("sub", func(a, b int) int {
+		return a - b
+	})
+
 	// Reload the templates on each render, good for development
 	engine.Reload(true) // Optional. Default: false
 	r := fiber.New(fiber.Config{

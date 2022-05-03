@@ -17,13 +17,6 @@ func ServerExecute(f domain.Flags) error {
 		Reps: r,
 	}
 
-	// posts, _ := si.Reps.PostRep.LastThreePosts()
-	// print("\n", len(posts), "\n")
-	// for _, p := range posts {
-	// 	print("title:", p.Title, "\n")
-	// 	print("date:", p.CreatedAt.String(), "\n")
-	// }
-
 	// Setup and start server
 	s := server.New(si)
 	s.Start(*f.Port)
