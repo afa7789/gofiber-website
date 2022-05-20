@@ -15,7 +15,7 @@ run: ## Run the application.
 # reset the database
 resetdb:
 	@echo "\033[2m→ Resetting the database...\033[0m"
-	@mysql -u $(DB_USER) -p$(DB_PASSWORD) -h $(DB_HOST) $(DB_NAME) < ./scripts/reset.sql
+	@mysql -u $(DB_USER) -p$(DB_PASSWORD) -h $(DB_HOST) < ./scripts/reset.sql
 
 # build the project
 build:
