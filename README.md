@@ -83,7 +83,7 @@ __build__
 Build the code to be used as a binary.
 `make build`
 
-__Running it__
+__running it__
 runs the docker database and the project.
 `make run`
 
@@ -102,5 +102,9 @@ runs the docker database and the project.
 - Organize html css images to use smaller ones to save loading time.
 - Links Page 
 - Links Page as subdomain
+
+## Thanks
+
+Thanks for passing by, if you liked it give a star ! hahah.
 
 ![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=afa7789.gofiber-website)
