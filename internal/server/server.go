@@ -57,6 +57,7 @@ func New(si *domain.ServerInput) *Server {
 	r.Get("/", server.mainPage())
 	r.Get("/thanks", server.thanksPage())
 	r.Get("/failed", server.failedPage())
+	r.Get("/profile", server.githubPage())
 
 	blog := r.Group("/blog")
 	// editor is exclusive to admin authentification

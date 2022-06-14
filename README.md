@@ -84,5 +84,8 @@ docker exec -it mysqldb_fiber_site mysqldump -u root -ppassword gofiber_website 
 - Setup blog part as subdomain: https://github.com/gofiber/fiber/issues/750 use subdomain on blog
 - ToDoList Page
 - Organize html css images to use smaller ones to save loading time.
+- Links Page 
+- Links Page as subdomain
+- Github README profile, reder page
 
 ![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=afa7789.gofiber-website)
