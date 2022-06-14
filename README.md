@@ -1,31 +1,16 @@
+![Theme Image](resources/banner.png)
 # afa7789 GoFiber WebSite
-## Golang Website Template
 
-A website created that uses go server with the package [go fiber](https://gofiber.io/).
+A Golang Website Template for developers made from the scracth using go, html , css and a little bit of js with ajax requests. It's a small company website that have blogpost and a contact page, and a profile github page rendered from the README.md profile page. It can be used as forefront to freelance projects and contracts for hackers ( developers who wants to craft projects for other persons)
 
-It's a small company website that have blogpost and a contact page.
-It is manly used as forefront to freelance projects and contracts.
+This website heavily uses the go server in this package [go fiber](https://gofiber.io/). And I trully recommend it.
 
-### Running the project
+### Settuping the project
 
 __Clone__
 
 `git clone https://github.com/afa7789/gofiber-website.git && cd gofiber-website`
-
-__Run the database__
-
-This has to be done after the database is [setupped](#mysql-setup).
-
-`docker start mysqldb_fiber_site`
-
-__Run the server__
-
-`go run .`
-
-__Using make__
-`make run`
-
-### Mysql Setup
+#### Mysql Setup
 
 __Creating & running the mysql in docker.__
 ```sh
@@ -72,20 +57,50 @@ __Exporting DB on CLI__
 docker exec -it mysqldb_fiber_site mysqldump -u root -ppassword gofiber_website > dump.sql
 ```
 
+### Running the project
+
+__Run the database__
+
+This has to be done after the database is [setupped](#mysql-setup).
+
+`docker start mysqldb_fiber_site`
+
+__Run the server__
+
+`go run .`
+
+### Make commands
+
+__lint__
+run the linter to check if the code is all good with the golang paterns.
+`make lint`
+
+__serve__
+Serve the website to write the outputs to the log files.
+`make serve`
+
+__build__
+Build the code to be used as a binary.
+`make build`
+
+__Running it__
+runs the docker database and the project.
+`make run`
+
 ## Features
 - Contact Mailing & Failed and Thanks redirections
 - Blog Post Edit and Create
 - Blog Section, post view missing post and related ones
 - Blog updating to last posts in front page.
 - SLUG handling for better (SEO).
+- Github README profile, reader page.
 
 ## Future Features
-- Logs and prints are done to a file
+- Logs and prints are done to a file ( can be improved I am doing it with make serve as unix redirecting the output)
 - Setup blog part as subdomain: https://github.com/gofiber/fiber/issues/750 use subdomain on blog
 - ToDoList Page
 - Organize html css images to use smaller ones to save loading time.
 - Links Page 
 - Links Page as subdomain
-- Github README profile, reder page
 
 ![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=afa7789.gofiber-website)
