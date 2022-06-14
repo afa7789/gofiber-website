@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
@@ -25,8 +24,7 @@ func (s *Server) mainPage() fiber.Handler {
 			LastPostsIds = append(LastPostsIds, post.ID)
 			LastPostsSlugs = append(LastPostsSlugs, post.Slug)
 		}
-		fmt.Printf("\n%+v\n", LastPostsTitles)
-		fmt.Printf("\n%+v\n", LastPostsImages)
+
 		return c.Status(http.StatusOK).Render("index.html", fiber.Map{
 			"Title":              "afa7789 - Computer Engineering Solutions",
 			"MainHeader":         true,

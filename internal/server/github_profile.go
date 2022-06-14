@@ -13,7 +13,6 @@ import (
 
 func (s *Server) githubPage() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-
 		username := os.Getenv("GITHUB_NAME")
 		url := fmt.Sprintf(
 			"https://raw.githubusercontent.com/%s/%s/main/README.md",

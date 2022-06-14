@@ -53,7 +53,6 @@ func (pc *PostsController) receivePost() fiber.Handler {
 		file, err := c.FormFile("document")
 		if err != nil {
 			log.Default().Printf("No document found in request body? %v", err)
-
 		} else {
 			// create a file at the place we want to store it
 			f, err := os.OpenFile(
@@ -176,7 +175,6 @@ func (s *Server) postView() fiber.Handler {
 			"RPostsTitles":    RelatedPostsTitles,
 			"RPostsSynopsies": RelatedPostsSynopsies,
 		})
-
 	}
 }
 
@@ -251,7 +249,6 @@ func validatePost(p *domain.Post) bool {
 
 // this gets the post data and helps organize functions better
 func (s *Server) getPost(str string) (*domain.Post, error) {
-
 	index := strings.Index(str, "-")
 	var postID uint64
 	var err error
@@ -278,8 +275,6 @@ func (s *Server) getPost(str string) (*domain.Post, error) {
 	// retrieve post data
 	fmt.Printf("Post ID = %d\n", postID)
 	post, err := s.reps.PostRep.RetrievePost(uint(postID))
-	// fmt.Printf("%+v\n", *post)
-	// print("\n")
 	if err != nil {
 		log.Default().Printf("Couldn't retrieve post ID = %d", postID)
 		return nil, err
@@ -293,27 +288,27 @@ func (s *Server) getPost(str string) (*domain.Post, error) {
 }
 
 // this validates and fixes the related posts data to use comma or be empty.
-func relatedPostsFixer(related_posts string) string {
-	splited := strings.Split(related_posts, ",")
-	concated_result := ""
-	for _, post_id := range splited {
+func relatedPostsFixer(relatedPosts string) string {
+	splited := strings.Split(relatedPosts, ",")
+	concatedResut := ""
+	for _, postID := range splited {
 		// check if it's an integer
-		if _, err := strconv.ParseUint(post_id, 10, 64); err == nil {
+		if _, err := strconv.ParseUint(postID, 10, 64); err == nil {
 			// if not just don't add it
-			concated_result += post_id + ","
+			concatedResut += postID + ","
 		}
 	}
 
-	if len(concated_result) == 0 {
+	if len(concatedResut) == 0 {
 		return ""
 	}
 
 	// remove last comma
-	f2 := []rune(concated_result)
+	f2 := []rune(concatedResut)
 	for f2[len(f2)-1] == ',' {
 		f2 = f2[:len(f2)-1]
 	}
-	concated_result = string(f2)
+	concatedResut = string(f2)
 
-	return concated_result
+	return concatedResut
 }
