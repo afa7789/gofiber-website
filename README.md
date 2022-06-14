@@ -35,7 +35,7 @@ docker run --name mysqldb_fiber_site --volumes-from mysqldata -e MYSQL_ROOT_PASS
 # restart
 docker start mysqldb_fiber_site
 # log on it and run the other codes bellow
-docker exec -it mysqldb_fiber_site mysql -u root -ppassword
+sudo docker exec -it mysqldb_fiber_site mysql -u root -ppassword
 ```
 
 __Creating the user to access the database.__

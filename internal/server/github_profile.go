@@ -41,6 +41,7 @@ func (s *Server) githubPage() fiber.Handler {
 		return c.Status(http.StatusOK).Render("github.html", fiber.Map{
 			"Title":          "Profile - afa7789",
 			"ProfileContent": pc,
+			"Link":           "github.com/" + username,
 		})
 	}
 }

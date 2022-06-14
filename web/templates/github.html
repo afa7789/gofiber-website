@@ -1,58 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 {{ template "components/meta.html" . }}
+
 <body class="px-0 py-0 mx-0 my-0">
     <!-- HEADER -->
     {{ template "components/header.html" . }}
     <section class="my-10 px-12" id="github_profile">
         <style>
-            #content h1{
+            #content {
+                background-color: black;
+                border: solid 2px black;
+                border-radius: 5px;
+                padding: 40px;
+                line-height: 200%;
+            }
+
+            #content h1 {
                 font-size: 2.75rem;
                 font-family: 'Mukta', sans-serif;
+                color: #e9ecf3;
+                margin: 20px 0px 10px;
             }
-            #content h2{
+
+            #content h2 {
                 font-size: 1.8rem;
                 font-family: 'Mukta', sans-serif;
+                color: #e9ecf3;
+                margin: 20px 0px 10px;
             }
-            #content h3{
+
+            #content h3 {
                 text-transform: uppercase;
                 font-size: 1.5rem;
-                color: rgb(39 39 42 / var(--tw-text-opacity));
+                color: #e9ecf3;
+                margin: 20px 0px 10px;
             }
-            #content h4{
+
+            #content h4 {
                 text-transform: uppercase;
                 font-size: 1.4rem;
-                color: rgb(39 39 42 / var(--tw-text-opacity));
+                color: #e9ecf3;
             }
-            #content h5{
+
+            #content h5 {
                 font-size: 1.3rem;
-                color: rgb(39 39 42 / var(--tw-text-opacity));
+                color: #e9ecf3;
             }
-            #content h6{
-                font-size: 1.2rem; 
-                color: rgb(39 39 42 / var(--tw-text-opacity));
+
+            #content h6 {
+                font-size: 1.2rem;
+                color: #e9ecf3;
             }
-            #content p{
-                font-size: 0.9rem; 
-                color: #404040;
+
+            #content p {
+                font-size: 0.9rem;
+                color: #666363;
+                display: flex;
+                flex-wrap: wrap;
+                
             }
-            #content a{
-                color: lightskyblue;
+
+            #content p:first-of-type {
+                font-size: 0.9rem;
+                display: inline;
+                white-space: inherit;
+                line-height: 10%;
             }
-            #content a:hover{
-                color: aqua;
+
+            #content a {
+                color: #7d9cad
             }
-            #content code{
-                color:#f7f7f7;
-                white-space: pre-line;
-                border-radius: 10px;
-                background-color: #272727;
-                display:block;
-                padding:20px;
+
+            #content a:hover {
+                color: #8d7cff
+            }
+
+            #content a:visited {
+                color: #e9ecf3
+            }
+
+            #content code {
+                color: #f7f7f7;
             }
         </style>
+        <p>
+            This page is rendered from my <a class="underline text-blue-600
+            hover:text-zinc-700 
+            visited:text-zinc-400" href="{{.Link}}">github page!</a>
+        </p>
+        <br />
         <div id="content">
             {{.ProfileContent}}
+            <a href="{{.Link}}"> CHECK UP my profile and it's repositories</a>
         </div>
     </section>
     <!-- FOOTER -->
