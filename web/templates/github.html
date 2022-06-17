@@ -8,48 +8,44 @@
     <section class="my-10 px-12" id="github_profile">
         <style>
             #content {
-                background-color: black;
-                border: solid 2px black;
-                border-radius: 5px;
-                padding: 40px;
                 line-height: 200%;
             }
 
             #content h1 {
                 font-size: 2.75rem;
                 font-family: 'Mukta', sans-serif;
-                color: #e9ecf3;
+                color: #080808;
                 margin: 20px 0px 10px;
             }
 
             #content h2 {
                 font-size: 1.8rem;
                 font-family: 'Mukta', sans-serif;
-                color: #e9ecf3;
+                color: #080808;
                 margin: 20px 0px 10px;
             }
 
             #content h3 {
                 text-transform: uppercase;
                 font-size: 1.5rem;
-                color: #e9ecf3;
+                color: #080808;
                 margin: 20px 0px 10px;
             }
 
             #content h4 {
                 text-transform: uppercase;
                 font-size: 1.4rem;
-                color: #e9ecf3;
+                color: #080808;
             }
 
             #content h5 {
                 font-size: 1.3rem;
-                color: #e9ecf3;
+                color: #080808;
             }
 
             #content h6 {
                 font-size: 1.2rem;
-                color: #e9ecf3;
+                color: #080808;
             }
 
             #content p {
@@ -68,7 +64,7 @@
             }
 
             #content a {
-                color: #7d9cad
+                color: #1c94d5
             }
 
             #content a:hover {
@@ -76,22 +72,25 @@
             }
 
             #content a:visited {
-                color: #e9ecf3
+                color: #080808
             }
 
             #content code {
-                color: #f7f7f7;
+                color: #0e0e0e;
             }
         </style>
         <p>
             This page is rendered from my <a class="underline text-blue-600
             hover:text-zinc-700 
-            visited:text-zinc-400" href="{{.Link}}">github page!</a>
+            visited:text-zinc-500" href="{{.Link}}">github page!</a>
         </p>
         <br />
         <div id="content">
             {{.ProfileContent}}
-            <a href="{{.Link}}"> CHECK UP my profile and it's repositories</a>
+            <div class="my-2"></div>
+            <a class="underline text-blue-600
+            hover:text-zinc-700 
+            visited:text-zinc-500" href="{{.Link}}"> CHECK UP my profile and it's repositories</a>
         </div>
     </section>
     <!-- FOOTER -->
