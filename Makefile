@@ -26,7 +26,7 @@ build:
 serve:
 	@echo "\033[2m→ Starting the server...\033[0m"
 	@mkdir -p ./log
-	@./bin/fiber_site >./log/`date +%F`.log 2>&1 &
+	@ ./bin/fiber_site --port 80 >./log/`date +%F`.log 2>./log/`date +%F`.log  &
 
 # dump the sql
 dump:

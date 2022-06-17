@@ -39,7 +39,8 @@ func New(si *domain.ServerInput) *Server {
 	// Reload the templates on each render, good for development
 	engine.Reload(true) // Optional. Default: false
 	r := fiber.New(fiber.Config{
-		Views: engine,
+		Views:             engine,
+		EnablePrintRoutes: false,
 	})
 
 	// Basic Auth configuration
@@ -58,7 +59,9 @@ func New(si *domain.ServerInput) *Server {
 	r.Get("/thanks", server.thanksPage())
 	r.Get("/failed", server.failedPage())
 	r.Get("/profile", server.githubPage())
+	r.Get("/github", server.githubPage())
 	r.Get("/vue", server.demoBlockiesPage())
+	r.Get("/blockies-vue-demo", server.demoBlockiesPage())
 
 	// links
 	link := r.Group("/link")
