@@ -1,0 +1,10 @@
+#example[data-v-c2c564d0] {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center
+}
+
+.item[data-v-c2c564d0] {
+    margin: 2px
+}

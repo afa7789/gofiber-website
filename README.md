@@ -96,6 +96,10 @@ __running it__
 runs the docker database and the project.
 `make run`
 
+## bash
+
+lsof -i :8080 | grep LISTEN
+kill -9 $PID
 ## Features
 - Contact Mailing & Failed and Thanks redirections
 - Blog Post Edit and Create
@@ -103,14 +107,14 @@ runs the docker database and the project.
 - Blog updating to last posts in front page.
 - SLUG handling for better (SEO).
 - Github README profile, reader page.
+- Links Page.
+- Demo Page using a vue script to render component.
 
 ## Future Features
 - Logs and prints are done to a file ( can be improved I am doing it with make serve as unix redirecting the output)
 - Setup blog part as subdomain: https://github.com/gofiber/fiber/issues/750 use subdomain on blog
-- ToDoList Page
+- Setup links Page as subdomain
 - Organize html css images to use smaller ones to save loading time.
-- Links Page 
-- Links Page as subdomain
 
 ## Thanks
 

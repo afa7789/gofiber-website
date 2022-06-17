@@ -58,6 +58,7 @@ func New(si *domain.ServerInput) *Server {
 	r.Get("/thanks", server.thanksPage())
 	r.Get("/failed", server.failedPage())
 	r.Get("/profile", server.githubPage())
+	r.Get("/vue", server.demoBlockiesPage())
 
 	// links
 	link := r.Group("/link")
