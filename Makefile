@@ -28,3 +28,7 @@ serve:
 	@mkdir -p ./log
 	@./bin/fiber_site >./log/`date +%F`.log 2>&1 &
 
+# dump the sql
+dump:
+	@echo "\033[2m→ Dumping the database...\033[0m"
+	@docker exec -it mysqldb_fiber_site mysqldump -u root -ppassword gofiber_website > dump.sql
