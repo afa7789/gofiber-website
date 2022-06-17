@@ -115,3 +115,25 @@ func (s *Server) linkEditor() fiber.Handler {
 		})
 	}
 }
+
+// deliteLink route
+func (s *Server) deleteLink() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		linkID := c.Params("link_id")
+		// from string to uint
+		IDLink, err := strconv.ParseUint(linkID, 10, 32)
+		// cast uint64 to uint
+		if err != nil {
+			log.Default().Printf("Error with link ID = %s : %s", linkID, err.Error())
+			linkID = ""
+		}
+
+		err = s.reps.LinkRep.DeleteLink(uint(IDLink))
+		if err != nil {
+			log.Default().Printf("Error on deleting link ID = %s : %s", linkID, err.Error())
+			return c.Status(http.StatusInternalServerError).JSON("not deleted")
+		}
+
+		return c.Status(http.StatusOK).JSON("deleted")
+	}
+}

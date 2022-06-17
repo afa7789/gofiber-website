@@ -65,6 +65,9 @@ func New(si *domain.ServerInput) *Server {
 	link.Get("edit/:link_id?",
 		basicauth.New(bac), // Basic Auth Middleware
 		server.linkEditor())
+
+	link.Delete("delete/:link_id?", server.deleteLink())
+
 	link.Post("/", server.receiveLink())
 	// link view
 	link.Get("/", server.linksView())

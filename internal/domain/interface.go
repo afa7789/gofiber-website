@@ -12,4 +12,5 @@ type LinkRepository interface {
 	AddLink(l *Link) uint
 	RetrieveLinks() ([]Link, error)
 	RetrieveLink(id uint) (*Link, error)
+	DeleteLink(id uint) error
 }

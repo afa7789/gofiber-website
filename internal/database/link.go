@@ -58,3 +58,22 @@ func (pr *LinkRepository) RetrieveLink(id uint) (*domain.Link, error) {
 
 	return link, nil
 }
+
+// DeleteLink receive id as uint and uses gorm to delete it
+func (pr *LinkRepository) DeleteLink(id uint) error {
+	link := &domain.Link{}
+
+	// select id
+	result := pr.db.client.First(link, id)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	// delete
+	result = pr.db.client.Delete(link)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+}
