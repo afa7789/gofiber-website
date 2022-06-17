@@ -17,11 +17,12 @@
                 <h1 class="text-4xl md:text-6xl mukta_font"> Computer Engineering Solutions
                 </h1>
 
-                <h2 class="text-lg sm:text-xl md:text-2xl text-right"> an Arthur's project </h2>
+                <h2 class="text-lg sm:text-xl md:text-2xl text-right"> an Arthur's website </h2>
                 <p class="text-zinc-800 italic mt-2 pl-2">
-                    afa7789 is a computer engineering company. <br>
-                    Its goal is to create high-end software tailored to the innate needs of each project.<br>
-                    Want to know more about our tech stack look at our blog posts and tutorials here.<br>
+                    afa7789 is the legal entity of Arthur, as a Computer Engineer. <br>
+                    It's goal is to create high-end software and computer solutions tailored to the requirements of each
+                    project.<br>
+                    Want to know about Arthur and tech? Check up his Medium and the blog part of the site.<br>
                 </p>
                 <div class="relative">
                     <a href="#contact"
@@ -38,32 +39,35 @@
                 Blog
             </h1>
             <p class="italic mt-2 sm:pl-2  sm:ml-8">
-                Posts about technology, programming languages and more, if you want to read more about Arthur or his ideas, check up his 
+                Posts about technology, programming languages and more, if you want to read more about Arthur or his
+                ideas, check up his
                 <a class="underline text-blue-600
                 hover:text-zinc-700 
                 visited:text-zinc-400" href="https://afa7789.medium.com/">medium blog posts</a>. <br>
             </p>
-            <div class="px-4 sm:px-10 py-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+            <div
+                class="px-4 sm:px-10 py-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
                 {{ $length := len .LastPostsTitles }} {{ if eq $length 3 }}
 
-                    {{ $postimages := .LastPostsImages }}
-                    {{ $synp := .LastPostsSynopsies }}
-                    {{ $slugs := .LastPostsSlugs }}
-                    {{ $ids := .LastPostsIds }}
+                {{ $postimages := .LastPostsImages }}
+                {{ $synp := .LastPostsSynopsies }}
+                {{ $slugs := .LastPostsSlugs }}
+                {{ $ids := .LastPostsIds }}
 
-                    {{range $i, $title := .LastPostsTitles}}
-                        <a href="/blog/{{index $ids $i}}-{{index $slugs $i}}">
-                            <div class="overflow-hidden">
-                                <img class="w-96 sm:w-5/6 object-cover h-60 sm:h-80" src="{{index $postimages $i}}" alt="Mountain">
-                                <div class=" sm:px-6 sm:py-4">
-                                    <div class="font-bold text-xl mb-2">{{ $title }}</div>
-                                    <p class="text-gray-200 text-base">{{index $synp  $i}}</p>
-                                </div>
-                            </div>
-                        </a>
-                    {{end}}
+                {{range $i, $title := .LastPostsTitles}}
+                <a href="/blog/{{index $ids $i}}-{{index $slugs $i}}">
+                    <div class="overflow-hidden">
+                        <img class="w-96 sm:w-5/6 object-cover h-60 sm:h-80" src="{{index $postimages $i}}"
+                            alt="Mountain">
+                        <div class=" sm:px-6 sm:py-4">
+                            <div class="font-bold text-xl mb-2">{{ $title }}</div>
+                            <p class="text-gray-200 text-base">{{index $synp $i}}</p>
+                        </div>
+                    </div>
+                </a>
+                {{end}}
                 {{else}}
- 
+
                 <!--Card 1-->
                 <div class=" overflow-hidden">
                     <img class="w-full object-fill" src="/public/images/mountain.jpg" alt="Mountain">
@@ -115,6 +119,10 @@
         <!-- SERVICES -->
         <section class="my-2 px-12 mt-10 pt-2">
             <h2 class="text-xl sm:text-2xl md:text-4xl  mukta_font mb-4">Services</h2>
+            <p class="italic mt-2 sm:pl-2  sm:ml-8">
+                Want to hire some working hours? maybe we can fit in the spare hours, or reserve future hours for your
+                project.
+            </p>
             <style>
                 .service-num {
                     font-size: 264px;
@@ -137,8 +145,7 @@
                     </h3>
                     <p style="min-width: 180px; max-width: 330px;" class="italic">
                         Development on demand of features or projects in newer tech stack.
-                        Your project with the most recent tech,
-                        best practices, and conventions.
+                        Your project with the most recent tech, best practices, and conventions.
                     </p>
 
                 </div>
@@ -180,39 +187,41 @@
             <div>
                 <img style="width: 300px; height: 337px; object-fit: cover; float:right; object-position: 80% 0;"
                     class="ml-2" src="/public/images/arthur.png">
-                <h2 class="text-xl sm:text-2xl md:text-4xl  mukta_font mb-4">About us</h2>
+                <h2 class="text-xl sm:text-2xl md:text-4xl  mukta_font mb-4">About Arthur</h2>
                 <p class="italic">
                     Want to know more about Arthur check up this links bellow. <br>
                     afa7789, is the developer, or better said internet username.<br>
                     it was created by the dear and past father of Arthur.<br>
-                    It represent his full name and the number of the childhood houses Arthur lived. <br>
                 </p>
             </div>
             <div class="ml-4">
-                <a class="my-5 flex d-block space-x-3" href="https://github.com/afa7789" target="_blank">
+                <a class="my-5 flex d-block space-x-3 hover:text-zinc-200 " href="https://github.com/afa7789" target="_blank">
                     <img class="w-10" type="image/svg+xml" src="/public/images/drawing.svg" alt="site logo">
                     <h3 class="text-lg mt-1 sm:text-xl md:text-2xl align-middle">Check out Arthur's profile at</h3>
                     <img class="w-20" type="image/svg+xml" src="/public/images/github_mark.svg" alt="site logo">
                 </a>
 
-                <a class="flex d-block space-x-3 cursor-pointer" href="https://www.linkedin.com/in/arthur-abeilice/"
+                <a class="flex d-block space-x-3 cursor-pointer  hover:text-zinc-200 " href="https://www.linkedin.com/in/arthur-abeilice/"
                     target="_blank">
-                    <h3 class="text-lg mt-1 sm:text-xl md:text-2xl align-middle">Connect with Arthur at his page in
+                    <h3 class="text-lg mt-1 sm:text-xl md:text-2xl align-middle ">Connect with Arthur at his page in
                     </h3>
                     <img class="w-28" type="image/svg+xml" src="/public/images/linkedin_logo.svg" alt="site logo">
                 </a>
             </div>
-            <div class="mt-4">
+            <div class="relative pt-6 mb-20">
+                <a href="/links" class="absolute left-0 mukta_font text-2xl hover:text-zinc-200 hover:text-3xl">
+                    OTHER LINKS
+                </a>
+            </div>
+            <!-- <div class="mt-4">
                 <p class="italic">
-                    "I created it due to the need for legal regularization <br>
-                    Thus enabling and providing support for the exporting of my programming services. <br>
-                    And to have a blog and tutorials on a domain and site that's mine."
+                    "What is a developer which does not have an website of his own? <br>
+                    A blog and tutorials on a domain and site that's mine."
                     <span class="strong font-bold">
                         - Arthur
                     </span>
                 </p>
-
-            </div>
+            </div> -->
         </section>
 
         <!-- CONTACTS -->

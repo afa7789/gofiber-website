@@ -1,15 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 {{ template "components/meta.html" . }}
+    <body class="px-0 py-0 mx-0 my-0">
+        <!-- HEADER -->
+        {{ template "components/header.html" . }}
+        <section class="my-10" id="links">
+            <h1 class="text-2xl md:text-4xl mukta_font text-center mb-5"> My Links 😎</h1>
+            {{if .LinksID}}
+            {{ $images := .LinksImages }}
+            {{ $descs := .LinksDescriptions }}
+            {{ $titles := .LinksTitles }}
+            {{ $hrefs := .LinksHREFs }}
+            <style>
+                .parent-div svg{
+                    max-width: 32px;
+                    max-height: 32px;
+                }
+                .parent-div:hover svg{
+                    max-width: 40px;
+                    max-height: 40px;
+                }
+                #linkss{
+                    margin:0 auto;
+                    width: 300px;
+                }
+            </style>
 
-<body class="px-0 py-0 mx-0 my-0">
-    <!-- HEADER -->
-    {{ template "components/header.html" . }}
-    <section class="my-10 px-12" id="links">
-
-    </section>
-    <!-- FOOTER -->
-    {{ template "components/footer.html" . }}
-</body>
-
+            <div id="linkss" class="flex flex-col space-y-2">
+                {{range $i, $id := .LinksID}}
+                <div class="parent-div flex flex-row items-center group max-w-md">
+                    {{ index $images $i }}
+                    <a class="ml-2 block" href="{{ index $hrefs $i }}">
+                        <p class="text-lg mukta_font group-hover:text-zinc-700 group-hover:text-xl ">{{index $titles $i}}</p>
+                        <p class="text-base  group-hover:text-zinc-700 group-hover:text-lg ">{{index $descs $i}}</p>
+                    </a>
+                </div>
+                {{end}}
+            </div>
+            {{end}}
+        </section>
+        <!-- FOOTER -->
+        {{ template "components/min_footer.html" . }}
+    </body>
 </html>

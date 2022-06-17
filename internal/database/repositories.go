@@ -6,7 +6,9 @@ import "afa7789/site/internal/domain"
 func NewRepositories() *domain.Repositories {
 	db := NewDatabase()
 	postRepository := NewPostRepository(db)
+	linkRepository := NewLinkRepository(db)
 	return &domain.Repositories{
 		PostRep: postRepository,
+		LinkRep: linkRepository,
 	}
 }

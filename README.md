@@ -47,6 +47,15 @@ CREATE TABLE posts (
     content LONGTEXT,
     created_at datetime DEFAULT CURRENT_TIMESTAMP
 );
+DROP TABLE IF EXISTS links;
+CREATE TABLE links (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    href VARCHAR(255),
+    image LONGTEXT,
+    description TINYTEXT,
+    created_at datetime DEFAULT CURRENT_TIMESTAMP
+);
 ```
 
 if using dbeaver, it is possible that you will need to change the permission in driver properties: allowPublicKeyRetrieval to true. If the permission doesn't exist, just add a newer one.

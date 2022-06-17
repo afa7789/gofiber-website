@@ -59,6 +59,15 @@ func New(si *domain.ServerInput) *Server {
 	r.Get("/failed", server.failedPage())
 	r.Get("/profile", server.githubPage())
 
+	// links
+	link := r.Group("/link")
+	link.Get("edit/:link_id?",
+		basicauth.New(bac), // Basic Auth Middleware
+		server.linkEditor())
+	link.Post("/", server.receiveLink())
+	// link view
+	link.Get("/", server.linksView())
+
 	blog := r.Group("/blog")
 	// editor is exclusive to admin authentification
 	blog.Get("edit/:post_id?",

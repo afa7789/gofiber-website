@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ template "components/meta.html" . }}
+
+<body class="px-0 py-0 mx-0 my-0">
+    <style>
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-upload {
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+    </style>
+    <!-- HEADER -->
+    {{ template "components/header.html" . }}
+    <section class="mt-10 px-12">
+        <h1 class="my-3 text-4xl md:text-6xl mukta_font">
+            Link editor
+        </h1>
+        <p>
+            The links images have to be either an svg or an emoji, an they have to be copy-pasted.
+        </p>
+        <br>
+        <div>
+            {{ if .LinkID }}
+            <p>
+                link ID: {{ .LinkID }}
+                <input type="hidden" id="link_id" name="linkID" value="{{ .LinkID }}">
+            </p>
+            {{else}}
+                <input type="hidden" id="link_id" name="linkID" value="0">
+            {{end}}
+
+            <!-- Title -->
+            <label class="uppercase tracking-wide font-bold">
+                Link Title
+            </label>
+            <br>
+            <!-- TITLE INPUT -->
+            <input id="title" class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w-full"
+                type="text" placeholder="Title" value="{{.LinkTitle}}">
+            <br>
+            <br>
+            <!-- Image -->
+            <label class="uppercase tracking-wide font-bold">
+                Link Image
+            </label>
+            <br>
+            <!-- IMAGE INPUT -->
+            <textarea id="image"
+            class="placeholder-gray-700 outline-none border-black border-solid border-b-4 p-2 w-full"
+            style="min-height: 100px;max-height: 420px;" placeholder="Paste an Emoji, or an svg.">{{ .LinkImage}}</textarea>
+            <!-- text area have to be clustered other wise it will show up a new line. -->
+            <br>
+            <br>
+            <!-- Description -->
+            <label class="uppercase tracking-wide font-bold">
+                Link Description
+            </label>
+            <br>
+            <!-- DESCRIPTION INPUT -->
+            <textarea id="description"
+                class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w-full"
+                style="line-height: 20px;height: 24px;" type="text" maxlength="140" rows="1" placeholder="Description"
+                value="{{.LinkDescription}}">{{ .LinkDescription}}</textarea>
+            <!-- text area have to be clustered other wise it will show up a new line. -->
+            <br>
+            <br>
+            <!-- HREF -->
+            <label class="uppercase tracking-wide font-bold">
+                Link HREF
+            </label>
+            <br>
+            <!-- HREF INPUT -->
+            <input id="href" class="placeholder-gray-700 outline-none border-black border-solid border-b-4 w-full"
+                type="text" placeholder="HREF" value="{{.LinkHREF}}">
+            <br>
+            <br>
+            <div class="relative mb-3">
+                <!-- SUBMIT INPUT -->
+                <button id="submit" class="absolute right-10 mukta_font text-2xl hover:text-zinc-100 hover:text-3xl">
+                    SUBMIT
+                </button>
+            </div>
+        </div>
+        <script>
+            const btn = document.querySelector('#submit');
+
+            function sendData(data) {
+                console.log('Sending data');
+                const XHR = new XMLHttpRequest();
+
+                var formData = new FormData();
+
+                formData.append('id', data.id);
+                formData.append('title', data.title);
+                formData.append('image', data.image);
+                formData.append('description', data.description);
+                formData.append('href', data.href);
+
+                // Define what happens on successful data submission
+                XHR.addEventListener('load', function (event) {
+                    let resp = JSON.parse(event.target.response);
+                    console.log("at load",resp)
+                    alert('Yeah! Data sent and response loaded. id = '+resp.id);
+                });
+
+                // Define what happens in case of error
+                XHR.addEventListener('error', function (event) {
+                    alert('Oops! Something went wrong.');
+                });
+
+                // Set up our request
+                XHR.open('POST', '/link');
+
+                // Add the required HTTP header for form data POST requests
+                // XHR.setRequestHeader('Content-Type', 'multipart/form-data');
+
+                // Finally, send our data.
+                XHR.send(formData);
+
+            }
+
+            function BuildData() {
+                return {
+                    id: document.getElementById("link_id").value,
+                    title: document.getElementById("title").value,
+                    image: document.getElementById("image").value,
+                    description: document.getElementById("description").value,
+                    href: document.getElementById("href").value,
+                }
+            }
+
+            btn.addEventListener('click', function () {
+                sendData(BuildData());
+            })
+        </script>
+    </section>
+</body>
+
+</html>

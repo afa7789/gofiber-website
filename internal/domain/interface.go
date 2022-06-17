@@ -7,3 +7,9 @@ type PostRepository interface {
 	LastThreePosts() ([]Post, error)
 	PageResult(page int) ([]Post, int64)
 }
+
+type LinkRepository interface {
+	AddLink(l *Link) uint
+	RetrieveLinks() ([]Link, error)
+	RetrieveLink(id uint) (*Link, error)
+}

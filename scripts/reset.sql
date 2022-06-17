@@ -12,3 +12,12 @@ CREATE TABLE posts (
     content LONGTEXT,
     created_at datetime DEFAULT CURRENT_TIMESTAMP
 );
+DROP TABLE IF EXISTS link;
+CREATE TABLE links (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    href VARCHAR(255),
+    image LONGTEXT,
+    description TINYTEXT,
+    created_at datetime DEFAULT CURRENT_TIMESTAMP
+);

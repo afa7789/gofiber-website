@@ -1,0 +1,117 @@
+package server
+
+import (
+	"afa7789/site/internal/domain"
+	"fmt"
+	"html/template"
+	"log"
+	"net/http"
+	"strconv"
+
+	"github.com/gofiber/fiber/v2"
+)
+
+// validateLink validates the post data
+func validateLink(l *domain.Link) bool {
+	if l.HREF != "" && l.Title != "" {
+		return true
+	}
+	return false
+}
+
+// Receive link from a multi-form from the add link page.
+func (s *Server) receiveLink() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		var link domain.Link
+		// parsinsg the link that's in the form coming from the request
+		if err := c.BodyParser(&link); err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(struct {
+				Message string `json:"message"`
+			}{
+				Message: "Error at content parsing " + err.Error(),
+			})
+		}
+
+		if !validateLink(&link) {
+			return c.Status(fiber.StatusBadRequest).JSON(link)
+		}
+
+		// upload or create the link
+		// if it's create will be sent with link id 0.
+		s.reps.LinkRep.AddLink(&link)
+
+		return c.Status(fiber.StatusOK).JSON(link)
+	}
+}
+
+// linksView renders a lists of links in the link page.
+func (s *Server) linksView() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		// mount the stuff to show
+		links, _ := s.reps.LinkRep.RetrieveLinks()
+
+		LinksIds := []uint{}
+		LinksTitles := []string{}
+		LinksImages := []template.HTML{}
+		LinksDescriptions := []string{}
+		LinksHREFs := []string{}
+
+		for _, l := range links {
+			LinksIds = append(LinksIds, l.ID)
+			LinksTitles = append(LinksTitles, l.Title)
+			LinksImages = append(LinksImages, template.HTML(l.Image))
+
+			LinksDescriptions = append(LinksDescriptions, l.Description)
+			LinksHREFs = append(LinksHREFs, l.HREF)
+		}
+
+		fmt.Printf("images len %d", len(LinksImages))
+
+		// link list
+		return c.Status(http.StatusOK).Render("links.html", fiber.Map{
+			"Title":             "Links - afa7789 ",
+			"LinksID":           LinksIds,
+			"LinksHREFs":        LinksHREFs,
+			"LinksImages":       LinksImages,
+			"LinksTitles":       LinksTitles,
+			"LinksDescriptions": LinksDescriptions,
+		})
+	}
+}
+
+// linkEditor opens the template
+// this func returns a page to edit an old link or create a newer one
+func (s *Server) linkEditor() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		linkID := c.Params("link_id")
+		// from string to uint
+		IDLink, err := strconv.ParseUint(linkID, 10, 32)
+		// cast uint64 to uint
+		if err != nil {
+			log.Default().Printf("Error with link ID = %s : %s", linkID, err.Error())
+			linkID = ""
+		}
+
+		link, err := s.reps.LinkRep.RetrieveLink(uint(IDLink))
+		if err != nil {
+			log.Default().Printf("Error with link ID = %s : %s", linkID, err.Error())
+			linkID = ""
+		}
+
+		if linkID != "" {
+			// retrieve link data
+			return c.Status(http.StatusOK).Render("link.html", fiber.Map{
+				"Title":           "Link Editor - " + linkID + " - afa7789 ",
+				"LinkID":          linkID,
+				"LinkImage":       link.Image,
+				"LinkTitle":       link.Title,
+				"LinkHREF":        link.HREF,
+				"LinkDescription": link.Description,
+			})
+		}
+
+		return c.Status(http.StatusOK).Render("link.html", fiber.Map{
+			"Title": "Link Creator - afa7789 ",
+		})
+	}
+}
