@@ -21,7 +21,7 @@ func ServerExecute(f domain.Flags) error {
 
 	// Setup and start server
 	s := server.New(si)
-	s.StartTLS(*f.Port)
-	// s.Start(*f.Port)
+	// s.StartTLS(*f.Port)
+	s.Start(*f.Port)
 	return nil
 }
