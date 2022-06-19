@@ -102,6 +102,9 @@ func New(si *domain.ServerInput) *Server {
 // StartTLS starts the server with TLS connection
 func (s *Server) StartTLS(port int) {
 
+	fmt.Printf("\n%s\n%s\n", os.Getenv("CERTIFICATE"),
+		os.Getenv("PRIVATE_KEY"))
+
 	err := s.router.ListenTLS(
 		fmt.Sprintf(":%d", port),
 		os.Getenv("CERTIFICATE"),
@@ -117,6 +120,7 @@ func (s *Server) StartTLS(port int) {
 			log.Printf("TRYING NEXT PORT:%d\n", port)
 			s.Start(port)
 		} else {
+			fmt.Printf("%s\n", err)
 			panic(err)
 		}
 	}
