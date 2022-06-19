@@ -5,6 +5,11 @@ include .env
 lint: ## Run linters only.
 	@echo "\033[2m→ Running linters...\033[0m"
 	@golangci-lint run --config .golangci.yml --fix
+	
+# go formater
+fmt:
+	@echo "\033[2m→ Running gofmt...\033[0m"
+	@gofmt -l -s -w .
 
 # run the project
 run: ## Run the application.
@@ -32,3 +37,4 @@ serve:
 dump:
 	@echo "\033[2m→ Dumping the database...\033[0m"
 	@docker exec -it mysqldb_fiber_site mysqldump -u root -ppassword gofiber_website > dump.sql
+
