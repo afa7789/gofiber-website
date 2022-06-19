@@ -9,13 +9,13 @@ import (
 // mainPage creates a mainPage template
 func (s *Server) mainPage() fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		posts, _ := s.reps.PostRep.LastThreePosts()
 		var LastPostsTitles []string
 		var LastPostsImages []string
 		var LastPostsSynopsies []string
 		var LastPostsIds []uint
 		var LastPostsSlugs []string
 
+		posts, _ := s.reps.PostRep.LastThreePosts()
 		for _, post := range posts {
 			// check if it's an integer
 			LastPostsTitles = append(LastPostsTitles, post.Title)

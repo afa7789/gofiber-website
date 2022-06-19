@@ -96,9 +96,31 @@ func New(si *domain.ServerInput) *Server {
 	mailController := newMailerController()
 	r.Post("/mail", mailController.send())
 
-	server.router = r
-
+	server.router.Config()
 	return server
+}
+
+// StartTLS starts the server with TLS connection
+func (s *Server) StartTLS(port int) {
+
+	err := s.router.ListenTLS(
+		fmt.Sprintf(":%d", port),
+		os.Getenv("CERTIFICATE"),
+		os.Getenv("PRIVATE_KEY"),
+	)
+
+	if err != nil {
+		// Using this error treatment to try again on next port
+		if strings.Contains(err.Error(), "address already in use") {
+			fmt.Println("")
+			log.Printf("PORT ALREADY IN USE::%d", port)
+			port++
+			log.Printf("TRYING NEXT PORT:%d\n", port)
+			s.Start(port)
+		} else {
+			panic(err)
+		}
+	}
 }
 
 // Start starts the server

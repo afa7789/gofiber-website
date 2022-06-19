@@ -2,6 +2,7 @@ package database
 
 import (
 	"afa7789/site/internal/domain"
+	"fmt"
 
 	"gorm.io/gorm/clause"
 )
@@ -64,6 +65,10 @@ func (pr *PostRepository) LastThreePosts() ([]domain.Post, error) {
 	var posts []domain.Post
 
 	pr.db.client.Order("created_at desc").Find(&posts).Limit(3)
+
+	if len(posts) < 3 {
+		return nil, fmt.Errorf("not enough posts")
+	}
 
 	return posts, nil
 }
