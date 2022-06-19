@@ -4,6 +4,7 @@ import "time"
 
 type Flags struct {
 	Port *int
+	TLS  *bool
 }
 
 type Post struct {

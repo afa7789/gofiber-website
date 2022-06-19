@@ -14,6 +14,10 @@ var flags domain.Flags
 
 func init() {
 	flags.Port = flag.Int("port", 8080, "port number to listen")
+	tls := flag.Bool("TLS", false, "a bool")
+	flag.Parse() // add this line
+	flags.TLS = tls
+
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("env loading error", err)
 	}

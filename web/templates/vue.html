@@ -1,25 +1,39 @@
 <DOCTYPE html>
     <html>
     {{ template "components/meta.html" . }}
+
     <body>
         {{ template "components/header.html" . }}
         <main>
             <!-- Demo -->
             <section class="my-2 px-12 py-2">
-                <h1 class="text-2xl md:text-4xl mukta_font text-center mb-5"> Demo component</h1>
-                <p class="text-center 
-                    underline text-blue-600
-                    hover:text-zinc-700 
-                    visited:text-zinc-400">
-                    <p> blockies is a vue component, </p>
-                    <a href="https://github.com/afa7789/BlockiesVue"></a>
-                    check the component code here
-                    </a>
+                <h1 class="text-2xl md:text-4xl mukta_font text-center mb-5"> Blockiesvue - Demo Page</h1>
+                <p>
+                    BlockiesVue is a component, which is used to generate unique images from strings.</p>
+
+                <p>This is usually used with web3 addresses example: <a class="underline text-blue-600
+                        hover:text-zinc-700 
+                        visited:text-zinc-500"
+                        href="https://etherscan.io/address/0x0921598333Cf3cE5FE2031C056C79aec59EE10b6">0x0921598333Cf3cE5FE2031C056C79aec59EE10b6</a>
+                    .
                 </p>
+                <p> That address is mine by the way if you wanna pay a coffee rofl.</p>
+                <p> In this following image you can see they using a blockies in the etherscan site:</p>
+                <!-- add image -->
+                <img src="public/images/example.png" alt="blockies" class="blockies-img">
+                <p>
+                    If you want to know more you can
+                    <a class="underline text-blue-600
+                    hover:text-zinc-700 
+                    visited:text-zinc-500" href="https://github.com/afa7789/BlockiesVue">
+                        check the component code here
+                    </a>.
+                </p>
+
             </section>
 
             <section class="my-2 px-12 py-2">
-
+                <h1 class="text-1xl md:text-2xl mukta_font text-center mb-5"> Blockies generated with vue: </h1>
                 <!-- css -->
                 <div id="app"></div>
                 <noscript>
