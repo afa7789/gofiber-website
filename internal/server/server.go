@@ -96,7 +96,6 @@ func New(si *domain.ServerInput) *Server {
 	mailController := newMailerController()
 	r.Post("/mail", mailController.send())
 
-	server.router.Config()
 	return server
 }
 
