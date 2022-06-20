@@ -42,7 +42,7 @@
             {{range $i, $id := .PostsID}}
             <hr class="horizontal_line_class" />
             <a class="my-2 block flex items-center" href="/blog/{{$id}}-{{index $slugs $i}}">
-                <img class="w-32 h-32 float-left mr-2" src="{{ index $images $i }}">
+                <img class="w-32 h-32 float-left mr-2 object-cover" src="{{ index $images $i }}">
                 <div class="flex flex-col">
                     <p class="mb-1 text-lg mukta_font">{{index $titles $i}}</p>
                     <p class="sm:w-2/3">{{index $synp $i}}</p>
