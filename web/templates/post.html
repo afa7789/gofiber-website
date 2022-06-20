@@ -6,6 +6,11 @@
     <!-- HEADER -->
     {{ template "components/header.html" . }}
     <section class="my-10 px-12" id="post">
+        <a href="/blog">
+            <button class="absolute right-10 mukta_font text-2xl hover:text-zinc-100 hover:text-3xl">
+               MORE POSTS ON BLOG
+            </button>
+        </a>
         <h2 class="text-xl text-zinc-700">Blog Post</h2>
         <h1 class="my-3 text-4xl md:text-6xl mukta_font">{{.PostTitle}}  <span class="text-base text-zinc-500">{{.PostDate}}</span> </h1>
         <img class="mb-6 object-cover h-48 w-96" src="{{.PostImage}}" alt="Image for blog post: {{.PostTitle}}">
