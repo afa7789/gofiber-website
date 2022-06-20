@@ -167,6 +167,7 @@ func (s *Server) postView() fiber.Handler {
 			"PostID":          postID,
 			"PostDate":        post.CreatedAt.Format("01-02-2006"),
 			"PostImage":       post.Image,
+			"PostSynopsis":    post.Synopsis,
 			"PostTitle":       post.Title,
 			"PostContent":     template.HTML(string(markdown.ToHTML([]byte(post.Content), nil, nil))),
 			"RPostsID":        RelatedPostsIDs,

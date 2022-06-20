@@ -1,0 +1,48 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="{{.PostSynopsis}}">
+    <meta name="author" content="Arthur F. Abeilice">
+    <meta name="keywords" content="Web3, development, computer engineering, blockchain, software engineer">
+    <meta property="og:image" content="{{ .PostImage }}" />
+    <link rel="apple-touch-icon" href="{{ .PostImage }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@800&family=Orelega+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/segment7" type="text/css"/>
+    <title> {{ .Title }} </title>
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow-x: hidden; 
+        }
+
+        @font-face {
+            font-family: "AldoTheApache";
+            src: url(public/fonts/AldotheApache.ttf) format("truetype");
+        }
+
+        .aldo_font{
+            font-family: 'AldoTheApache',Verdana,Monospace;
+        }
+
+        .segmented_font{
+            font-family: 'Segment7Standard';
+        }  
+    
+        .mukta_font{
+            font-family: 'Mukta', sans-serif;
+        }
+
+        .orelega_font{
+            font-family: 'Orelega One', cursive;
+        }
+    </style>
+</head>
