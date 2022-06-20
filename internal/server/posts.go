@@ -165,6 +165,7 @@ func (s *Server) postView() fiber.Handler {
 		return c.Status(http.StatusOK).Render("post.html", fiber.Map{
 			"Title":           post.Title + " - " + postID + " - afa7789 ",
 			"PostID":          postID,
+			"PostSlug":        post.Slug,
 			"PostDate":        post.CreatedAt.Format("01-02-2006"),
 			"PostImage":       post.Image,
 			"PostSynopsis":    post.Synopsis,
