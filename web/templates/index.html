@@ -58,7 +58,7 @@
                 <a href="/blog/{{index $ids $i}}-{{index $slugs $i}}">
                     <div class="overflow-hidden">
                         <img class="w-96 sm:w-5/6 object-cover h-60 sm:h-80" src="{{index $postimages $i}}"
-                            alt="Mountain">
+                            alt="{{ $title }} image">>
                         <div class=" sm:px-6 sm:py-4">
                             <div class="font-bold text-xl mb-2">{{ $title }}</div>
                             <p class="text-gray-200 text-base">{{index $synp $i}}</p>
