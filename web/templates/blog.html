@@ -5,7 +5,7 @@
 <body class="px-0 py-0 mx-0 my-0">
     <!-- HEADER -->
     {{ template "components/header.html" . }}
-    <section class="my-10 px-2 sm:px-64">
+    <section class="my-10 px-2 sm:px-32">
         <h1 class="text-2xl md:text-4xl mukta_font">Blog Posts</h1>
         Pagination:{{ if gt .Page 1}}
         <a class="underline text-blue-600
@@ -32,7 +32,7 @@
                 visited:text-zinc-400" href="/blog?page={{$new_page}}"> last page</a>
         {{end}}
     </section>
-    <section class="my-10 px-2 sm:px-64">
+    <section class="my-10 px-2 sm:px-32">
         {{if .PostsID}}
         {{ $images := .PostsImages }}
         {{ $synp := .PostsSynopsies }}
