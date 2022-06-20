@@ -5,53 +5,52 @@
 <body class="px-0 py-0 mx-0 my-0">
     <!-- HEADER -->
     {{ template "components/header.html" . }}
-    <section class="my-10 px-64">
+    <section class="my-10 px-2 sm:px-64">
         <h1 class="text-2xl md:text-4xl mukta_font">Blog Posts</h1>
-        {{if .PostsID}}
-
-        {{ $images := .PostsImages }}
-        {{ $synp := .PostsSynopsies }}
-        {{ $titles := .PostsTitles }}
-        {{ $slugs := .PostsSlugs }}
-        <div class="flex flex-col">
-            {{range $i, $id := .PostsID}}
-            <a class="mt-2 block" href="/blog/{{$id}}-{{index $slugs $i}}">
-                <hr class="horizontal_line_class" />
-                <img class="w-32 h-32 float-left mr-2" src="{{ index $images $i }}">
-                <p class="mt-5 text-lg mukta_font">{{index $titles $i}}</p>
-                <p class="mt-1 w-2/3">{{index $synp $i}}</p>
-            </a>
-            <hr class="horizontal_line_class" />
-            {{end}}
-        </div>
-        {{ if gt .Page 1}}
+        Pagination:{{ if gt .Page 1}}
         <a class="underline text-blue-600
                 hover:text-zinc-700 
-                visited:text-zinc-400"
-            href="/blog"> first Page</a>
+                visited:text-zinc-400" href="/blog"> first Page</a>
         {{end}}
         {{ if ne .Page 0}}
         {{ $new_page := sub .Page 1}}
         <a class="underline text-blue-600
                 hover:text-zinc-700 
-                visited:text-zinc-400"
-            href="/blog?page={{$new_page}}"> previous page</a>
+                visited:text-zinc-400" href="/blog?page={{$new_page}}"> previous page</a>
         {{end}}
         <span>{{.Page}}</span>
         {{$nextpage := sub .TotalPages 1}}{{ if lt .Page $nextpage}}
         {{ $new_page := add .Page 1}}
         <a class="underline text-blue-600
                 hover:text-zinc-700 
-                visited:text-zinc-400"
-            href="/blog?page={{$new_page}}"> next page</a>
+                visited:text-zinc-400" href="/blog?page={{$new_page}}"> next page</a>
         {{end}}
         {{$lastpage := sub .TotalPages 2 }}{{ if lt .Page $lastpage}}
         {{ $new_page := sub .TotalPages 1}}
         <a class="underline text-blue-600
                 hover:text-zinc-700 
-                visited:text-zinc-400"
-            href="/blog?page={{$new_page}}"> last page</a>
+                visited:text-zinc-400" href="/blog?page={{$new_page}}"> last page</a>
         {{end}}
+    </section>
+    <section class="my-10 px-2 sm:px-64">
+        {{if .PostsID}}
+        {{ $images := .PostsImages }}
+        {{ $synp := .PostsSynopsies }}
+        {{ $titles := .PostsTitles }}
+        {{ $slugs := .PostsSlugs }}
+        <div class="flex flex-col">
+            {{range $i, $id := .PostsID}}
+            <hr class="horizontal_line_class" />
+            <a class="mt-2 block flex items-center" href="/blog/{{$id}}-{{index $slugs $i}}">
+                <img class="w-32 h-32 float-left mr-2" src="{{ index $images $i }}">
+                <div class="flex flex-col">
+                    <p class="mb-1 text-lg mukta_font">{{index $titles $i}}</p>
+                    <p class="sm:w-2/3">{{index $synp $i}}</p>
+                </div>
+            </a>
+            <hr class="horizontal_line_class" />
+            {{end}}
+        </div>
         {{end}}
     </section>
 </body>
