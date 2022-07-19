@@ -56,6 +56,8 @@ func New(si *domain.ServerInput) *Server {
 
 	// Some pages
 	r.Get("/", server.mainPage())
+	r.Get("/ltda", server.enterpriseMainPage())
+
 	r.Get("/thanks", server.thanksPage())
 	r.Get("/failed", server.failedPage())
 	r.Get("/profile", server.githubPage())
