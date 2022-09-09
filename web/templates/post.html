@@ -87,10 +87,10 @@
             {{ $slugs := .RPostsSlugs }}
 
             {{range $i, $id := .RPostsID}}
-                <div style="display:flex; margin:auto">
+                <div style="display:flex;" class="px-4" >
                     <p>⚫</p>
                     <a href="/blog/{{$id}}-{{index $slugs $i}}">
-                        <p>{{index $titles  $i}}</p>
+                        <p class="text-lg ">{{index $titles  $i}}</p>
                         <p>{{index $synp  $i}}</p>
                     </a>
                     <hr class="horizontal_line_class" />
