@@ -18,7 +18,7 @@
             {{range $i, $id := .MessageIds}}
             <hr class="horizontal_line_class" />
             <div class="flex flex-col" style="position:relative">
-                <a style="position:absolute; top:20px; right:10px; float:right" id="id-delete-{{$id}}">
+                <a style="position:absolute; top:10px; right:10px; float:right" id="id-delete-{{$id}}">
                     ❌
                 </a>
                 <p class="mb-1 text-lg mukta_font"> {{index $names $i}} </p>
@@ -31,7 +31,8 @@
             <script>
                 const els = Array.from(document.querySelectorAll('[id*=id-delete-]'));
                 els.forEach(el => el.onclick = () => {
-                    console.log('Clicked el:'+el.id, el)
+                    let id = el.id.replace(/id-delete/g, '');
+                    console.log('Clicked el:'+id, el)
                 });
             </script>
         </div>
