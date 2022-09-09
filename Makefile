@@ -31,7 +31,13 @@ build:
 serve:
 	@echo "\033[2m→ Starting the server...\033[0m"
 	@mkdir -p ./log
-	@ ./bin/fiber_site --port 80 >./log/`date +%F`.log 2>./log/`date +%F`.log  &
+	@ ./bin/fiber_site --port 80 >./log/`date +%F`.log 2>./log/`date +%F`-err.log  &
+
+# serve the project from the binary
+serveTLS:
+	@echo "\033[2m→ Starting the server...\033[0m"
+	@mkdir -p ./log
+	@ ./bin/fiber_site --port 443 -TLS >./log/`date +%F`-TLS.log 2>./log/`date +%F`-errTLS.log  &
 
 # dump the sql
 dump:
