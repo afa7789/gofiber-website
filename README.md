@@ -99,9 +99,13 @@ runs the docker database and the project.
 ## bash
 
 lsof -i :8080 | grep LISTEN
+lsof -i :80 | grep LISTEN
+lsof -i :443 | grep LISTEN
 kill -9 $PID
+
 ## Features
-- Contact Mailing & Failed and Thanks redirections
+- Contact Mailing & Failed and Thanks redirections ( with Err need rework )
+- Message board to reply instead of mail myself ( feature to fix the error above )
 - Blog Post Edit and Create
 - Blog Section, post view missing post and related ones
 - Blog updating to last posts in front page.

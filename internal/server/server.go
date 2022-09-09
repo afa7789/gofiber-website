@@ -66,9 +66,12 @@ func New(si *domain.ServerInput) *Server {
 	r.Get("/blockies-vue-demo", server.demoBlockiesPage())
 	r.Get("/gradient-demo", server.demoGradientPage())
 
-	r.Get("/message",
+	message := r.Group("/message")
+	message.Get("/",
 		basicauth.New(bac), // Basic Auth Middleware
 		server.messagesView())
+
+	message.Delete("delete/:id", server.deleteMessage())
 
 	// links
 	link := r.Group("/link")

@@ -20,4 +20,5 @@ type MessageRepository interface {
 	RetrieveMessage(id uint) (*Message, error)
 	RetrieveMessages(arr []uint) ([]Message, error)
 	AllMessages() ([]Message, int64)
+	DeleteMessage(id uint) error
 }

@@ -21,6 +21,25 @@ func NewMessageRepository(db *Database) *MessageRepository {
 	}
 }
 
+func (pr *MessageRepository) DeleteMessage(id uint) error {
+	message := &domain.Message{}
+
+	// select id
+	result := pr.db.client.First(message, id)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	// delete
+	result = pr.db.client.Delete(message)
+	if result.Error != nil {
+		return result.Error
+	}
+
+	return nil
+
+}
+
 // AddMessage is an upsert, will update or insert
 func (pr *MessageRepository) AddMessage(p *domain.Message) uint {
 	// Update all columns, except primary keys, to new value on conflict

@@ -1,7 +1,9 @@
 package server
 
 import (
+	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -35,6 +37,37 @@ func (s *Server) messagesView() fiber.Handler {
 			"MessageNames":    MessageName,
 			"MessageTexts":    MessageText,
 			"MessageEmails":   MessageEmail,
+		})
+	}
+}
+
+func (s *Server) deleteMessage() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		//
+		id := c.Params("delete_id")
+		// from string to uint
+		idd, err := strconv.ParseUint(id, 10, 32)
+		// cast uint64 to uint
+		if err != nil {
+			log.Default().Printf("Error with link ID = %s : %s", id, err.Error())
+			id = ""
+		}
+
+		err = s.reps.MessageRep.DeleteMessage(uint(idd))
+
+		// blog posts
+		if err != nil {
+			log.Printf("Error at delete: %s", err.Error())
+			return c.Status(http.StatusInternalServerError).JSON(struct {
+				Message string `json:"message"`
+			}{
+				Message: "Error at deleting Message: " + err.Error(),
+			})
+		}
+		return c.Status(http.StatusOK).Status(http.StatusInternalServerError).JSON(struct {
+			Message string `json:"message"`
+		}{
+			Message: "Okay",
 		})
 	}
 }

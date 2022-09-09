@@ -17,6 +17,9 @@
         <div class="flex flex-col">
             {{range $i, $id := .MessageIds}}
             <hr class="horizontal_line_class" />
+            <a href="/message/delete/{{$id}}" target="_blank">
+                ❌
+            </a>
             <div class="flex flex-col">
                 <p class="mb-1 text-lg mukta_font"> {{index $names $i}} </p>
                 <p class="mb-1 text-xl mukta_font"> {{index $subject $i}} </p>
