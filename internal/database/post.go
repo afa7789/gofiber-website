@@ -67,7 +67,7 @@ func (pr *PostRepository) LastThreePosts() ([]domain.Post, error) {
 
 	pr.db.client.Order("created_at desc").Find(&posts).Limit(3)
 
-	log.Printf("%#v", posts)
+	log.Printf("Testing: %#v", posts)
 
 	if len(posts) < 3 {
 		return nil, fmt.Errorf("not enough posts")

@@ -1,6 +1,7 @@
 package server
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
@@ -15,6 +16,7 @@ func (s *Server) mainPage() fiber.Handler {
 		var LastPostsIds []uint
 		var LastPostsSlugs []string
 
+		log.Printf("UE ????")
 		posts, _ := s.reps.PostRep.LastThreePosts()
 		for _, post := range posts {
 			// check if it's an integer
