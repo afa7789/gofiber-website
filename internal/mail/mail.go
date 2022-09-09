@@ -57,7 +57,7 @@ func NewSMTPServer() *SMTP {
 	// // from the very beginning (no starttls)
 	// conn, err := tls.Dial("tcp", host+":"+port, tlsconfig)
 	// if err != nil {
-	// 	log.Panic(err)
+	// 	log.Err(err)
 	// }
 
 	// println("SMTP_HOST:", host)
@@ -84,23 +84,23 @@ func (s *SMTP) Send(to []string, msg string) error {
 	// from the very beginning (no starttls)
 	conn, err := tls.Dial("tcp", s.Host+":"+s.Port, s.tls)
 	if err != nil {
-		log.Panic(err)
+		log.Printf("error : %s", err)
 	}
 
 	c, err := smtp.NewClient(conn, s.Host)
 	if err != nil {
-		log.Panic(err)
+		log.Printf("error : %s", err)
 	}
 	defer func() {
 		err := c.Quit()
 		if err != nil {
-			log.Panic(err)
+			log.Printf("error : %s", err)
 		}
 	}()
 
 	// Auth
 	if err := c.Auth(s.Auth); err != nil {
-		log.Panic(err)
+		log.Printf("error : %s", err)
 	}
 
 	// This is the message to send in the mail
@@ -112,27 +112,27 @@ func (s *SMTP) Send(to []string, msg string) error {
 
 	// To && From
 	if err = c.Mail(s.From); err != nil {
-		log.Panic(err)
+		log.Printf("error : %s", err)
 	}
 
 	if err = c.Rcpt(to[0]); err != nil {
-		log.Panic(err)
+		log.Printf("error : %s", err)
 	}
 
 	// Data
 	w, err := c.Data()
 	if err != nil {
-		log.Panic(err)
+		log.Printf("error : %s", err)
 	}
 
 	_, err = w.Write(body)
 	if err != nil {
-		log.Panic(err)
+		log.Printf("error : %s", err)
 	}
 
 	err = w.Close()
 	if err != nil {
-		log.Panic(err)
+		log.Printf("error : %s", err)
 	}
 
 	// handling the errors
