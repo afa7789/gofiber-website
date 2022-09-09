@@ -65,7 +65,7 @@ func (s *Server) deleteMessage() fiber.Handler {
 				Message: "Error at deleting Message: " + err.Error(),
 			})
 		}
-		return c.Status(http.StatusOK).Status(http.StatusInternalServerError).JSON(struct {
+		return c.Status(http.StatusOK).JSON(struct {
 			Message string `json:"message"`
 		}{
 			Message: "Okay",
