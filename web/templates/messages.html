@@ -14,13 +14,13 @@
         {{ $subject := .MessageSubjects }}
         {{ $names := .MessageNames }}
         {{ $emails := .MessageEmails }}
-        <div class="flex flex-col" style="position:relative">
+        <div class="flex flex-col">
             {{range $i, $id := .MessageIds}}
             <hr class="horizontal_line_class" />
-            <a style="position:absolute; right:10px; float:right" id="id-delete-{{$id}}">
-                ❌
-            </a>
-            <div class="flex flex-col">
+            <div class="flex flex-col" style="position:relative">
+                <a style="position:absolute; right:10px; float:right" id="id-delete-{{$id}}">
+                    ❌
+                </a>
                 <p class="mb-1 text-lg mukta_font"> {{index $names $i}} </p>
                 <p class="mb-1 text-xl mukta_font"> {{index $subject $i}} </p>
                 <p class="mb-1 text-lg "> {{index $emails $i}} </p>
