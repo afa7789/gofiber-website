@@ -15,10 +15,6 @@
         {{ $names := .MessageNames }}
         {{ $emails := .MessageEmails }}
         <div class="flex flex-col">
-            <script>
-                const els = Array.from(document.querySelectorAll('[id*=id-delete-]'));
-                els.forEach(el => el.onclick = () => console.log('Clicked el:', el));
-            </script>
             {{range $i, $id := .MessageIds}}
             <hr class="horizontal_line_class" />
             <a id="id-delete-{{$id}}">
@@ -32,6 +28,10 @@
             </div>
             <hr class="horizontal_line_class" />
             {{end}}
+            <script>
+                const els = Array.from(document.querySelectorAll('[id*=id-delete-]'));
+                els.forEach(el => el.onclick = () => console.log('Clicked el:', el));
+            </script>
         </div>
         {{end}}
     </section>
