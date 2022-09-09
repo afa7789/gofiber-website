@@ -52,6 +52,7 @@ func (s *Server) deleteMessage() fiber.Handler {
 			log.Default().Printf("Error with link ID = %s : %s", id, err.Error())
 			id = ""
 		}
+		log.Printf("id %s, idd %d", id, uint(idd))
 
 		err = s.reps.MessageRep.DeleteMessage(uint(idd))
 
