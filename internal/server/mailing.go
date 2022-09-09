@@ -1,21 +1,23 @@
 package server
 
 import (
+	"afa7789/site/internal/domain"
 	"afa7789/site/internal/mail"
-	"log"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 type MailerController struct {
-	mailer *mail.SMTP
+	mailer     *mail.SMTP
+	messageRep domain.MessageRepository
 }
 
 // new Controller will help bridge to the mailer
-func newMailerController() *MailerController {
+func newMailerController(mes domain.MessageRepository) *MailerController {
 	mailer := mail.NewSMTPServer()
 	return &MailerController{
-		mailer: mailer,
+		mailer:     mailer,
+		messageRep: mes,
 	}
 }
 
@@ -41,12 +43,20 @@ func (mc *MailerController) send() fiber.Handler {
 			return c.Status(fiber.StatusBadRequest).Redirect("/failed")
 		}
 
+		_ = mc.messageRep.AddMessage(&domain.Message{
+			Subject: body.Subject,
+			Name:    body.Name,
+			Text:    body.Message,
+			Email:   body.ContactEmail,
+		})
+
 		go func() {
-			str := emailConstructor(body.Name, body.Subject, body.Message, body.ContactEmail, mc.mailer.CompanyEmail)
-			if err := mc.mailer.Send([]string{"" + mc.mailer.CompanyEmail + ""}, str); err != nil {
-				// TODO change this LOG to log to a file.
-				log.Default().Print("Error sending email: ", err)
-			}
+			_ = emailConstructor(body.Name, body.Subject, body.Message, body.ContactEmail, mc.mailer.CompanyEmail)
+			// NAO FUNCIONA ESSA JOÇA
+			// if err := mc.mailer.Send([]string{"" + mc.mailer.CompanyEmail + ""}, str); err != nil {
+			// 	// TODO change this LOG to log to a file.
+			// 	log.Default().Print("Error sending email: ", err)
+			// }
 		}()
 
 		return c.Status(fiber.StatusOK).Redirect("/thanks")

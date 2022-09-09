@@ -14,3 +14,10 @@ type LinkRepository interface {
 	RetrieveLink(id uint) (*Link, error)
 	DeleteLink(id uint) error
 }
+
+type MessageRepository interface {
+	AddMessage(l *Message) uint
+	RetrieveMessage(id uint) (*Message, error)
+	RetrieveMessages(arr []uint) ([]Message, error)
+	AllMessages() ([]Message, int64)
+}

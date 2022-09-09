@@ -27,9 +27,19 @@ type Link struct {
 	CreatedAt   time.Time `form:"created_at" json:"created_at"`
 }
 
+type Message struct {
+	ID        uint      `form:"id" json:"id" gorm:"primarykey"`
+	Subject   string    `form:"subject" json:"subject"`
+	Name      string    `form:"slug" json:"slug"`
+	Text      string    `form:"text" json:"text"`
+	Email     string    `form:"email" json:"email"`
+	CreatedAt time.Time `form:"created_at" json:"created_at"`
+}
+
 type Repositories struct {
-	PostRep PostRepository
-	LinkRep LinkRepository
+	PostRep    PostRepository
+	LinkRep    LinkRepository
+	MessageRep MessageRepository
 }
 
 type ServerInput struct {

@@ -7,8 +7,10 @@ func NewRepositories() *domain.Repositories {
 	db := NewDatabase()
 	postRepository := NewPostRepository(db)
 	linkRepository := NewLinkRepository(db)
+	messageRepository := NewMessageRepository(db)
 	return &domain.Repositories{
-		PostRep: postRepository,
-		LinkRep: linkRepository,
+		PostRep:    postRepository,
+		LinkRep:    linkRepository,
+		MessageRep: messageRepository,
 	}
 }

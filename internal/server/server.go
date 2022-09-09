@@ -64,6 +64,11 @@ func New(si *domain.ServerInput) *Server {
 	r.Get("/github", server.githubPage())
 	r.Get("/vue", server.demoBlockiesPage())
 	r.Get("/blockies-vue-demo", server.demoBlockiesPage())
+	r.Get("/gradient-demo", server.demoGradientPage())
+
+	r.Get("/message",
+		basicauth.New(bac), // Basic Auth Middleware
+		server.messagesView())
 
 	// links
 	link := r.Group("/link")
@@ -95,7 +100,7 @@ func New(si *domain.ServerInput) *Server {
 	blog.Post("/post", pc.receivePost())
 
 	// Mail routes
-	mailController := newMailerController()
+	mailController := newMailerController(server.reps.MessageRep)
 	r.Post("/mail", mailController.send())
 
 	server.router = r

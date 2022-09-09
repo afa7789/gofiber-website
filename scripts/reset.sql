@@ -21,3 +21,13 @@ CREATE TABLE links (
     description TINYTEXT,
     created_at datetime DEFAULT CURRENT_TIMESTAMP
 );
+
+DROP TABLE IF EXISTS messages;
+CREATE TABLE messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    subject VARCHAR(255),
+    name VARCHAR(255),
+    email VARCHAR(255),
+    text LONGTEXT,
+    created_at datetime DEFAULT CURRENT_TIMESTAMP
+);
