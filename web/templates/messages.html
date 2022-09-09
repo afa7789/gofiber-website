@@ -29,10 +29,35 @@
             <hr class="horizontal_line_class" />
             {{end}}
             <script>
+                function sendData(id) {
+                    const XHR = new XMLHttpRequest();
+                        // Define what happens on successful data submission
+                    XHR.addEventListener('load', function (event) {
+                        let resp = JSON.parse(event.target.response);
+                        console.log("at load",resp)
+                        alert('Yeah! Data sent and response loaded.'+resd);
+                    });
+
+                    // Define what happens in case of error
+                    XHR.addEventListener('error', function (event) {
+                        alert('Oops! Something went wrong.');
+                        console.log("error",event)
+                    });
+
+                    // Set up our request
+                    XHR.open('DELETE', '/message/delete/'+id);
+
+                    // Add the required HTTP header for form data POST requests
+                    // XHR.setRequestHeader('Content-Type', 'multipart/form-data');
+
+                    // Finally, send our data.
+                    XHR.send();
+                }
                 const els = Array.from(document.querySelectorAll('[id*=id-delete-]'));
                 els.forEach(el => el.onclick = () => {
-                    let id = el.id.replace(/id-delete/g, '');
+                    let id = el.id.replace(/id-delete-/g, '');
                     console.log('Clicked el:'+id, el)
+                    sendData(id) 
                 });
             </script>
         </div>
