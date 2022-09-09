@@ -44,7 +44,7 @@ func (s *Server) messagesView() fiber.Handler {
 func (s *Server) deleteMessage() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		//
-		id := c.Params("delete_id")
+		id := c.Params("id")
 		// from string to uint
 		idd, err := strconv.ParseUint(id, 10, 32)
 		// cast uint64 to uint
