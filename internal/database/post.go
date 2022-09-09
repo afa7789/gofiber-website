@@ -65,7 +65,7 @@ func (pr *PostRepository) RetrievePost(id uint) (*domain.Post, error) {
 func (pr *PostRepository) LastThreePosts() ([]domain.Post, error) {
 	var posts []domain.Post
 
-	pr.db.client.Order("created_at desc").Find(&posts).Limit(3)
+	pr.db.client.Order("created_at desc").Limit(3).Find(&posts)
 
 	log.Printf("Testing: %#v", len(posts))
 
