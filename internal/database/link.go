@@ -112,7 +112,7 @@ func (pr *LinkRepository) SwapOrder(sourceIndex, targetIndex uint) error {
 	}
 
 	//set ID
-	result = pr.db.client.Table("links").Where("index_order = ?", sourceIndex).Update("index_order", targetIndex)
+	result = pr.db.client.Table("links").Where("index_order = ?", count+1).Update("index_order", targetIndex)
 	if result.Error != nil {
 		return fmt.Errorf("at third part of swap: %w", result.Error)
 	}
