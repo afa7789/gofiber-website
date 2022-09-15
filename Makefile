@@ -48,3 +48,10 @@ dump:
 	@echo "\033[2m→ Dumping the database...\033[0m"
 	@docker exec -it mysqldb_fiber_site mysqldump -u root -ppassword gofiber_website > dump.sql
 
+
+override PID_TO_KILL=$(lsof -i :8080 | grep LISTEN | awk '{print $2}')
+override PID_TO_KILL_TLS=$(lsof -i :8080 | grep LISTEN | awk '{print $2}')
+
+kill:
+	@echo "killing servers"
+	@./scripts/kill.sh
