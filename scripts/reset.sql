@@ -18,9 +18,17 @@ CREATE TABLE links (
     title VARCHAR(255),
     href VARCHAR(255),
     image LONGTEXT,
+    index_order INT UNIQUE,
     description TINYTEXT,
     created_at datetime DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TRIGGER `link_trigger`
+BEFORE INSERT ON `links` 
+FOR EACH ROW SET NEW.index_order=(
+    SELECT `AUTO_INCREMENT` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA`=DATABASE() AND `TABLE_NAME`='links'
+);
+
 
 DROP TABLE IF EXISTS messages;
 CREATE TABLE messages (
@@ -31,3 +39,5 @@ CREATE TABLE messages (
     text LONGTEXT,
     created_at datetime DEFAULT CURRENT_TIMESTAMP
 );
+
+

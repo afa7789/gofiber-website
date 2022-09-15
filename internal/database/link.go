@@ -2,6 +2,7 @@ package database
 
 import (
 	"afa7789/site/internal/domain"
+	"fmt"
 
 	"gorm.io/gorm/clause"
 )
@@ -36,7 +37,7 @@ func (pr *LinkRepository) RetrieveLinks() ([]domain.Link, error) {
 	var links []domain.Link
 
 	// select all
-	result := pr.db.client.Find(&links)
+	result := pr.db.client.Order("index_order asc").Find(&links)
 	if result.Error != nil {
 		return links, result.Error
 	}
@@ -73,6 +74,47 @@ func (pr *LinkRepository) DeleteLink(id uint) error {
 	result = pr.db.client.Delete(link)
 	if result.Error != nil {
 		return result.Error
+	}
+
+	return nil
+}
+
+func (pr *LinkRepository) SwapOrder(sourceIndex, targetIndex uint) error {
+
+	// check if both ids exists
+	var count int64
+	result := pr.db.client.Table("links").
+		Where(fmt.Sprintf("index_order = %d", sourceIndex)).
+		Or(fmt.Sprintf("index_order = %d", targetIndex)).
+		Count(&count)
+	if result.Error != nil {
+		return fmt.Errorf("at verification")
+	}
+	if count != 2 {
+		return fmt.Errorf("either source or target index does not exist")
+	}
+
+	result = pr.db.client.Table("links").Count(&count)
+	if result.Error != nil {
+		return fmt.Errorf("at count part of swap: %w", result.Error)
+	}
+
+	//swap to an auxiliar number for now
+	result = pr.db.client.Table("links").Where("index_order = ?", sourceIndex).Update("index_order", count+1)
+	if result.Error != nil {
+		return fmt.Errorf("at first part of swap: %w", result.Error)
+	}
+
+	//set ID
+	result = pr.db.client.Table("links").Where("index_order = ?", targetIndex).Update("index_order", sourceIndex)
+	if result.Error != nil {
+		return fmt.Errorf("at second part of swap: %w", result.Error)
+	}
+
+	//set ID
+	result = pr.db.client.Table("links").Where("index_order = ?", sourceIndex).Update("index_order", targetIndex)
+	if result.Error != nil {
+		return fmt.Errorf("at third part of swap: %w", result.Error)
 	}
 
 	return nil

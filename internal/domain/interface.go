@@ -13,6 +13,7 @@ type LinkRepository interface {
 	RetrieveLinks() ([]Link, error)
 	RetrieveLink(id uint) (*Link, error)
 	DeleteLink(id uint) error
+	SwapOrder(sourceIndex, targetIndex uint) error
 }
 
 type MessageRepository interface {

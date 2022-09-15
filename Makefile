@@ -17,6 +17,10 @@ run: ## Run the application.
 	@docker start mysqldb_fiber_site
 	@go run .
 
+enterdb:
+	@echo "\033[2m→ Entering the DB of the project...\033[0m"
+	@docker exec -it mysqldb_fiber_site mysql -u root -ppassword
+
 # reset the database
 resetdb:
 	@echo "\033[2m→ Resetting the database...\033[0m"

@@ -20,6 +20,7 @@ type Post struct {
 
 type Link struct {
 	ID          uint      `form:"id" json:"id" gorm:"primarykey"`
+	IndexOrder  int       `form:"index_order" json:"index_order"`
 	Title       string    `form:"title" json:"title"`
 	HREF        string    `form:"href" json:"href"`
 	Description string    `form:"description" json:"description"`

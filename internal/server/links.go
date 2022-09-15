@@ -65,7 +65,7 @@ func (s *Server) linksView() fiber.Handler {
 			LinksHREFs = append(LinksHREFs, l.HREF)
 		}
 
-		fmt.Printf("images len %d", len(LinksImages))
+		fmt.Printf("links len %d", len(LinksImages))
 
 		// link list
 		return c.Status(http.StatusOK).Render("links.html", fiber.Map{
@@ -116,6 +116,36 @@ func (s *Server) linkEditor() fiber.Handler {
 	}
 }
 
+// swapIndexes route
+func (s *Server) swapIndexes() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		targetID := c.Params("target_id")
+		// from string to uint
+		tID, err := strconv.ParseUint(targetID, 10, 32)
+		if err != nil {
+			log.Default().Printf("Error with target ID = %s : %s", targetID, err.Error())
+			return c.Status(http.StatusBadRequest).JSON("wrong targetID: " + err.Error())
+		}
+
+		sourceID := c.Params("source_id")
+		// from string to uint
+		sID, err := strconv.ParseUint(sourceID, 10, 32)
+		if err != nil {
+			log.Default().Printf("Error with source ID = %s : %s", sourceID, err.Error())
+			return c.Status(http.StatusBadRequest).JSON("wrong sourceID: " + err.Error())
+		}
+
+		// call bd function to swap
+		err = s.reps.LinkRep.SwapOrder(uint(sID), uint(tID))
+		if err != nil {
+			log.Default().Printf("Error on swapping", err.Error())
+			return c.Status(http.StatusInternalServerError).JSON("not swapped: " + err.Error())
+		}
+
+		return c.Status(http.StatusOK).JSON("swapped")
+	}
+}
+
 // deliteLink route
 func (s *Server) deleteLink() fiber.Handler {
 	return func(c *fiber.Ctx) error {
@@ -126,6 +156,7 @@ func (s *Server) deleteLink() fiber.Handler {
 		if err != nil {
 			log.Default().Printf("Error with link ID = %s : %s", linkID, err.Error())
 			linkID = ""
+			return c.Status(http.StatusBadRequest).JSON("wrong link id")
 		}
 
 		err = s.reps.LinkRep.DeleteLink(uint(IDLink))

@@ -80,6 +80,7 @@ func New(si *domain.ServerInput) *Server {
 		server.linkEditor())
 
 	link.Delete("delete/:link_id?", server.deleteLink())
+	link.Get("swap/:source_id/:target_id", server.swapIndexes())
 
 	link.Post("/", server.receiveLink())
 	// link view
