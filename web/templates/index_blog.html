@@ -6,8 +6,9 @@
     <!-- HEADER -->
     {{ template "components/header.html" . }}
     <main>
+        <section class="pt-3" style='background-image: url("public/images/engravings.png");background-size: cover;'></section>
         <!-- HERO PART -->
-        <section class="my-10 px-12">
+        <section class="mt-7 mb-10 px-12">
             <p class="segmented_font text-center px-5 sm:px-16 md:px-20 lg:px-48">
                 01100010 01110101 01111001 00100000 01100010 01101001 01110100 01100011 01101111 01101001 01101110
             </p>
@@ -32,7 +33,6 @@
                 </div>
             </div>
         </section>
-
         <!-- BLOG -->
         <section class="pb-10 pt-4 bg-zinc-900 px-12 text-white">
             <h1 class="mt-3 text-xl sm:text-2xl md:text-4xl mukta_font sm:ml-8">
@@ -122,45 +122,76 @@
 
             <h3 class="text-lg sm:text-xl"> Projects and Companies I have worked with: </h3>
 
-            <div class="my-16">
-                <a href="https://www.tally.xyz/">
-                    <p class="text-lg w-5/6  lg:ml-32 lg:relative">
-                            <img  class="w-48 lg:w-80 lg:float-right lg:-mb-20 lg:absolute lg:bottom-12 lg:right-12" type="image/svg+xml" src="/public/images/Tally_Logo_Color.svg" alt="tally logo">
+            <div class="lg:flex lg:flex-row-reverse lg:justify-center my-10">
+                <img class="h-32" type="image/svg+xml" src="/public/images/Tally_Logo_Color.svg" alt="tally logo">
+                <div class="lg:pr-10">
+                    <p class="text-lg">
                         Right now I'm working at <strong>Tally!</strong> <br/>  The Web3 company that creates the Best way to vote on <strong>DAOs:</strong>
                     </p>
-                </a>
+                    <div class="flex flex-row-reverse">
+                        <a href="https://www.tally.xyz/">
+                            <span class="right-10 text-lg hover:text-zinc-600 pr-10">
+                                <strong>go to tally</strong>
+                            </span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="my-16">
-                <a href="https://www.codificar.com.br/">
-                    <p class="text-lg w-5/6 lg:mr-10 lg:relative lg:text-right">
-                        <img  class="w-48 lg:w-80 lg:float-left lg:-mb-20 lg:absolute lg:bottom-23 lg:left-12"
-                        type="image/svg+xml" src="/public/images/codificar.svg" alt="codificar logo">
-                        Before that I worked at <strong>Codificar.</strong> <br/>
-                         A company that sells the best <strong>cloned APPs for entreperneurs </strong>  <br/>
-                         who want to enter the market fast!
-                    </p>
-                </a>
-            </div>
-            <div class="my-16">
-                <a href="https://www.get.it/">
-                    <p class="text-lg w-5/6  lg:ml-32 lg:relative">
-                        <img  class="w-48 lg:w-64 lg:float-right lg:-mb-20 lg:absolute lg:bottom-12 lg:right-12" type="image/svg+xml" src="/public/images/getit.svg" alt="getit logo">
+
+            <div class="lg:flex lg:flex-row lg:justify-center my-10">
+                <img class="h-32"  type="image/svg+xml" src="/public/images/getit.svg" alt="getit logo">
+                <div class="lg:pl-10">
+                    <p class="text-lg lg:text-right max-w-md" >
                         I worked too at <strong>Get.It!.</strong> <br/>
                         A company that handles huge amounts of <strong>jobs listings</strong> and does ETL.
                     </p>
-                </a>
+                    <div class="flex flex-row-reverse">
+                        <a href="https://www.get.it/">
+                            <span class="right-10 text-lg hover:text-zinc-600 pr-10">
+                                <strong>go to get it</strong>
+                            </span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="my-16">
-                <a href="https://comprecriptonopix.com.br/">
-                    <p class="text-lg w-5/6 lg:mr-10 lg:relative lg:text-right">
-                        <img  class="w-32 lg:w-64 lg:float-left lg:-mb-20 lg:absolute lg:bottom-5 lg:left-32"
-                        type="image/svg+xml" src="/public/images/compre.png" alt="compre cripto no pix logo">
+
+            <div class="lg:flex lg:flex-row-reverse lg:justify-center my-10">
+                <img  class="h-32" src="/public/images/compre.png" alt="compre cripto no pix logo">
+                <div class="lg:pr-10">
+                    <p class="text-lg">
                         I did the MVP for <strong>Compre Cripto no Pix.</strong> <br/>
                         A simple and easy to use <strong>on-ramper</strong> for Projects on the BNB smart chain<br/>
-                        Done it all using a Brazilian Payment Gateway and Web3 libraries.
-                    </p>
-                </a>
+                        Done it all using a Brazilian Payment Gateway and Web3 libraries.                    </p>
+                    <div class="flex flex-row-reverse">
+                        <a href="https://comprecriptonopix.com.br/">
+                            <span class="right-10 text-lg hover:text-zinc-600 pr-10">
+                                <strong>go to the on ramper</strong>
+                            </span>
+                        </a>
+                    </div>
+                </div>
             </div>
+
+            <div class="lg:flex lg:flex-row lg:justify-center my-10">
+                <img class="h-28" type="image/svg+xml" src="/public/images/codificar.svg" alt="codificar logo">
+                <div class="lg:pl-10">
+                    <p class="text-lg lg:text-right max-w-md" >
+                        First place that I worked was <strong>Codificar.</strong> <br/>
+                        A company focused on building mobile <strong>cloned APPs</strong>
+                        for those who want to enter the market fast!
+                    </p>
+                    <div class="flex flex-row-reverse">
+                        <a href="https://www.codificar.com.br/">
+                            <span class="right-10 text-lg hover:text-zinc-600 pr-10">
+                                <strong>go to codificar</strong>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <h3 class="text-xl sm:text-2xl mt-2"> Task I'm usually working on </h3>
 
             <style>
                 .service-num {
