@@ -27,11 +27,11 @@ func New(si *domain.ServerInput) *Server {
 
 	// https://github.com/gofiber/template
 	engine := html.New("./web/templates", "")
-
+	// create functions that will be used in the template
+	// those functions are used to do the pagination.
 	engine.AddFunc("add", func(a, b int) int {
 		return a + b
 	})
-
 	engine.AddFunc("sub", func(a, b int) int {
 		return a - b
 	})
