@@ -80,9 +80,14 @@ func New(si *domain.ServerInput) *Server {
 		server.linkEditor())
 
 	link.Delete("delete/:link_id?", server.deleteLink())
-	link.Get("swap/:source_id/:target_id", server.swapIndexes())
+	link.Get("swap/:source_id/:target_id",
+		basicauth.New(bac), // Basic Auth Middleware
+		server.swapIndexes())
 
-	link.Post("/", server.receiveLink())
+	link.Post("/",
+		basicauth.New(bac), // Basic Auth Middleware
+		server.receiveLink())
+
 	// link view
 	link.Get("/", server.linksView())
 
@@ -101,7 +106,9 @@ func New(si *domain.ServerInput) *Server {
 
 	// Post Auth Middleware ?
 	pc := newPostsController(si.Reps.PostRep)
-	blog.Post("/post", pc.receivePost())
+	blog.Post("/post",
+		basicauth.New(bac), // Basic Auth Middleware
+		pc.receivePost())
 
 	// Mail routes
 	mailController := newMailerController(server.reps.MessageRep)
