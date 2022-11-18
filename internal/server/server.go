@@ -9,6 +9,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/basicauth"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/template/html"
 )
 
@@ -49,6 +50,10 @@ func New(si *domain.ServerInput) *Server {
 			os.Getenv("ADMIN_LOGIN"): os.Getenv("ADMIN_PASSWORD"),
 		},
 	}
+
+	r.Use(logger.New(logger.Config{
+		Format: "[${ip}]:${port} ${status} - ${method} ${path}\n",
+	}))
 
 	// ================ROUTES====================
 	// Static Files
