@@ -61,7 +61,7 @@ func New(si *domain.ServerInput) *Server {
 
 	// Some pages
 	r.Get("/", server.mainPageWithoutPost())
-	r.Get("/ltda", server.enterpriseMainPage())
+	// r.Get("/ltda", server.enterpriseMainPage())
 
 	r.Get("/thanks", server.thanksPage())
 	r.Get("/failed", server.failedPage())
@@ -99,24 +99,24 @@ func New(si *domain.ServerInput) *Server {
 	// link view
 	link.Get("/", server.linksView())
 
-	blog := r.Group("/blog")
-	// editor is exclusive to admin authentification
-	blog.Get("edit/:post_id?",
-		basicauth.New(bac), // Basic Auth Middleware
-		server.blogEditor())
+	// blog := r.Group("/blog")
+	// // editor is exclusive to admin authentification
+	// blog.Get("edit/:post_id?",
+	// 	basicauth.New(bac), // Basic Auth Middleware
+	// 	server.blogEditor())
 
-	// missing page
-	blog.Get("/missing", server.blogMissing())
-	// post view
-	blog.Get("/:post_id", server.postView())
-	// blog view
-	blog.Get("/", server.blogView())
+	// // missing page
+	// blog.Get("/missing", server.blogMissing())
+	// // post view
+	// blog.Get("/:post_id", server.postView())
+	// // blog view
+	// blog.Get("/", server.blogView())
 
 	// Post Auth Middleware ?
-	pc := newPostsController(si.Reps.PostRep)
-	blog.Post("/post",
-		basicauth.New(bac), // Basic Auth Middleware
-		pc.receivePost())
+	// pc := newPostsController(si.Reps.PostRep)
+	// blog.Post("/post",
+	// 	basicauth.New(bac), // Basic Auth Middleware
+	// 	pc.receivePost())
 
 	// Mail routes
 	mailController := newMailerController(server.reps.MessageRep)
