@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ template "components/meta.html" . }}
+
+<body class="px-0 py-0 mx-0 my-0">
+    <!-- HEADER -->
+    {{ template "components/header.html" . }}
+    <main>
+        <section class="pt-3" style='position : sticky;top :0;background-image: url("public/images/engravings.png");background-size: cover;'></section>
+        <!-- HERO PART -->
+        <section class="mt-7 mb-10 px-12">
+            <p class="segmented_font text-center px-5 sm:px-16 md:px-20 lg:px-48">
+                01100010 01110101 01111001 00100000 01100010 01101001 01110100 01100011 01101111 01101001 01101110
+            </p>
+            <div class="w-full px-1 sm:w-5/6 md:w-4/5 md  lg:w-3/4 m-auto">
+                <h5 class="aldo_font -mb-3 ml-3"> afa7789 </h5>
+
+                <h1 class="text-4xl md:text-6xl mukta_font"> 
+                    Computer Techno Wizzard Blog
+                </h1>
+
+                <h2 class="text-lg sm:text-xl md:text-2xl text-right"> an Arthur's website </h2>
+                <p class="text-zinc-800 italic mt-2 pl-2">
+                    Check up more development tips that I afa7789 create. <br>
+                    My goal here is to share links to other social networks I have and share knowledge and tutorials.<br>
+                    Want to know about me and my tech? Check up the Medium and the blog part of the site.<br>
+                </p>
+                <div class="relative">
+                    <a href="#contact"
+                        class="absolute right-10 text-black mukta_font text-2xl hover:text-zinc-700 hover:text-3xl">
+                        CONTACT ME
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- BLOG -->
+        <section class="pb-10 pt-4 bg-zinc-900 px-12 text-white">
+            <h1 class="mt-3 text-xl sm:text-2xl md:text-4xl mukta_font sm:ml-8">
+                Blog
+            </h1>
+            <p class="italic mt-2 sm:pl-2  sm:ml-8">
+                Posts about technology, programming languages and more, if you want to read more about Arthur or his
+                ideas, check up his
+                <a class="underline text-blue-600
+                hover:text-zinc-700 
+                visited:text-zinc-400" href="https://afa7789.medium.com/">medium blog posts</a>. <br>
+            </p>
+            <div
+                class="px-4 sm:px-10 py-5 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+                {{ $length := len .LastPostsTitles }} {{ if eq $length 3 }}
+
+                {{ $postimages := .LastPostsImages }}
+                {{ $synp := .LastPostsSynopsies }}
+                {{ $slugs := .LastPostsSlugs }}
+                {{ $ids := .LastPostsIds }}
+
+                {{range $i, $title := .LastPostsTitles}}
+                <a href="/blog/{{index $ids $i}}-{{index $slugs $i}}">
+                    <div class="overflow-hidden">
+                        <img class="w-96 sm:w-5/6 object-cover h-60 sm:h-80" src="{{index $postimages $i}}"
+                            alt="{{ $title }} image">
+                        <div class=" sm:pr-6 sm:py-4">
+                            <div class="font-bold text-xl mb-2">{{ $title }}</div>
+                            <p class="text-gray-200 text-base">{{index $synp $i}}</p>
+                        </div>
+                    </div>
+                </a>
+                {{end}}
+                {{else}}
+
+                <!--Card 1-->
+                <a href="/blockies-vue-demo">
+                    <div class=" overflow-hidden">
+                        <img class="w-full object-fill" src="/public/images/monalisa.png" alt="Blockies example">
+                        <div class="px-6 py-4">
+                            <div class="font-bold text-xl mb-2">Vue Blockies</div>
+                            <p class="text-gray-200 text-base">
+                                Blockies are one of the more classy identicions used by web3 applications.
+                                When I first started coding for web3 I like using VUE and had not found a good option thus I created this library to use'em with Vue.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <!--Card 2-->
+                <a href="/gradient-demo">
+                    <div class="rounded-lg overflow-hidden">
+                        <img class="w-full object-fill" src="/public/images/moving.svg" alt="Moving SVG example">
+                        <div class="px-6 py-4">
+                            <div class="font-bold text-xl mb-2">Moving Gradient Identicon</div>
+                            <p class="text-gray-200 text-base">
+                                Another study of identicons done with SVG and javascript. This is a library you can use in your project.
+                                Identicions are used to create unique avatars for users.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+
+                <!--Card 3-->
+                <a href="https://github.com/withtally/gov_deployer">
+                    <div class="rounded-lg overflow-hidden">
+                        <img class="w-full object-fill" src="/public/images/nada_importa.jpeg" alt="Forest">
+                        <div class="px-6 py-4">
+                            <div class="font-bold text-xl mb-2">Gov Deployer</div>
+                            <p class="text-gray-200 text-base">
+                                CLI script I made with Javascript and Hardhat to deploy all the contracts needed to create a DAO.
+                                This is used by Tally to deploy DAOs and test their website.
+                            </p>
+                        </div>
+                </div>
+                </a>
+
+                {{end}}
+
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="my-2 px-12 mt-10 pt-2">
+            <h2 class="text-xl sm:text-2xl md:text-4xl  mukta_font mb-4">Code Related</h2>
+
+            <h3 class="text-lg sm:text-xl"> Projects and Companies I have worked with: </h3>
+
+            <div class="lg:flex lg:flex-row-reverse lg:justify-center my-10">
+                <img class="h-32" type="image/svg+xml" src="/public/images/Tally_Logo_Color.svg" alt="tally logo">
+                <div class="lg:pr-10">
+                    <p class="text-lg">
+                        Right now I'm working at <strong>Tally!</strong> <br/>  The Web3 company that creates the Best way to vote on <strong>DAOs:</strong>
+                    </p>
+                    <div class="flex flex-row-reverse">
+                        <a href="https://www.tally.xyz/">
+                            <span class="right-10 text-lg hover:text-zinc-600 pr-10">
+                                <strong>go to tally</strong>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:flex lg:flex-row lg:justify-center my-10">
+                <img class="h-32"  type="image/svg+xml" src="/public/images/getit.svg" alt="getit logo">
+                <div class="lg:pl-10">
+                    <p class="text-lg lg:text-right max-w-md" >
+                        I worked too at <strong>Get.It!.</strong> <br/>
+                        A company that handles huge amounts of <strong>jobs listings</strong> and does ETL.
+                    </p>
+                    <div class="flex flex-row-reverse">
+                        <a href="https://www.get.it/">
+                            <span class="right-10 text-lg hover:text-zinc-600 pr-10">
+                                <strong>go to get it</strong>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:flex lg:flex-row-reverse lg:justify-center my-10">
+                <img  class="h-32" src="/public/images/compre.png" alt="compre cripto no pix logo">
+                <div class="lg:pr-10">
+                    <p class="text-lg">
+                        I did the MVP for <strong>Compre Cripto no Pix.</strong> <br/>
+                        A simple and easy to use <strong>on-ramper</strong> for Projects on the BNB smart chain<br/>
+                        Done it all using a Brazilian Payment Gateway and Web3 libraries.                    </p>
+                    <div class="flex flex-row-reverse">
+                        <a href="https://comprecriptonopix.com.br/">
+                            <span class="right-10 text-lg hover:text-zinc-600 pr-10">
+                                <strong>go to the on ramper</strong>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:flex lg:flex-row lg:justify-center my-10">
+                <img class="h-28" type="image/svg+xml" src="/public/images/codificar.svg" alt="codificar logo">
+                <div class="lg:pl-10">
+                    <p class="text-lg lg:text-right max-w-md" >
+                        First place that I worked was <strong>Codificar.</strong> <br/>
+                        A company focused on building mobile <strong>cloned APPs</strong>
+                        for those who want to enter the market fast!
+                    </p>
+                    <div class="flex flex-row-reverse">
+                        <a href="https://www.codificar.com.br/">
+                            <span class="right-10 text-lg hover:text-zinc-600 pr-10">
+                                <strong>go to codificar</strong>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <h3 class="text-xl sm:text-2xl mt-2"> Task I'm usually working on </h3>
+
+            <style>
+                .service-num {
+                    font-size: 264px;
+                    font-weight: 700;
+                    color: #fff;
+                    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+                    line-height: 100%;
+                    height: 165px;
+                    overflow: hidden;
+                    margin-bottom: 0px;
+                    -webkit-transform: translateZ(0);
+                }
+            </style>
+            <div class="flex flex-col sm:flex-row space-x-6 mx-auto justify-center">
+                <!-- Development -->
+                <a href="ltda">
+                    <div>
+                        <p class="service-num">1</p>
+                        <h3 class="text-lg sm:text-xl md:text-2xl ">
+                            Design Software Architecture
+                        </h3>
+                        <p style="min-width: 180px; max-width: 330px;" class="italic">
+                            Organize a project in a higher level. Creating the blueprint I follow when developing
+                        </p>
+                    </div>
+                </a>
+                <!-- web3 -->
+                <a href="ltda">
+
+                    <div>
+                        <p class="service-num">2</p>
+                        <h3 class="text-lg sm:text-xl md:text-2xl ">
+                            Development
+                        </h3>
+                        <p style="min-width: 180px; max-width: 330px;" class="italic">
+                            Literally sit in the chair and programn all day trying to create some cool new features and solve bugs.
+                        </p>
+                    </div>
+                </a>
+
+                <!-- consultoria -->
+                <a href="ltda">
+                    <div>
+                        <p class="service-num">3</p>
+                        <h3 class="text-lg sm:text-xl md:text-2xl ">
+                            Brainstorming
+                        </h3>
+                        <p style="min-width: 180px; max-width: 330px;" class="italic">
+                            Working as a group to brainstorm ideas and create projects. Or even just ideas and then scrap them.
+                        </p>
+                    </div>
+                </a>
+                <!-- web3 -->
+                <a href="ltda">
+                    <div>
+                        <p class="service-num">4</p>
+                        <h3 class="text-lg sm:text-xl md:text-2xl ">
+                            Web3
+                        </h3>
+                        <p style="min-width: 180px; max-width: 330px;" class="italic">
+                            Learn about new Smart Contracts, languages and ways to interact with the blockchain.
+                        </p>
+                    </div>
+                </a>
+
+            </div>
+
+            <div class="relative pt-6 mb-20">
+                <a href="#contact"
+                    class="absolute right-10 text-black mukta_font text-2xl hover:text-zinc-700 hover:text-3xl">
+                    CONTACT ME
+                </a>
+            </div>
+
+        </section>
+
+        <!-- LINKS -->
+        <section class="py-10 bg-zinc-900 px-12 text-white  box-content" id="about">
+            <div>
+                <img style="width: 300px; height: 337px; object-fit: cover; float:right; object-position: 80% 0;"
+                    class="ml-2" src="/public/images/arthur.png">
+                <h2 class="text-xl sm:text-2xl md:text-4xl  mukta_font mb-4">About ME!</h2>
+                <p class="italic">
+                    Want to know more ? check up the links bellow. <br>
+                    afa7789, is my developer name, or better said internet username.<br>
+                    it was created by my dear and past father.<br>
+                </p>
+            </div>
+            <div class="ml-4">
+                <a class="my-5 flex d-block space-x-3 hover:text-zinc-200 " href="https://github.com/afa7789"
+                target="_blank">
+                    <img class="w-10" type="image/svg+xml" src="/public/images/drawing.svg" alt="site logo">
+                    <h3 class="text-lg mt-1 sm:text-xl md:text-2xl align-middle">Check out my git profile at </h3>
+                    <img class="w-20" type="image/svg+xml" src="/public/images/github_mark.svg" alt="site logo">
+                </a>
+                <a class="flex d-block space-x-3 cursor-pointer  hover:text-zinc-200 "
+                    href="https://www.linkedin.com/in/arthur-abeilice/" target="_blank">
+                    <h3 class="text-lg mt-1 sm:text-xl md:text-2xl align-middle ">Connect with me at my page in
+                    </h3>
+                    <img class="w-28" type="image/svg+xml" src="/public/images/linkedin_logo.svg" alt="site logo">
+                </a>
+            </div>
+            <div class="relative pt-6 mb-20">
+                <a href="/link" class="absolute left-0 mukta_font text-2xl hover:text-zinc-200 hover:text-3xl">
+                    SEE OTHER LINKS
+                </a>
+            </div>
+            <!-- <div class="mt-4">
+                <p class="italic">
+                    "What is a developer which does not have an website of his own? <br>
+                    A blog and tutorials on a domain and site that's mine."
+                    <span class="strong font-bold">
+                        - Arthur
+                    </span>
+                </p>
+            </div> -->
+        </section>
+
+        <!-- CONTACTS -->
+        <section class='my-8 px-12' id="contact">
+            <div class="mx-4 md:mx-12">
+                <div class="md:flex ">
+                    <!-- contact form -->
+                    <div class="md:w-3/6">
+                        <h3 class="text-lg text-zinc-700">
+                            CONTACT ME
+                        </h3>
+                        <h1 class="text-5xl md:text-6xl mukta_font ">
+                            Want to talk about tech ?
+                        </h1>
+                        <p class="text-zinc-700 text-lg mt-4">
+                            I know that creating a project is a hard task. <br>
+                            So you need any help? Didn't understand something you saw at the website just contact me.
+                            Or if you want to share an idea or propose something the form is here :p.
+                            If you found a bug too on the website please report It's being developed slowly.
+                        </p>
+                    </div>
+                    {{ template "components/contact.html" .}}
+                    <script>
+
+                    </script>
+                </div>
+            </div>
+        </section>
+    </main>
+    {{ template "components/footer.html" . }}
+    <section class="pt-3" style='background-image: url("public/images/engravings.png");background-size: cover;'></section>
+</body>
+
+</html>

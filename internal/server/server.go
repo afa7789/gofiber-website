@@ -60,7 +60,7 @@ func New(si *domain.ServerInput) *Server {
 	r.Static("/public", "./web/static")
 
 	// Some pages
-	r.Get("/", server.mainPage())
+	r.Get("/", server.mainPageWithoutPost())
 	r.Get("/ltda", server.enterpriseMainPage())
 
 	r.Get("/thanks", server.thanksPage())

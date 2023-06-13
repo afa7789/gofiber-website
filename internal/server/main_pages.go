@@ -37,6 +37,16 @@ func (s *Server) mainPage() fiber.Handler {
 	}
 }
 
+func (s *Server) mainPageWithoutPost() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+
+		return c.Status(http.StatusOK).Render("index_blog.html", fiber.Map{
+			"Title":      "afa7789 - Computer Wizzard Tech Blog",
+			"MainHeader": true,
+		})
+	}
+}
+
 // mainPage creates a mainPage template
 func (s *Server) enterpriseMainPage() fiber.Handler {
 	return func(c *fiber.Ctx) error {
