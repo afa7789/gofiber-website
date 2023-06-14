@@ -69,6 +69,9 @@ func New(si *domain.ServerInput) *Server {
 	r.Get("/marilua", func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusOK).Redirect("https://open.spotify.com/playlist/3rKlIJdtvBvNPEseuVwKnO?si=b450a51cde304d71")
 	})
+	r.Get("/nope", func(c *fiber.Ctx) error {
+		return c.Status(fiber.StatusOK).Redirect("https://open.spotify.com/playlist/3rKlIJdtvBvNPEseuVwKnO?si=b450a51cde304d71")
+	})
 	r.Get("/github", server.githubPage())
 	r.Get("/vue", server.demoBlockiesPage())
 	r.Get("/blockies-vue-demo", server.demoBlockiesPage())
