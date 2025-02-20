@@ -61,14 +61,12 @@ func New(si *domain.ServerInput) *Server {
 
 	// Some pages
 	r.Get("/", server.mainPageWithoutPost())
-	// r.Get("/ltda", server.enterpriseMainPage())
+	r.Get("/ltda", server.enterpriseMainPage())
 
 	r.Get("/thanks", server.thanksPage())
 	r.Get("/failed", server.failedPage())
 	r.Get("/profile", server.githubPage())
-	r.Get("/marilua", func(c *fiber.Ctx) error {
-		return c.Status(fiber.StatusOK).Redirect("https://open.spotify.com/playlist/3rKlIJdtvBvNPEseuVwKnO?si=b450a51cde304d71")
-	})
+
 	r.Get("/nope", func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusOK).Redirect("https://open.spotify.com/playlist/3rKlIJdtvBvNPEseuVwKnO?si=b450a51cde304d71")
 	})

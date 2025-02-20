@@ -30,6 +30,7 @@ func NewDatabase() *Database {
 	// connecting to DB
 	db, err := gorm.Open(mysql.Open(URL))
 	if err != nil {
+		// fmt.Printf("Failed to connect to database! at %s", URL)
 		return nil
 	}
 	print("Connected to database!")
